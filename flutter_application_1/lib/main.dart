@@ -216,12 +216,9 @@ const List<Term> terms = [
     name: 'Kabel UTP',
     abbreviation: 'Unshielded Twisted Pair',
     category: 'Perangkat Jaringan',
-    definition:
-        'Kabel jaringan tembaga yang berisi pasangan kawat berpilin tanpa pelindung logam menyeluruh.',
-    explanation:
-        'Pilinan kawat membantu mengurangi gangguan pada sinyal. Kabel UTP umum digunakan untuk Ethernet dan biasanya dipasang dengan konektor RJ45 pada kedua ujungnya.',
-    example:
-        'Kabel UTP dapat menghubungkan komputer di laboratorium ke switch agar komputer masuk ke jaringan lokal.',
+    definition: 'Kabel jaringan tembaga yang berisi pasangan kawat berpilin tanpa pelindung logam menyeluruh.',
+    explanation: 'Pilinan kawat membantu mengurangi gangguan pada sinyal. Kabel UTP umum digunakan untuk Ethernet dan biasanya dipasang dengan konektor RJ45 pada kedua ujungnya.',
+    example: 'Kabel UTP dapat menghubungkan komputer di laboratorium ke switch agar komputer masuk ke jaringan lokal.',
     icon: Icons.cable,
   ),
 
@@ -229,12 +226,9 @@ const List<Term> terms = [
     name: 'Kabel STP',
     abbreviation: 'Shielded Twisted Pair',
     category: 'Perangkat Jaringan',
-    definition:
-        'Kabel jaringan tembaga berisi pasangan kawat berpilin yang memiliki lapisan pelindung untuk membantu mengurangi gangguan listrik dari luar.',
-    explanation:
-        'Pelindung pada kabel STP membantu mengurangi gangguan elektromagnetik. Pemasangan dan grounding perlu mengikuti jenis kabel serta perangkat yang digunakan agar pelindungnya berfungsi dengan baik.',
-    example:
-        'Kabel STP dapat dipilih untuk jalur Ethernet di area kerja yang berdekatan dengan mesin listrik dan memiliki gangguan elektromagnetik.',
+    definition: 'Kabel jaringan tembaga berisi pasangan kawat berpilin yang memiliki lapisan pelindung untuk membantu mengurangi gangguan listrik dari luar.',
+    explanation: 'Pelindung pada kabel STP membantu mengurangi gangguan elektromagnetik. Pemasangan dan grounding perlu mengikuti jenis kabel serta perangkat yang digunakan agar pelindungnya berfungsi dengan baik.',
+    example: 'Kabel STP dapat dipilih untuk jalur Ethernet di area kerja yang berdekatan dengan mesin listrik dan memiliki gangguan elektromagnetik.',
     icon: Icons.cable,
   ),
 
@@ -242,12 +236,9 @@ const List<Term> terms = [
     name: 'Fiber Optik',
     abbreviation: '',
     category: 'Perangkat Jaringan',
-    definition:
-        'Media jaringan yang membawa data sebagai pulsa cahaya melalui serat kaca atau plastik yang sangat halus.',
-    explanation:
-        'Perangkat pemancar mengubah data menjadi sinyal cahaya, lalu serat optik membawanya ke penerima yang mengubahnya kembali menjadi data. Fiber optik umum dipakai untuk koneksi berkapasitas tinggi dan jarak jauh; pemasangannya memerlukan konektor serta perangkat optik yang sesuai.',
-    example:
-        'Penyedia internet dapat menggunakan kabel fiber optik dari jaringan distribusi hingga perangkat terminasi di rumah pelanggan.',
+    definition: 'Media jaringan yang membawa data sebagai pulsa cahaya melalui serat kaca atau plastik yang sangat halus.',
+    explanation: 'Perangkat pemancar mengubah data menjadi sinyal cahaya, lalu serat optik membawanya ke penerima yang mengubahnya kembali menjadi data. Fiber optik umum dipakai untuk koneksi berkapasitas tinggi dan jarak jauh; pemasangannya memerlukan konektor serta perangkat optik yang sesuai.',
+    example: 'Penyedia internet dapat menggunakan kabel fiber optik dari jaringan distribusi hingga perangkat terminasi di rumah pelanggan.',
     icon: Icons.fiber_manual_record,
   ),
 
@@ -255,12 +246,9 @@ const List<Term> terms = [
     name: 'Kabel Koaksial',
     abbreviation: 'Coaxial cable',
     category: 'Perangkat Jaringan',
-    definition:
-        'Kabel yang memiliki konduktor di tengah, lapisan isolasi, dan pelindung konduktif di bagian luar.',
-    explanation:
-        'Susunan lapisannya membantu membawa sinyal listrik sekaligus mengurangi gangguan dari luar. Kabel koaksial digunakan pada beberapa instalasi televisi kabel, antena, dan sistem CCTV sesuai perangkatnya.',
-    example:
-        'Kabel koaksial dapat menghubungkan antena televisi ke televisi atau perangkat penerima yang memiliki konektor koaksial.',
+    definition: 'Kabel yang memiliki konduktor di tengah, lapisan isolasi, dan pelindung konduktif di bagian luar.',
+    explanation: 'Susunan lapisannya membantu membawa sinyal listrik sekaligus mengurangi gangguan dari luar. Kabel koaksial digunakan pada beberapa instalasi televisi kabel, antena, dan sistem CCTV sesuai perangkatnya.',
+    example: 'Kabel koaksial dapat menghubungkan antena televisi ke televisi atau perangkat penerima yang memiliki konektor koaksial.',
     icon: Icons.cable,
   ),
 
@@ -268,12 +256,9 @@ const List<Term> terms = [
     name: 'Konektor RJ45',
     abbreviation: 'Registered Jack 45',
     category: 'Perangkat Jaringan',
-    definition:
-        'Konektor modular yang umum dipasang pada ujung kabel twisted pair Ethernet untuk menghubungkan kabel ke port jaringan.',
-    explanation:
-        'Konektor dipasang pada kabel dengan urutan kawat yang sesuai standar pemasangan. Istilah RJ45 sering dipakai sehari-hari untuk konektor Ethernet 8P8C; konektor harus cocok dengan jenis kabel dan perangkat.',
-    example:
-        'Kabel UTP yang sudah dipasangi konektor RJ45 dapat dicolokkan ke port Ethernet pada komputer dan switch.',
+    definition: 'Konektor modular yang umum dipasang pada ujung kabel twisted pair Ethernet untuk menghubungkan kabel ke port jaringan.',
+    explanation: 'Konektor dipasang pada kabel dengan urutan kawat yang sesuai standar pemasangan. Istilah RJ45 sering dipakai sehari-hari untuk konektor Ethernet 8P8C; konektor harus cocok dengan jenis kabel dan perangkat.',
+    example: 'Kabel UTP yang sudah dipasangi konektor RJ45 dapat dicolokkan ke port Ethernet pada komputer dan switch.',
     icon: Icons.settings_ethernet,
   ),
 
@@ -281,12 +266,9 @@ const List<Term> terms = [
     name: 'Patch Cord',
     abbreviation: '',
     category: 'Perangkat Jaringan',
-    definition:
-        'Kabel jaringan pendek yang sudah dipasangi konektor pada kedua ujungnya untuk menghubungkan perangkat atau titik terminasi jaringan.',
-    explanation:
-        'Patch cord memudahkan penyambungan tanpa perlu memasang konektor sendiri saat digunakan. Jenis kabel dan konektornya harus sesuai dengan port dan media jaringan, misalnya kabel Ethernet tembaga dengan konektor RJ45.',
-    example:
-        'Di ruang server, patch cord menghubungkan port patch panel ke switch; di meja kerja, kabel ini dapat menghubungkan komputer ke soket jaringan.',
+    definition: 'Kabel jaringan pendek yang sudah dipasangi konektor pada kedua ujungnya untuk menghubungkan perangkat atau titik terminasi jaringan.',
+    explanation: 'Patch cord memudahkan penyambungan tanpa perlu memasang konektor sendiri saat digunakan. Jenis kabel dan konektornya harus sesuai dengan port dan media jaringan, misalnya kabel Ethernet tembaga dengan konektor RJ45.',
+    example: 'Di ruang server, patch cord menghubungkan port patch panel ke switch; di meja kerja, kabel ini dapat menghubungkan komputer ke soket jaringan.',
     icon: Icons.cable,
   ),
 
@@ -297,9 +279,9 @@ const List<Term> terms = [
     name: 'IP Address',
     abbreviation: 'Internet Protocol Address',
     category: 'Alamat Jaringan',
-    definition: 'Alamat logis pada jaringan IP yang digunakan untuk mengenali sumber dan tujuan data, baik pada jaringan lokal maupun antarjaringan.',
-    explanation: 'Perangkat menggunakan alamat IP sumber dan tujuan saat mengirim data. Router membaca alamat tujuan untuk meneruskan data ke jaringan yang tepat. Alamat IP dapat diberikan secara otomatis atau diatur secara manual.',
-    example: 'Saat laptop membuka situs web, laptop menggunakan alamat IP untuk mengirim permintaan ke jaringan dan menerima balasan dari layanan tersebut.',
+    definition: 'Alamat logis yang diberikan pada antarmuka perangkat agar data dapat dikirim dari sumber ke tujuan melalui jaringan IP.',
+    explanation: 'IP Address membantu perangkat dan router mengetahui asal data dan jaringan tujuannya. Alamat ini dapat diberikan otomatis oleh DHCP atau diatur manual. Alamat IP dapat berubah, dan tidak sama dengan MAC Address.',
+    example: 'Saat ponsel membuka situs, paket data memakai alamat IP ponsel sebagai sumber dan alamat IP layanan sebagai tujuan.',
     icon: Icons.location_on,
   ),
 
@@ -307,9 +289,9 @@ const List<Term> terms = [
     name: 'IPv4',
     abbreviation: 'Internet Protocol version 4',
     category: 'Alamat Jaringan',
-    definition: 'Versi Internet Protocol yang memakai alamat 32 bit dan biasanya ditulis sebagai empat angka desimal yang dipisahkan titik.',
-    explanation: 'Setiap bagian penulisan IPv4 mewakili 8 bit. IPv4 dipakai untuk memberi alamat pada antarmuka jaringan dan membantu router mengirim paket menuju jaringan tujuan.',
-    example: 'Laptop di jaringan rumah dapat memperoleh alamat IPv4 lokal seperti 192.168.1.10 dari router melalui DHCP.',
+    definition: 'Versi IP dengan alamat sepanjang 32 bit yang ditulis sebagai empat angka desimal dipisahkan titik.',
+    explanation: 'IPv4 memberi alamat sumber dan tujuan pada paket. Setiap angka pada penulisannya mewakili 8 bit; alamat dan subnet mask membantu perangkat menentukan apakah tujuan berada di jaringan lokal.',
+    example: 'Laptop dapat menerima IPv4 lokal 192.168.1.10 dari router rumah melalui DHCP.',
     icon: Icons.pin_outlined,
   ),
 
@@ -317,9 +299,9 @@ const List<Term> terms = [
     name: 'IPv6',
     abbreviation: 'Internet Protocol version 6',
     category: 'Alamat Jaringan',
-    definition: 'Versi Internet Protocol yang memakai alamat 128 bit, dikembangkan antara lain untuk menyediakan jumlah alamat yang jauh lebih banyak daripada IPv4.',
-    explanation: 'Alamat IPv6 ditulis dalam kelompok bilangan heksadesimal yang dipisahkan tanda titik dua. Perangkat dan jaringan yang mendukung IPv6 dapat menggunakan alamat ini untuk mengirim paket melalui jaringan IPv6.',
-    example: 'Penyedia internet dapat memberikan alamat IPv6 kepada router rumah, lalu perangkat yang mendukung IPv6 menggunakannya saat mengakses layanan internet yang mendukung IPv6.',
+    definition: 'Versi IP dengan alamat sepanjang 128 bit, yang menyediakan ruang alamat jauh lebih besar daripada IPv4.',
+    explanation: 'Alamat IPv6 ditulis dalam kelompok angka heksadesimal yang dipisahkan tanda titik dua. Perangkat yang mendukung IPv6 dapat memakai alamat ini untuk mengirim paket melalui jaringan IPv6.',
+    example: 'Jika jaringan rumah dan situs mendukung IPv6, ponsel dapat memakai alamat IPv6 saat mengakses situs tersebut.',
     icon: Icons.language,
   ),
 
@@ -327,9 +309,9 @@ const List<Term> terms = [
     name: 'MAC Address',
     abbreviation: 'Media Access Control Address',
     category: 'Alamat Jaringan',
-    definition: 'Alamat pada antarmuka jaringan yang digunakan untuk mengenali perangkat dalam komunikasi pada jaringan lokal.',
-    explanation: 'Pada jaringan Ethernet atau Wi-Fi, data lokal membawa alamat MAC sumber dan tujuan. Switch menggunakannya untuk mempelajari perangkat pada port tertentu dan meneruskan data di jaringan lokal. MAC Address dapat diubah atau disamarkan oleh perangkat lunak tertentu.',
-    example: 'Ketika laptop tersambung ke Wi-Fi sekolah, access point menggunakan informasi MAC pada komunikasi lokal untuk menangani lalu lintas perangkat tersebut.',
+    definition: 'Alamat pada antarmuka Ethernet atau Wi-Fi yang digunakan untuk pengiriman data pada jaringan lokal.',
+    explanation: 'Switch menggunakan alamat MAC tujuan untuk meneruskan bingkai ke perangkat yang sesuai pada LAN. MAC Address berbeda dari IP Address dan pada beberapa perangkat dapat diubah atau diacak oleh sistem operasi.',
+    example: 'Saat komputer mengirim data ke printer yang berada di LAN yang sama, alamat MAC printer digunakan untuk mengantarkan bingkai lokal tersebut.',
     icon: Icons.fingerprint,
   ),
 
@@ -337,9 +319,9 @@ const List<Term> terms = [
     name: 'Subnet Mask',
     abbreviation: '',
     category: 'Alamat Jaringan',
-    definition: 'Nilai yang menunjukkan bagian alamat IPv4 yang menjadi identitas jaringan dan bagian yang digunakan untuk perangkat di jaringan itu.',
-    explanation: 'Perangkat membandingkan alamat IP dengan subnet mask untuk menentukan apakah alamat tujuan berada di jaringan lokal. Jika berada di jaringan lain, data biasanya dikirim ke default gateway.',
-    example: 'Pada jaringan 192.168.1.0 dengan subnet mask 255.255.255.0, perangkat seperti 192.168.1.10 dan 192.168.1.20 berada pada subnet yang sama.',
+    definition: 'Nilai yang menunjukkan bagian network dan bagian host pada alamat IPv4.',
+    explanation: 'Perangkat memakai IP Address bersama subnet mask untuk memeriksa apakah tujuan berada pada subnet yang sama. Jika tidak, paket dikirim ke default gateway.',
+    example: 'Dengan IP 192.168.1.10 dan subnet mask 255.255.255.0, komputer dapat mengenali 192.168.1.20 sebagai alamat dalam subnet lokal yang sama.',
     icon: Icons.grid_3x3,
   ),
 
@@ -347,9 +329,9 @@ const List<Term> terms = [
     name: 'Default Gateway',
     abbreviation: '',
     category: 'Alamat Jaringan',
-    definition: 'Alamat perangkat pada jaringan lokal yang menjadi tujuan pengiriman data saat perangkat perlu mengakses jaringan lain.',
-    explanation: 'Perangkat membandingkan alamat tujuan dengan subnet lokalnya. Jika tujuan berada di luar subnet, perangkat mengirimkan paket ke default gateway; router kemudian meneruskannya sesuai rute yang tersedia.',
-    example: 'Ponsel yang memakai Wi-Fi rumah mengirim permintaan ke alamat router sebagai default gateway saat membuka situs di internet.',
+    definition: 'Alamat router atau perangkat jaringan yang menjadi jalur keluar perangkat dari subnet lokal menuju jaringan lain.',
+    explanation: 'Perangkat mengirim paket ke default gateway ketika alamat tujuan tidak berada di subnet lokal. Gateway kemudian meneruskan paket sesuai rute yang tersedia. Istilah “gateway” pada pengaturan dasar perangkat sering merujuk pada default gateway.',
+    example: 'Pada Wi-Fi rumah, ponsel memakai alamat IP router sebagai default gateway untuk mencapai situs di internet.',
     icon: Icons.exit_to_app,
   ),
 
@@ -380,9 +362,9 @@ const List<Term> terms = [
     name: 'DHCP',
     abbreviation: 'Dynamic Host Configuration Protocol',
     category: 'Layanan Jaringan',
-    definition: 'Protokol yang membantu perangkat memperoleh konfigurasi jaringan secara otomatis, seperti alamat IP, subnet mask, dan default gateway.',
-    explanation: 'Perangkat meminta konfigurasi saat bergabung ke jaringan. Server DHCP menawarkan dan memberikan konfigurasi untuk jangka waktu tertentu, sehingga administrator tidak perlu mengatur setiap perangkat satu per satu.',
-    example: 'Saat siswa menyambungkan laptop ke Wi-Fi sekolah, DHCP dapat memberikan alamat IP dan informasi jaringan tanpa pengaturan manual.',
+    definition: 'Protokol yang membagikan pengaturan jaringan secara otomatis kepada perangkat, seperti IP Address, subnet mask, dan default gateway.',
+    explanation: 'Saat bergabung ke jaringan, perangkat meminta konfigurasi kepada server DHCP. Server memberikan konfigurasi untuk masa sewa tertentu agar alamat dapat dikelola dan digunakan tanpa mengatur setiap perangkat secara manual.',
+    example: 'Ketika laptop siswa tersambung ke Wi-Fi sekolah, DHCP dapat memberikan IP Address dan gateway secara otomatis.',
     icon: Icons.settings_ethernet,
   ),
 
@@ -390,19 +372,39 @@ const List<Term> terms = [
     name: 'DNS',
     abbreviation: 'Domain Name System',
     category: 'Layanan Jaringan',
-    definition: 'Sistem penamaan jaringan yang membantu mencari informasi alamat IP berdasarkan nama domain yang mudah dibaca manusia.',
-    explanation: 'Perangkat meminta informasi nama domain kepada resolver DNS. Jika informasi belum tersedia di cache, resolver mencari jawaban dari server DNS lain, lalu mengembalikan hasilnya agar perangkat dapat menghubungi layanan tujuan.',
-    example: 'Saat mengetik nama situs di browser, DNS membantu menemukan alamat IP yang diperlukan browser untuk menghubungi situs tersebut.',
+    definition: 'Sistem yang membantu menemukan informasi jaringan, termasuk alamat IP, berdasarkan nama domain.',
+    explanation: 'Perangkat meminta resolver DNS mencari alamat IP untuk nama domain. Setelah memperoleh jawaban, perangkat dapat mencoba menghubungi server tujuan. DNS membantu pengguna memakai nama yang mudah diingat.',
+    example: 'Saat mengetik nama situs di browser, DNS membantu mencari alamat IP yang perlu dihubungi browser.',
     icon: Icons.dns_outlined,
+  ),
+
+  Term(
+    name: 'TCP',
+    abbreviation: 'Transmission Control Protocol',
+    category: 'Layanan Jaringan',
+    definition: 'Protokol transport yang mengirim data antar aplikasi dengan membangun koneksi dan mengatur agar data diterima berurutan.',
+    explanation: 'TCP memeriksa data yang diterima dan dapat mengirim ulang bagian yang hilang. Karena itu TCP cocok untuk komunikasi yang membutuhkan data lengkap dan berurutan, meskipun pengaturan ini menambah proses komunikasi.',
+    example: 'Unduhan berkas melalui jaringan umumnya memakai TCP agar bagian-bagian berkas dapat diterima dan disusun dengan benar.',
+    icon: Icons.compare_arrows,
+  ),
+
+  Term(
+    name: 'UDP',
+    abbreviation: 'User Datagram Protocol',
+    category: 'Layanan Jaringan',
+    definition: 'Protokol transport yang mengirim datagram tanpa membangun koneksi dan tanpa menjamin setiap datagram sampai atau tiba berurutan.',
+    explanation: 'UDP memiliki proses pengiriman yang sederhana dan tidak menunggu konfirmasi penerimaan dari penerima. Aplikasi dapat memilih UDP ketika pengiriman cepat atau jeda kecil lebih penting, lalu menangani kehilangan data bila diperlukan.',
+    example: 'Sebagian aplikasi panggilan suara atau video langsung dapat menggunakan UDP agar percakapan tidak terlalu tertunda; aplikasi biasanya mengelola dampak paket yang hilang.',
+    icon: Icons.flash_on_outlined,
   ),
 
   Term(
     name: 'HTTP',
     abbreviation: 'Hypertext Transfer Protocol',
     category: 'Layanan Jaringan',
-    definition: 'Protokol yang mengatur permintaan dan balasan saat browser atau aplikasi bertukar data dengan layanan web.',
-    explanation: 'Client mengirim permintaan, misalnya meminta halaman, lalu web server mengirimkan balasan. HTTP biasa tidak mengenkripsi isi komunikasi, sehingga HTTPS lebih sesuai untuk melindungi komunikasi web yang sensitif.',
-    example: 'Browser meminta halaman artikel ke server web menggunakan HTTP ketika layanan tersebut memang menyediakan HTTP.',
+    definition: 'Protokol untuk mengatur pertukaran permintaan dan balasan antara aplikasi client dan layanan web.',
+    explanation: 'Browser mengirim permintaan, misalnya meminta halaman, lalu server mengirimkan balasan. HTTP biasa tidak mengenkripsi data, sehingga informasi sensitif lebih baik dikirim melalui HTTPS.',
+    example: 'Browser meminta halaman informasi dari web server menggunakan HTTP saat membuka layanan yang tidak memakai HTTPS.',
     icon: Icons.http,
   ),
 
@@ -410,9 +412,9 @@ const List<Term> terms = [
     name: 'HTTPS',
     abbreviation: 'Hypertext Transfer Protocol Secure',
     category: 'Layanan Jaringan',
-    definition: 'Penggunaan HTTP yang dilindungi TLS untuk membantu menjaga kerahasiaan dan keutuhan data serta memeriksa identitas server.',
-    explanation: 'Browser dan server membuat koneksi TLS, memeriksa sertifikat server, lalu bertukar data melalui koneksi yang dienkripsi. HTTPS melindungi komunikasi, tetapi tidak dengan sendirinya menjamin bahwa isi atau pemilik situs dapat dipercaya.',
-    example: 'Saat masuk ke akun sekolah melalui situs HTTPS, kata sandi dan data sesi dienkripsi selama dikirim antara browser dan server.',
+    definition: 'HTTP yang menggunakan TLS untuk mengenkripsi komunikasi dan membantu memeriksa identitas server.',
+    explanation: 'Browser memeriksa sertifikat server lalu membuat koneksi TLS sebelum bertukar data. HTTPS melindungi data selama perjalanan, tetapi tidak menjamin bahwa semua isi situs pasti benar atau aman.',
+    example: 'Saat siswa masuk ke portal sekolah melalui HTTPS, kata sandi dienkripsi ketika dikirim antara browser dan server.',
     icon: Icons.lock_outline,
   ),
 
@@ -420,9 +422,9 @@ const List<Term> terms = [
     name: 'FTP',
     abbreviation: 'File Transfer Protocol',
     category: 'Layanan Jaringan',
-    definition: 'Protokol untuk mengirim dan mengambil file antara client dan server melalui jaringan.',
-    explanation: 'Client terhubung ke server FTP lalu menggunakan izin akun yang tersedia untuk melihat, mengunduh, atau mengunggah file. FTP biasa tidak mengenkripsi kredensial dan data; gunakan metode transfer aman yang disediakan administrator bila perlindungan diperlukan.',
-    example: 'Dalam praktik jaringan, siswa dapat mengunggah berkas tugas ke server FTP laboratorium menggunakan akun yang diberikan guru.',
+    definition: 'Protokol untuk mengirim atau mengambil file antara client dan server melalui jaringan.',
+    explanation: 'Client masuk ke server dengan izin yang diberikan, lalu dapat mengunggah atau mengunduh file. FTP biasa tidak mengenkripsi kata sandi dan data, sehingga untuk data sensitif gunakan pilihan transfer aman yang disediakan administrator.',
+    example: 'Dalam praktik, siswa mengunggah file tugas ke server FTP laboratorium menggunakan akun yang diberikan guru.',
     icon: Icons.folder_open,
   ),
 
@@ -450,9 +452,9 @@ const List<Term> terms = [
     name: 'VPN',
     abbreviation: 'Virtual Private Network',
     category: 'Layanan Jaringan',
-    definition: 'Teknologi yang membuat koneksi virtual melalui jaringan lain agar perangkat dapat terhubung ke jaringan atau layanan tertentu.',
-    explanation: 'Perangkat membuat koneksi ke layanan VPN. Bergantung pada protokol dan pengaturannya, data pada koneksi tersebut dapat dienkripsi dan diarahkan melalui jaringan VPN. VPN tidak otomatis membuat semua aktivitas atau tujuan internet aman.',
-    example: 'Guru dapat memakai VPN yang disediakan sekolah untuk mengakses sumber daya jaringan internal saat bekerja dari luar sekolah.',
+    definition: 'Teknologi yang membuat koneksi virtual melalui jaringan lain, sering digunakan untuk mengakses jaringan pribadi dari lokasi berbeda.',
+    explanation: 'Perangkat terhubung ke server VPN dan membuat jalur komunikasi virtual. Perlindungan enkripsi bergantung pada protokol serta konfigurasi VPN; VPN tidak otomatis menjamin semua situs atau aktivitas aman.',
+    example: 'Guru dapat memakai VPN resmi sekolah untuk mengakses berkas pada jaringan internal saat bekerja dari rumah.',
     icon: Icons.shield_outlined,
   ),
 ];
@@ -525,7 +527,8 @@ const Map<String, _TermPhoto> _termPhotos = {
   ),
   'Patch Cord': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Patch_cable_with_RJ45_connector.jpg/960px-Patch_cable_with_RJ45_connector.jpg',
-    attribution: 'Patch cable with RJ45 connector — heimnetzwerke.net, CC BY 4.0',
+    attribution:
+        'Patch cable with RJ45 connector — heimnetzwerke.net, CC BY 4.0',
   ),
   'IP Address': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/IP_stack_communication.svg/960px-IP_stack_communication.svg.png',
@@ -566,6 +569,15 @@ const Map<String, _TermPhoto> _termPhotos = {
   'DNS': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/DNS_Architecture.svg/960px-DNS_Architecture.svg.png',
     attribution: 'DNS Architecture — Aaron Filbert, CC BY-SA 4.0',
+  ),
+  'TCP': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Internetworking_with_Internet_Protocol_%28IP%29_and_Transmission_Control_Protocol_%28TCP%29_within_the_Military_%28IA_internetworkingw1094543854%29.pdf/page1-960px-Internetworking_with_Internet_Protocol_%28IP%29_and_Transmission_Control_Protocol_%28TCP%29_within_the_Military_%28IA_internetworkingw1094543854%29.pdf.jpg',
+    attribution:
+        'Internetworking with IP and TCP — Bruce R. Eikenberg, public domain',
+  ),
+  'UDP': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/UDP_IP_Ethernet.jpg/960px-UDP_IP_Ethernet.jpg',
+    attribution: 'UDP IP Ethernet — Arkrishna, public domain',
   ),
   'HTTP': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/HTTP_connection_summary.png/960px-HTTP_connection_summary.png',
