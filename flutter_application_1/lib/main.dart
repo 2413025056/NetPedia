@@ -212,6 +212,84 @@ const List<Term> terms = [
     icon: Icons.account_tree_outlined,
   ),
 
+  Term(
+    name: 'Kabel UTP',
+    abbreviation: 'Unshielded Twisted Pair',
+    category: 'Perangkat Jaringan',
+    definition:
+        'Kabel jaringan tembaga yang berisi pasangan kawat berpilin tanpa pelindung logam menyeluruh.',
+    explanation:
+        'Pilinan kawat membantu mengurangi gangguan pada sinyal. Kabel UTP umum digunakan untuk Ethernet dan biasanya dipasang dengan konektor RJ45 pada kedua ujungnya.',
+    example:
+        'Kabel UTP dapat menghubungkan komputer di laboratorium ke switch agar komputer masuk ke jaringan lokal.',
+    icon: Icons.cable,
+  ),
+
+  Term(
+    name: 'Kabel STP',
+    abbreviation: 'Shielded Twisted Pair',
+    category: 'Perangkat Jaringan',
+    definition:
+        'Kabel jaringan tembaga berisi pasangan kawat berpilin yang memiliki lapisan pelindung untuk membantu mengurangi gangguan listrik dari luar.',
+    explanation:
+        'Pelindung pada kabel STP membantu mengurangi gangguan elektromagnetik. Pemasangan dan grounding perlu mengikuti jenis kabel serta perangkat yang digunakan agar pelindungnya berfungsi dengan baik.',
+    example:
+        'Kabel STP dapat dipilih untuk jalur Ethernet di area kerja yang berdekatan dengan mesin listrik dan memiliki gangguan elektromagnetik.',
+    icon: Icons.cable,
+  ),
+
+  Term(
+    name: 'Fiber Optik',
+    abbreviation: '',
+    category: 'Perangkat Jaringan',
+    definition:
+        'Media jaringan yang membawa data sebagai pulsa cahaya melalui serat kaca atau plastik yang sangat halus.',
+    explanation:
+        'Perangkat pemancar mengubah data menjadi sinyal cahaya, lalu serat optik membawanya ke penerima yang mengubahnya kembali menjadi data. Fiber optik umum dipakai untuk koneksi berkapasitas tinggi dan jarak jauh; pemasangannya memerlukan konektor serta perangkat optik yang sesuai.',
+    example:
+        'Penyedia internet dapat menggunakan kabel fiber optik dari jaringan distribusi hingga perangkat terminasi di rumah pelanggan.',
+    icon: Icons.fiber_manual_record,
+  ),
+
+  Term(
+    name: 'Kabel Koaksial',
+    abbreviation: 'Coaxial cable',
+    category: 'Perangkat Jaringan',
+    definition:
+        'Kabel yang memiliki konduktor di tengah, lapisan isolasi, dan pelindung konduktif di bagian luar.',
+    explanation:
+        'Susunan lapisannya membantu membawa sinyal listrik sekaligus mengurangi gangguan dari luar. Kabel koaksial digunakan pada beberapa instalasi televisi kabel, antena, dan sistem CCTV sesuai perangkatnya.',
+    example:
+        'Kabel koaksial dapat menghubungkan antena televisi ke televisi atau perangkat penerima yang memiliki konektor koaksial.',
+    icon: Icons.cable,
+  ),
+
+  Term(
+    name: 'Konektor RJ45',
+    abbreviation: 'Registered Jack 45',
+    category: 'Perangkat Jaringan',
+    definition:
+        'Konektor modular yang umum dipasang pada ujung kabel twisted pair Ethernet untuk menghubungkan kabel ke port jaringan.',
+    explanation:
+        'Konektor dipasang pada kabel dengan urutan kawat yang sesuai standar pemasangan. Istilah RJ45 sering dipakai sehari-hari untuk konektor Ethernet 8P8C; konektor harus cocok dengan jenis kabel dan perangkat.',
+    example:
+        'Kabel UTP yang sudah dipasangi konektor RJ45 dapat dicolokkan ke port Ethernet pada komputer dan switch.',
+    icon: Icons.settings_ethernet,
+  ),
+
+  Term(
+    name: 'Patch Cord',
+    abbreviation: '',
+    category: 'Perangkat Jaringan',
+    definition:
+        'Kabel jaringan pendek yang sudah dipasangi konektor pada kedua ujungnya untuk menghubungkan perangkat atau titik terminasi jaringan.',
+    explanation:
+        'Patch cord memudahkan penyambungan tanpa perlu memasang konektor sendiri saat digunakan. Jenis kabel dan konektornya harus sesuai dengan port dan media jaringan, misalnya kabel Ethernet tembaga dengan konektor RJ45.',
+    example:
+        'Di ruang server, patch cord menghubungkan port patch panel ke switch; di meja kerja, kabel ini dapat menghubungkan komputer ke soket jaringan.',
+    icon: Icons.cable,
+  ),
+
   // ----------------------------------------------------------
   // ALAMAT JARINGAN
   // ----------------------------------------------------------
@@ -424,6 +502,30 @@ const Map<String, _TermPhoto> _termPhotos = {
   'Bridge': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Schema_bridge.jpg/960px-Schema_bridge.jpg',
     attribution: 'Schema bridge — Daniele Giacomini, CC BY-SA 2.5',
+  ),
+  'Kabel UTP': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Coiled-up_Ethernet_cable.jpg/960px-Coiled-up_Ethernet_cable.jpg',
+    attribution: 'Coiled-up Ethernet cable — Jakub T. Jankiewicz, CC BY-SA 4.0',
+  ),
+  'Kabel STP': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Twisted_pair_sftp.svg/960px-Twisted_pair_sftp.svg.png',
+    attribution: 'Twisted pair S/FTP — cmglee, CC BY-SA 4.0',
+  ),
+  'Fiber Optik': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Optical_fiber_cable-01ASD.jpg/960px-Optical_fiber_cable-01ASD.jpg',
+    attribution: 'Optical fiber cable — Asurnipal, CC BY-SA 4.0',
+  ),
+  'Kabel Koaksial': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Coaxial_cable_cutaway-es.svg/960px-Coaxial_cable_cutaway-es.svg.png',
+    attribution: 'Coaxial cable cutaway — Tkgd2007 and Begoon, CC BY 4.0',
+  ),
+  'Konektor RJ45': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Assemblaggio_cavo_RJ45_passo_3.jpg/960px-Assemblaggio_cavo_RJ45_passo_3.jpg',
+    attribution: 'Assemblaggio cavo RJ45 — Giacomo Alessandroni, CC BY-SA 4.0',
+  ),
+  'Patch Cord': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Patch_cable_with_RJ45_connector.jpg/960px-Patch_cable_with_RJ45_connector.jpg',
+    attribution: 'Patch cable with RJ45 connector — heimnetzwerke.net, CC BY 4.0',
   ),
   'IP Address': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/IP_stack_communication.svg/960px-IP_stack_communication.svg.png',
