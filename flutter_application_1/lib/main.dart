@@ -118,6 +118,12 @@ const List<Category> categories = [
     icon: Icons.account_tree_outlined,
     color: Color(0xFFF59E0B),
   ),
+  Category(
+    name: 'Alat Praktik Jaringan',
+    description: 'Peralatan untuk memasang, memeriksa, dan merapikan instalasi jaringan.',
+    icon: Icons.build_outlined,
+    color: Color(0xFF0EA5A4),
+  ),
 ];
 
 // ============================================================
@@ -283,12 +289,9 @@ const List<Term> terms = [
     name: 'Topologi Star',
     abbreviation: '',
     category: 'Topologi Jaringan',
-    definition:
-        'Topologi jaringan dengan setiap perangkat terhubung ke satu perangkat pusat, biasanya switch atau hub.',
-    explanation:
-        'Perangkat pusat meneruskan komunikasi antarperangkat. Susunan ini mudah ditambah dan gangguan pada satu kabel biasanya hanya memutus perangkat pada kabel tersebut. Namun, jika perangkat pusat rusak, komunikasi jaringan yang bergantung padanya dapat terganggu.',
-    example:
-        'Di laboratorium komputer, setiap PC dapat dihubungkan dengan kabel tersendiri ke satu switch di rak jaringan.',
+    definition: 'Topologi jaringan dengan setiap perangkat terhubung ke satu perangkat pusat, biasanya switch atau hub.',
+    explanation: 'Perangkat pusat meneruskan komunikasi antarperangkat. Susunan ini mudah ditambah dan gangguan pada satu kabel biasanya hanya memutus perangkat pada kabel tersebut. Namun, jika perangkat pusat rusak, komunikasi jaringan yang bergantung padanya dapat terganggu.',
+    example: 'Di laboratorium komputer, setiap PC dapat dihubungkan dengan kabel tersendiri ke satu switch di rak jaringan.',
     icon: Icons.hub_outlined,
   ),
 
@@ -296,12 +299,9 @@ const List<Term> terms = [
     name: 'Topologi Bus',
     abbreviation: '',
     category: 'Topologi Jaringan',
-    definition:
-        'Topologi jaringan yang menghubungkan beberapa perangkat pada satu jalur kabel utama.',
-    explanation:
-        'Data dibagikan melalui kabel utama dan perangkat tujuan menerima data yang sesuai. Susunannya sederhana dan membutuhkan kabel utama yang relatif sedikit, tetapi kerusakan pada jalur utama dapat mengganggu banyak perangkat. Topologi ini lebih umum dipelajari sebagai konsep atau jaringan lama daripada dipakai pada LAN modern.',
-    example:
-        'Diagram jaringan bus dapat menunjukkan beberapa komputer tersambung ke satu kabel utama dengan terminator di kedua ujungnya.',
+    definition: 'Topologi jaringan yang menghubungkan beberapa perangkat pada satu jalur kabel utama.',
+    explanation: 'Data dibagikan melalui kabel utama dan perangkat tujuan menerima data yang sesuai. Susunannya sederhana dan membutuhkan kabel utama yang relatif sedikit, tetapi kerusakan pada jalur utama dapat mengganggu banyak perangkat. Topologi ini lebih umum dipelajari sebagai konsep atau jaringan lama daripada dipakai pada LAN modern.',
+    example: 'Diagram jaringan bus dapat menunjukkan beberapa komputer tersambung ke satu kabel utama dengan terminator di kedua ujungnya.',
     icon: Icons.linear_scale,
   ),
 
@@ -309,12 +309,9 @@ const List<Term> terms = [
     name: 'Topologi Ring',
     abbreviation: '',
     category: 'Topologi Jaringan',
-    definition:
-        'Topologi jaringan yang menghubungkan perangkat dalam jalur melingkar, sehingga tiap perangkat memiliki hubungan dengan perangkat di sebelahnya.',
-    explanation:
-        'Data diteruskan dari satu perangkat ke perangkat berikutnya mengitari ring sampai mencapai tujuan; pada teknologi yang dirancang untuk itu, alur ini dapat membuat giliran pengiriman lebih teratur. Kekurangannya, putusnya satu jalur dapat mengganggu ring biasa dan penelusuran gangguan bisa lebih sulit; sebagian rancangan memakai jalur cadangan.',
-    example:
-        'Topologi ring dapat dipelajari melalui diagram beberapa komputer yang tersambung melingkar, atau pada jaringan industri tertentu yang dirancang dengan jalur redundan.',
+    definition: 'Topologi jaringan yang menghubungkan perangkat dalam jalur melingkar, sehingga tiap perangkat memiliki hubungan dengan perangkat di sebelahnya.',
+    explanation: 'Data diteruskan dari satu perangkat ke perangkat berikutnya mengitari ring sampai mencapai tujuan; pada teknologi yang dirancang untuk itu, alur ini dapat membuat giliran pengiriman lebih teratur. Kekurangannya, putusnya satu jalur dapat mengganggu ring biasa dan penelusuran gangguan bisa lebih sulit; sebagian rancangan memakai jalur cadangan.',
+    example: 'Topologi ring dapat dipelajari melalui diagram beberapa komputer yang tersambung melingkar, atau pada jaringan industri tertentu yang dirancang dengan jalur redundan.',
     icon: Icons.autorenew,
   ),
 
@@ -322,12 +319,9 @@ const List<Term> terms = [
     name: 'Topologi Mesh',
     abbreviation: '',
     category: 'Topologi Jaringan',
-    definition:
-        'Topologi jaringan yang menghubungkan perangkat melalui beberapa jalur; pada mesh penuh setiap pasangan perangkat memiliki hubungan langsung.',
-    explanation:
-        'Banyak jalur dapat memberi pilihan rute lain jika salah satu hubungan terputus. Namun, mesh penuh membutuhkan banyak sambungan dan lebih rumit serta mahal untuk dipasang. Mesh parsial menghubungkan hanya sebagian pasangan perangkat.',
-    example:
-        'Jaringan Wi-Fi mesh di rumah memakai beberapa node yang saling berkomunikasi untuk memperluas cakupan; susunannya tidak selalu mesh penuh.',
+    definition: 'Topologi jaringan yang menghubungkan perangkat melalui beberapa jalur; pada mesh penuh setiap pasangan perangkat memiliki hubungan langsung.',
+    explanation: 'Banyak jalur dapat memberi pilihan rute lain jika salah satu hubungan terputus. Namun, mesh penuh membutuhkan banyak sambungan dan lebih rumit serta mahal untuk dipasang. Mesh parsial menghubungkan hanya sebagian pasangan perangkat.',
+    example: 'Jaringan Wi-Fi mesh di rumah memakai beberapa node yang saling berkomunikasi untuk memperluas cakupan; susunannya tidak selalu mesh penuh.',
     icon: Icons.device_hub_outlined,
   ),
 
@@ -335,13 +329,61 @@ const List<Term> terms = [
     name: 'Topologi Tree',
     abbreviation: '',
     category: 'Topologi Jaringan',
-    definition:
-        'Topologi jaringan bertingkat yang menyusun beberapa kelompok star di bawah jalur atau perangkat penghubung utama.',
-    explanation:
-        'Perangkat cabang terhubung ke switch tingkat akses, lalu switch tersebut terhubung ke tingkat yang lebih tinggi. Susunan ini memudahkan jaringan diperluas dan dikelompokkan, tetapi gangguan pada jalur atau perangkat tingkat atas dapat memengaruhi cabang di bawahnya.',
-    example:
-        'Jaringan sekolah dapat memakai switch utama yang terhubung ke switch di tiap lantai, lalu komputer di setiap ruang terhubung ke switch lantai.',
+    definition: 'Topologi jaringan bertingkat yang menyusun beberapa kelompok star di bawah jalur atau perangkat penghubung utama.',
+    explanation: 'Perangkat cabang terhubung ke switch tingkat akses, lalu switch tersebut terhubung ke tingkat yang lebih tinggi. Susunan ini memudahkan jaringan diperluas dan dikelompokkan, tetapi gangguan pada jalur atau perangkat tingkat atas dapat memengaruhi cabang di bawahnya.',
+    example: 'Jaringan sekolah dapat memakai switch utama yang terhubung ke switch di tiap lantai, lalu komputer di setiap ruang terhubung ke switch lantai.',
     icon: Icons.account_tree_outlined,
+  ),
+
+  Term(
+    name: 'Tang Crimping',
+    abbreviation: '',
+    category: 'Alat Praktik Jaringan',
+    definition: 'Alat tangan untuk memasang konektor modular, seperti konektor Ethernet 8P8C yang umum disebut RJ45, pada kabel jaringan yang sesuai.',
+    explanation: 'Setelah jaket kabel dikupas dan kawat disusun menurut standar pengkabelan yang ditentukan, konektor dipasang ke kabel lalu ditekan dengan tang crimping. Gunakan tang dan konektor yang cocok dengan jenis serta ukuran kabel. Jauhkan jari dari bagian penjepit dan gunakan kabel latihan yang tidak tersambung ke perangkat aktif.',
+    example: 'Siswa memasang konektor pada kabel UTP untuk membuat kabel jaringan, kemudian memeriksa susunan kawatnya dengan LAN tester.',
+    icon: Icons.build_outlined,
+  ),
+
+  Term(
+    name: 'LAN Tester',
+    abbreviation: 'Local Area Network cable tester',
+    category: 'Alat Praktik Jaringan',
+    definition: 'Alat untuk memeriksa sambungan dan urutan kawat pada kabel jaringan, seperti kabel Ethernet twisted pair.',
+    explanation: 'Tester mengirimkan sinyal uji dari satu ujung kabel dan menunjukkan hasil yang diterima pada ujung lainnya. Model sederhana dapat membantu menemukan kawat putus, hubungan singkat, atau urutan yang salah, tetapi tidak membuktikan bahwa koneksi internet atau seluruh kinerja jaringan sudah baik. Lepaskan kabel dari switch, komputer, dan perangkat bertegangan sebelum menguji, kecuali alat dan prosedur memang dirancang untuk pengujian tersebut.',
+    example: 'Setelah membuat kabel patch UTP, siswa menyambungkan kedua ujungnya ke LAN tester untuk memastikan tiap kawat terhubung dengan urutan yang sesuai.',
+    icon: Icons.cable_outlined,
+  ),
+
+  Term(
+    name: 'Punch-down Tool',
+    abbreviation: 'Insulation Displacement Contact (IDC) tool',
+    category: 'Alat Praktik Jaringan',
+    definition: 'Alat untuk menekan kawat jaringan ke terminal IDC pada keystone jack atau patch panel.',
+    explanation: 'Mata alat menekan kawat ke celah terminal IDC sehingga kontak listrik terbentuk; mata potong pada beberapa alat juga memotong sisa kawat. Ikuti diagram T568A atau T568B yang dipakai pada kedua ujung instalasi, pilih mata alat yang sesuai, dan arahkan sisi pemotong dengan benar. Pegang alat pada gagangnya karena ujungnya tajam.',
+    example: 'Siswa memasang kabel permanen pada keystone jack di faceplate atau pada port patch panel menggunakan punch-down tool.',
+    icon: Icons.hardware_outlined,
+  ),
+
+  Term(
+    name: 'Pengupas Kabel',
+    abbreviation: 'Cable stripper',
+    category: 'Alat Praktik Jaringan',
+    definition: 'Alat untuk mengupas sebagian jaket luar kabel agar bagian dalam dapat disiapkan tanpa merusak kawat atau seratnya.',
+    explanation: 'Atur atau pilih ukuran pengupas sesuai jenis kabel, lalu kupas jaket secukupnya dengan tekanan ringan. Jangan menarik pisau ke arah tubuh atau tangan, dan periksa agar isolasi konduktor di dalam tidak ikut tergores. Gunakan alat pengupas yang sesuai untuk kabel tembaga atau kabel fiber; alat untuk kabel tembaga tidak otomatis aman untuk serat optik.',
+    example: 'Saat menyiapkan kabel UTP untuk konektor, siswa mengupas sedikit jaket luarnya agar pasangan kawat dapat disusun.',
+    icon: Icons.content_cut_outlined,
+  ),
+
+  Term(
+    name: 'Pengikat Kabel',
+    abbreviation: 'Cable tie',
+    category: 'Alat Praktik Jaringan',
+    definition:
+        'Pengikat untuk menyatukan dan merapikan kabel agar jalurnya tertata.',
+    explanation: 'Masukkan ujung pengikat ke penguncinya dan kencangkan secukupnya. Ikatan yang terlalu kuat dapat menekan kabel dan mengganggu lapisan atau kinerjanya. Kelompokkan kabel tanpa menutup ventilasi perangkat, menjaga jalur keluar-masuk, dan gunakan pemotong yang tepat agar sisi potongan tidak tajam.',
+    example: 'Siswa mengikat beberapa kabel jaringan di rak praktik agar jalurnya rapi, mudah ditelusuri, dan tidak menghalangi ventilasi switch.',
+    icon: Icons.link,
   ),
 
   // ----------------------------------------------------------
@@ -615,12 +657,33 @@ const Map<String, _TermPhoto> _termPhotos = {
     attribution: 'SERCOS III Ring Topology — SCH56, public domain',
   ),
   'Topologi Mesh': _TermPhoto(
-    url: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Mesh-topology.png',
+    url:
+        'https://upload.wikimedia.org/wikipedia/commons/c/ce/Mesh-topology.png',
     attribution: 'Mesh topology — Prinsen, public domain',
   ),
   'Topologi Tree': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Intercpunettree.svg/960px-Intercpunettree.svg.png',
     attribution: 'Intercpunettree — KCVelaga, CC BY-SA 4.0',
+  ),
+  'Tang Crimping': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Crimping-pliers-pro-RJ-0a.jpg/960px-Crimping-pliers-pro-RJ-0a.jpg',
+    attribution: 'Crimping pliers pro RJ — Adamantios, CC BY-SA 3.0',
+  ),
+  'LAN Tester': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Teste_cabo.jpg/960px-Teste_cabo.jpg',
+    attribution: 'Teste cabo — Mvdiogo, CC BY-SA 4.0',
+  ),
+  'Punch-down Tool': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Ideal_punchdown_tool.jpg/960px-Ideal_punchdown_tool.jpg',
+    attribution: 'Ideal punchdown tool — J.C. Fields, CC BY-SA 3.0',
+  ),
+  'Pengupas Kabel': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Cable_stripper%2C_cable_tester_%28RJ45%2C_RJ11%29%2C_LSA-Tool_and_crimping_tool.jpg/960px-Cable_stripper%2C_cable_tester_%28RJ45%2C_RJ11%29%2C_LSA-Tool_and_crimping_tool.jpg',
+    attribution: 'Cable stripper, cable tester and LSA tool — heimnetzwerke.net, CC BY 4.0',
+  ),
+  'Pengikat Kabel': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/100x_Nylon_Cable_Zip_10cm_Tie_Wraps_%282USD_on_eBay%29_%288924977735%29.jpg/960px-100x_Nylon_Cable_Zip_10cm_Tie_Wraps_%282USD_on_eBay%29_%288924977735%29.jpg',
+    attribution: 'Nylon cable zip ties — Artem M., CC BY-SA 2.0',
   ),
   'IP Address': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/IP_stack_communication.svg/960px-IP_stack_communication.svg.png',
