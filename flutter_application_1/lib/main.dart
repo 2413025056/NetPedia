@@ -758,11 +758,6 @@ class _MainScreenState extends State<MainScreen> {
           );
         },
       ),
-      CategoriesPage(
-        favorites: favorites,
-        onFavorite: toggleFavorite,
-        onStudied: markStudied,
-      ),
       FavoritesPage(
         favorites: favorites,
         onFavorite: toggleFavorite,
@@ -795,11 +790,6 @@ class _MainScreenState extends State<MainScreen> {
             icon: Icon(Icons.home_outlined),
             selectedIcon: Icon(Icons.home),
             label: 'Beranda',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.grid_view_outlined),
-            selectedIcon: Icon(Icons.grid_view),
-            label: 'Kategori',
           ),
           NavigationDestination(
             icon: Icon(Icons.bookmark_border),
