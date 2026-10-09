@@ -129,11 +129,11 @@ const List<Term> terms = [
     abbreviation: '',
     category: 'Perangkat Jaringan',
     definition:
-        'Perangkat jaringan yang digunakan untuk menghubungkan dua atau lebih jaringan dan menentukan jalur pengiriman data.',
+        'Perangkat jaringan yang menghubungkan jaringan yang berbeda, misalnya jaringan rumah dengan jaringan internet.',
     explanation:
-        'Router meneruskan paket data berdasarkan informasi alamat jaringan sehingga data dapat mencapai jaringan tujuan.',
+        'Fungsi router adalah memilih jalur agar data sampai ke jaringan tujuan. Router membaca alamat IP tujuan pada paket data, lalu meneruskannya melalui jalur yang sesuai.',
     example:
-        'Router digunakan untuk menghubungkan jaringan komputer di sekolah dengan jaringan internet.',
+        'Di rumah, router menghubungkan jaringan Wi-Fi keluarga ke internet dan meneruskan permintaan dari ponsel ke layanan yang dibuka.',
     icon: Icons.router,
   ),
 
@@ -142,11 +142,11 @@ const List<Term> terms = [
     abbreviation: '',
     category: 'Perangkat Jaringan',
     definition:
-        'Perangkat jaringan yang menghubungkan beberapa perangkat dalam satu jaringan lokal.',
+        'Perangkat yang menghubungkan banyak perangkat, seperti komputer dan printer, dalam satu jaringan lokal berkabel.',
     explanation:
-        'Switch menerima data dari suatu perangkat kemudian meneruskannya ke perangkat tujuan berdasarkan alamat perangkat yang diketahui.',
+        'Switch mempelajari alamat MAC perangkat yang terhubung pada setiap port. Saat menerima data, switch meneruskannya ke port tujuan jika alamatnya sudah diketahui, sehingga data tidak perlu dikirim ke semua perangkat.',
     example:
-        'Beberapa komputer di laboratorium dapat dihubungkan menggunakan switch.',
+        'Komputer, printer, dan server di laboratorium sekolah dapat dihubungkan ke switch agar saling bertukar data.',
     icon: Icons.hub_outlined,
   ),
 
@@ -155,11 +155,11 @@ const List<Term> terms = [
     abbreviation: '',
     category: 'Perangkat Jaringan',
     definition:
-        'Perangkat jaringan yang digunakan untuk menghubungkan beberapa perangkat dalam jaringan.',
+        'Perangkat jaringan sederhana yang menghubungkan beberapa perangkat dalam satu jaringan lokal melalui kabel.',
     explanation:
-        'Berbeda dengan switch, hub meneruskan data yang diterima ke seluruh port yang terhubung.',
+        'Hub menerima sinyal pada satu port lalu menyalinnya ke semua port lain. Hub tidak memilih perangkat tujuan, sehingga perangkat yang tidak dituju juga menerima sinyal tersebut.',
     example:
-        'Hub dapat digunakan untuk menghubungkan beberapa komputer dalam jaringan sederhana.',
+        'Pada jaringan lama untuk praktik dasar, beberapa komputer dapat disambungkan ke hub untuk memperagakan komunikasi dalam jaringan lokal.',
     icon: Icons.device_hub,
   ),
 
@@ -168,11 +168,11 @@ const List<Term> terms = [
     abbreviation: 'AP',
     category: 'Perangkat Jaringan',
     definition:
-        'Perangkat yang memungkinkan perangkat seperti laptop dan smartphone terhubung ke jaringan melalui Wi-Fi.',
+        'Perangkat yang menyediakan akses Wi-Fi agar ponsel, laptop, dan perangkat nirkabel lain dapat bergabung ke jaringan lokal.',
     explanation:
-        'Access Point menyediakan akses jaringan nirkabel sehingga perangkat dapat terhubung tanpa menggunakan kabel jaringan langsung.',
+        'Access Point memancarkan dan menerima sinyal Wi-Fi, lalu menjembatani komunikasi perangkat nirkabel dengan jaringan yang terhubung, biasanya melalui kabel ke switch atau router.',
     example:
-        'Access Point digunakan untuk menyediakan koneksi Wi-Fi di ruang kelas.',
+        'Sekolah dapat memasang access point di ruang kelas agar siswa dan guru terhubung ke jaringan sekolah melalui Wi-Fi.',
     icon: Icons.wifi,
   ),
 
@@ -181,11 +181,11 @@ const List<Term> terms = [
     abbreviation: '',
     category: 'Perangkat Jaringan',
     definition:
-        'Perangkat yang digunakan untuk menghubungkan perangkat atau jaringan dengan layanan internet.',
+        'Perangkat yang menyesuaikan sinyal agar data dapat dikirim dan diterima melalui media komunikasi dari penyedia layanan internet.',
     explanation:
-        'Modem melakukan proses komunikasi antara perangkat pengguna dengan media atau layanan komunikasi yang digunakan.',
+        'Modem mengubah atau mengodekan sinyal digital dari jaringan lokal ke bentuk yang dapat dikirim melalui media layanan, lalu mengubah sinyal yang diterima kembali menjadi data. Jenis modem mengikuti teknologi koneksi yang digunakan.',
     example:
-        'Modem dapat digunakan untuk menyediakan koneksi internet pada jaringan rumah.',
+        'Modem fiber di rumah menghubungkan jaringan pelanggan ke layanan internet melalui jaringan fiber dari penyedia layanan.',
     icon: Icons.settings_input_antenna,
   ),
 
@@ -194,11 +194,11 @@ const List<Term> terms = [
     abbreviation: '',
     category: 'Perangkat Jaringan',
     definition:
-        'Perangkat yang menerima dan meneruskan kembali sinyal jaringan agar jangkauannya menjadi lebih luas.',
+        'Perangkat yang menerima lalu mengirim ulang sinyal jaringan untuk membantu menjangkau area yang lebih jauh.',
     explanation:
-        'Repeater membantu memperluas jangkauan sinyal ketika jarak antara perangkat terlalu jauh.',
+        'Repeater memperkuat atau membentuk ulang sinyal yang melemah selama perjalanan, kemudian meneruskannya. Repeater memperluas jangkauan, tetapi tidak dengan sendirinya menambah kapasitas atau kecepatan layanan internet.',
     example:
-        'Repeater dapat dipasang di area sekolah yang sinyal Wi-Fi-nya lemah.',
+        'Repeater Wi-Fi dapat ditempatkan di area rumah yang jauh dari router agar sinyal lebih mudah dijangkau.',
     icon: Icons.repeat,
   ),
 
@@ -207,11 +207,11 @@ const List<Term> terms = [
     abbreviation: 'Network Interface Card',
     category: 'Perangkat Jaringan',
     definition:
-        'Komponen yang memungkinkan komputer terhubung ke jaringan.',
+        'Komponen antarmuka jaringan yang memungkinkan komputer atau perangkat lain mengirim dan menerima data melalui jaringan.',
     explanation:
-        'NIC menyediakan antarmuka jaringan pada komputer, baik menggunakan koneksi kabel maupun nirkabel.',
+        'NIC menghubungkan perangkat ke media jaringan, seperti kabel Ethernet atau Wi-Fi, dan membantu mengirim serta menerima data jaringan. NIC dapat berupa kartu terpisah atau bagian yang sudah tertanam di perangkat.',
     example:
-        'Komputer desktop dapat menggunakan LAN Card sebagai NIC untuk terhubung ke switch.',
+        'Komputer desktop menggunakan NIC Ethernet dan kabel LAN untuk bertukar data dengan komputer lain melalui switch.',
     icon: Icons.computer,
   ),
 
@@ -220,11 +220,11 @@ const List<Term> terms = [
     abbreviation: '',
     category: 'Perangkat Jaringan',
     definition:
-        'Perangkat yang digunakan untuk menghubungkan atau membagi jaringan berdasarkan segmen tertentu.',
+        'Perangkat jaringan yang menghubungkan segmen-segmen jaringan lokal agar perangkat di segmen tersebut dapat berkomunikasi.',
     explanation:
-        'Bridge bekerja dengan meneruskan data antarsegmen jaringan sesuai informasi alamat perangkat.',
+        'Bridge memeriksa alamat MAC pada data yang diterima dan meneruskannya ke segmen lain bila diperlukan. Dengan begitu, lalu lintas yang hanya ditujukan ke segmen yang sama tidak selalu perlu diteruskan ke segmen lain.',
     example:
-        'Bridge dapat digunakan untuk menghubungkan dua segmen jaringan lokal.',
+        'Bridge dapat menghubungkan dua segmen LAN di gedung sekolah agar komputer pada kedua segmen dapat saling mengakses layanan jaringan.',
     icon: Icons.account_tree_outlined,
   ),
 
@@ -237,11 +237,11 @@ const List<Term> terms = [
     abbreviation: 'Internet Protocol Address',
     category: 'Alamat Jaringan',
     definition:
-        'Alamat yang digunakan untuk mengidentifikasi perangkat dalam suatu jaringan.',
+        'Alamat logis pada jaringan IP yang digunakan untuk mengenali sumber dan tujuan data, baik pada jaringan lokal maupun antarjaringan.',
     explanation:
-        'IP Address membantu perangkat dikenali dan berkomunikasi dengan perangkat lain pada jaringan.',
+        'Perangkat menggunakan alamat IP sumber dan tujuan saat mengirim data. Router membaca alamat tujuan untuk meneruskan data ke jaringan yang tepat. Alamat IP dapat diberikan secara otomatis atau diatur secara manual.',
     example:
-        'Contoh alamat IPv4 adalah 192.168.1.10.',
+        'Saat laptop membuka situs web, laptop menggunakan alamat IP untuk mengirim permintaan ke jaringan dan menerima balasan dari layanan tersebut.',
     icon: Icons.location_on,
   ),
 
@@ -250,11 +250,11 @@ const List<Term> terms = [
     abbreviation: 'Internet Protocol version 4',
     category: 'Alamat Jaringan',
     definition:
-        'Versi protokol IP yang menggunakan alamat sepanjang 32 bit.',
+        'Versi Internet Protocol yang memakai alamat 32 bit dan biasanya ditulis sebagai empat angka desimal yang dipisahkan titik.',
     explanation:
-        'IPv4 biasanya ditulis dalam empat bagian angka desimal yang dipisahkan dengan tanda titik.',
+        'Setiap bagian penulisan IPv4 mewakili 8 bit. IPv4 dipakai untuk memberi alamat pada antarmuka jaringan dan membantu router mengirim paket menuju jaringan tujuan.',
     example:
-        '192.168.1.10 merupakan salah satu contoh penulisan alamat IPv4.',
+        'Laptop di jaringan rumah dapat memperoleh alamat IPv4 lokal seperti 192.168.1.10 dari router melalui DHCP.',
     icon: Icons.pin_outlined,
   ),
 
@@ -263,11 +263,11 @@ const List<Term> terms = [
     abbreviation: 'Internet Protocol version 6',
     category: 'Alamat Jaringan',
     definition:
-        'Versi protokol IP yang menggunakan alamat sepanjang 128 bit.',
+        'Versi Internet Protocol yang memakai alamat 128 bit, dikembangkan antara lain untuk menyediakan jumlah alamat yang jauh lebih banyak daripada IPv4.',
     explanation:
-        'IPv6 dikembangkan untuk menyediakan jumlah alamat yang jauh lebih banyak dibandingkan IPv4.',
+        'Alamat IPv6 ditulis dalam kelompok bilangan heksadesimal yang dipisahkan tanda titik dua. Perangkat dan jaringan yang mendukung IPv6 dapat menggunakan alamat ini untuk mengirim paket melalui jaringan IPv6.',
     example:
-        'IPv6 menggunakan penulisan dalam bentuk bilangan heksadesimal.',
+        'Penyedia internet dapat memberikan alamat IPv6 kepada router rumah, lalu perangkat yang mendukung IPv6 menggunakannya saat mengakses layanan internet yang mendukung IPv6.',
     icon: Icons.language,
   ),
 
@@ -276,11 +276,11 @@ const List<Term> terms = [
     abbreviation: 'Media Access Control Address',
     category: 'Alamat Jaringan',
     definition:
-        'Alamat yang digunakan untuk mengidentifikasi antarmuka jaringan pada perangkat.',
+        'Alamat pada antarmuka jaringan yang digunakan untuk mengenali perangkat dalam komunikasi pada jaringan lokal.',
     explanation:
-        'MAC Address berkaitan dengan antarmuka jaringan perangkat dan digunakan dalam komunikasi pada jaringan lokal.',
+        'Pada jaringan Ethernet atau Wi-Fi, data lokal membawa alamat MAC sumber dan tujuan. Switch menggunakannya untuk mempelajari perangkat pada port tertentu dan meneruskan data di jaringan lokal. MAC Address dapat diubah atau disamarkan oleh perangkat lunak tertentu.',
     example:
-        'Kartu jaringan pada komputer memiliki MAC Address yang berbeda dengan perangkat lainnya.',
+        'Ketika laptop tersambung ke Wi-Fi sekolah, access point menggunakan informasi MAC pada komunikasi lokal untuk menangani lalu lintas perangkat tersebut.',
     icon: Icons.fingerprint,
   ),
 
@@ -289,11 +289,11 @@ const List<Term> terms = [
     abbreviation: '',
     category: 'Alamat Jaringan',
     definition:
-        'Nilai yang digunakan untuk menentukan bagian network dan host pada alamat IPv4.',
+        'Nilai yang menunjukkan bagian alamat IPv4 yang menjadi identitas jaringan dan bagian yang digunakan untuk perangkat di jaringan itu.',
     explanation:
-        'Subnet Mask membantu menentukan apakah sebuah alamat berada pada jaringan yang sama atau berbeda.',
+        'Perangkat membandingkan alamat IP dengan subnet mask untuk menentukan apakah alamat tujuan berada di jaringan lokal. Jika berada di jaringan lain, data biasanya dikirim ke default gateway.',
     example:
-        '255.255.255.0 merupakan salah satu contoh subnet mask IPv4.',
+        'Pada jaringan 192.168.1.0 dengan subnet mask 255.255.255.0, perangkat seperti 192.168.1.10 dan 192.168.1.20 berada pada subnet yang sama.',
     icon: Icons.grid_3x3,
   ),
 
@@ -302,11 +302,11 @@ const List<Term> terms = [
     abbreviation: '',
     category: 'Alamat Jaringan',
     definition:
-        'Alamat perangkat yang menjadi jalur keluar dari jaringan lokal menuju jaringan lain.',
+        'Alamat perangkat pada jaringan lokal yang menjadi tujuan pengiriman data saat perangkat perlu mengakses jaringan lain.',
     explanation:
-        'Gateway biasanya digunakan ketika perangkat ingin berkomunikasi dengan jaringan di luar jaringan lokalnya.',
+        'Perangkat membandingkan alamat tujuan dengan subnet lokalnya. Jika tujuan berada di luar subnet, perangkat mengirimkan paket ke default gateway; router kemudian meneruskannya sesuai rute yang tersedia.',
     example:
-        'Komputer dalam jaringan lokal dapat menggunakan alamat router sebagai default gateway.',
+        'Ponsel yang memakai Wi-Fi rumah mengirim permintaan ke alamat router sebagai default gateway saat membuka situs di internet.',
     icon: Icons.exit_to_app,
   ),
 
@@ -315,11 +315,11 @@ const List<Term> terms = [
     abbreviation: '',
     category: 'Alamat Jaringan',
     definition:
-        'Alamat yang digunakan untuk menunjukkan suatu jaringan dan bukan perangkat tertentu.',
+        'Alamat yang mewakili sebuah subnet IPv4, bukan alamat untuk satu perangkat biasa.',
     explanation:
-        'Network Address digunakan sebagai identitas sebuah jaringan dalam pengalamatan IPv4.',
+        'Network address diperoleh dari alamat IP dan subnet mask. Router menggunakan informasi jaringan ini dalam tabel rute untuk menentukan ke mana paket harus diteruskan. Dalam subnet IPv4 biasa, alamat ini tidak diberikan kepada host.',
     example:
-        'Pada jaringan tertentu, alamat awal dapat digunakan sebagai network address.',
+        'Pada subnet 192.168.1.0/24, 192.168.1.0 adalah network address yang mewakili subnet tersebut.',
     icon: Icons.account_tree,
   ),
 
@@ -328,11 +328,11 @@ const List<Term> terms = [
     abbreviation: '',
     category: 'Alamat Jaringan',
     definition:
-        'Alamat yang digunakan untuk mengirim data kepada seluruh perangkat dalam suatu jaringan tertentu.',
+        'Alamat khusus IPv4 yang digunakan untuk mengirim data ke semua host pada subnet lokal yang sama.',
     explanation:
-        'Broadcast memungkinkan sebuah paket dikirim secara bersamaan kepada perangkat yang berada dalam jaringan yang sama.',
+        'Paket broadcast ditujukan kepada seluruh host pada subnet tersebut, bukan kepada satu perangkat tertentu. Router umumnya tidak meneruskan broadcast lokal ke jaringan lain.',
     example:
-        'Broadcast dapat digunakan ketika sebuah perangkat perlu mengirim informasi kepada semua host dalam jaringan.',
+        'Pada subnet 192.168.1.0/24, alamat broadcast-nya adalah 192.168.1.255; alamat ini mewakili pengiriman ke semua host di subnet tersebut.',
     icon: Icons.campaign_outlined,
   ),
 
@@ -345,11 +345,11 @@ const List<Term> terms = [
     abbreviation: 'Dynamic Host Configuration Protocol',
     category: 'Layanan Jaringan',
     definition:
-        'Layanan jaringan yang memberikan konfigurasi jaringan seperti IP Address secara otomatis kepada perangkat.',
+        'Protokol yang membantu perangkat memperoleh konfigurasi jaringan secara otomatis, seperti alamat IP, subnet mask, dan default gateway.',
     explanation:
-        'DHCP membantu administrator jaringan karena perangkat tidak perlu dikonfigurasi alamat IP secara manual satu per satu.',
+        'Perangkat meminta konfigurasi saat bergabung ke jaringan. Server DHCP menawarkan dan memberikan konfigurasi untuk jangka waktu tertentu, sehingga administrator tidak perlu mengatur setiap perangkat satu per satu.',
     example:
-        'Ketika laptop terhubung ke Wi-Fi sekolah, DHCP dapat memberikan IP Address secara otomatis.',
+        'Saat siswa menyambungkan laptop ke Wi-Fi sekolah, DHCP dapat memberikan alamat IP dan informasi jaringan tanpa pengaturan manual.',
     icon: Icons.settings_ethernet,
   ),
 
@@ -358,11 +358,11 @@ const List<Term> terms = [
     abbreviation: 'Domain Name System',
     category: 'Layanan Jaringan',
     definition:
-        'Layanan yang menerjemahkan nama domain menjadi alamat IP.',
+        'Sistem penamaan jaringan yang membantu mencari informasi alamat IP berdasarkan nama domain yang mudah dibaca manusia.',
     explanation:
-        'DNS membantu pengguna mengakses layanan internet menggunakan nama yang lebih mudah diingat dibandingkan alamat IP.',
+        'Perangkat meminta informasi nama domain kepada resolver DNS. Jika informasi belum tersedia di cache, resolver mencari jawaban dari server DNS lain, lalu mengembalikan hasilnya agar perangkat dapat menghubungi layanan tujuan.',
     example:
-        'DNS membantu menerjemahkan nama domain menjadi alamat IP server yang dituju.',
+        'Saat mengetik nama situs di browser, DNS membantu menemukan alamat IP yang diperlukan browser untuk menghubungi situs tersebut.',
     icon: Icons.dns_outlined,
   ),
 
@@ -371,11 +371,11 @@ const List<Term> terms = [
     abbreviation: 'Hypertext Transfer Protocol',
     category: 'Layanan Jaringan',
     definition:
-        'Protokol yang digunakan untuk pertukaran data antara web browser dan web server.',
+        'Protokol yang mengatur permintaan dan balasan saat browser atau aplikasi bertukar data dengan layanan web.',
     explanation:
-        'HTTP digunakan dalam komunikasi antara client dan server ketika mengakses sumber daya pada layanan web.',
+        'Client mengirim permintaan, misalnya meminta halaman, lalu web server mengirimkan balasan. HTTP biasa tidak mengenkripsi isi komunikasi, sehingga HTTPS lebih sesuai untuk melindungi komunikasi web yang sensitif.',
     example:
-        'Browser menggunakan HTTP ketika melakukan komunikasi dengan web server yang menggunakan protokol tersebut.',
+        'Browser meminta halaman artikel ke server web menggunakan HTTP ketika layanan tersebut memang menyediakan HTTP.',
     icon: Icons.http,
   ),
 
@@ -384,11 +384,11 @@ const List<Term> terms = [
     abbreviation: 'Hypertext Transfer Protocol Secure',
     category: 'Layanan Jaringan',
     definition:
-        'Protokol komunikasi web yang menggunakan mekanisme keamanan untuk melindungi komunikasi data.',
+        'Penggunaan HTTP yang dilindungi TLS untuk membantu menjaga kerahasiaan dan keutuhan data serta memeriksa identitas server.',
     explanation:
-        'HTTPS digunakan untuk membantu menjaga keamanan komunikasi antara browser dan server.',
+        'Browser dan server membuat koneksi TLS, memeriksa sertifikat server, lalu bertukar data melalui koneksi yang dienkripsi. HTTPS melindungi komunikasi, tetapi tidak dengan sendirinya menjamin bahwa isi atau pemilik situs dapat dipercaya.',
     example:
-        'Website yang menggunakan HTTPS biasanya ditampilkan dengan simbol gembok pada browser.',
+        'Saat masuk ke akun sekolah melalui situs HTTPS, kata sandi dan data sesi dienkripsi selama dikirim antara browser dan server.',
     icon: Icons.lock_outline,
   ),
 
@@ -397,11 +397,11 @@ const List<Term> terms = [
     abbreviation: 'File Transfer Protocol',
     category: 'Layanan Jaringan',
     definition:
-        'Protokol yang digunakan untuk melakukan transfer file melalui jaringan.',
+        'Protokol untuk mengirim dan mengambil file antara client dan server melalui jaringan.',
     explanation:
-        'FTP dapat digunakan untuk mengirim atau mengambil file antara komputer client dan server.',
+        'Client terhubung ke server FTP lalu menggunakan izin akun yang tersedia untuk melihat, mengunduh, atau mengunggah file. FTP biasa tidak mengenkripsi kredensial dan data; gunakan metode transfer aman yang disediakan administrator bila perlindungan diperlukan.',
     example:
-        'FTP dapat digunakan untuk memindahkan file dari komputer ke server.',
+        'Dalam praktik jaringan, siswa dapat mengunggah berkas tugas ke server FTP laboratorium menggunakan akun yang diberikan guru.',
     icon: Icons.folder_open,
   ),
 
@@ -410,11 +410,11 @@ const List<Term> terms = [
     abbreviation: '',
     category: 'Layanan Jaringan',
     definition:
-        'Server yang menyediakan halaman atau sumber daya web kepada client.',
+        'Perangkat lunak layanan yang menerima permintaan web dan mengirimkan halaman atau sumber daya yang diminta kepada client.',
     explanation:
-        'Web server menerima permintaan dari client kemudian memberikan sumber daya web yang diminta.',
+        'Web server menunggu permintaan melalui protokol web, mencari atau membuat sumber daya yang diminta, lalu mengirimkan balasan. Server juga dapat meneruskan pekerjaan tertentu ke aplikasi lain.',
     example:
-        'Web server digunakan untuk menyediakan halaman website yang dibuka melalui browser.',
+        'Komputer server sekolah dapat menjalankan web server untuk menampilkan portal informasi yang dibuka siswa melalui browser.',
     icon: Icons.web,
   ),
 
@@ -423,11 +423,11 @@ const List<Term> terms = [
     abbreviation: '',
     category: 'Layanan Jaringan',
     definition:
-        'Server perantara yang meneruskan permintaan client ke server tujuan.',
+        'Server perantara yang menerima permintaan dari client dan meneruskannya sesuai aturan serta jenis proxy yang digunakan.',
     explanation:
-        'Proxy berada di antara client dan server tujuan dan dapat digunakan dalam pengelolaan akses jaringan.',
+        'Client mengirim permintaan ke proxy; proxy dapat meneruskannya ke server tujuan dan mengembalikan hasilnya. Bergantung pada konfigurasi, proxy dapat membantu mengatur akses atau menyimpan salinan sementara, tetapi tidak semua proxy melakukan fungsi tersebut.',
     example:
-        'Proxy server dapat digunakan untuk mengatur akses pengguna terhadap sumber daya tertentu.',
+        'Jaringan sekolah dapat menggunakan proxy yang dikonfigurasi administrator untuk menerapkan kebijakan akses web bagi komputer laboratorium.',
     icon: Icons.swap_horiz,
   ),
 
@@ -436,11 +436,11 @@ const List<Term> terms = [
     abbreviation: 'Virtual Private Network',
     category: 'Layanan Jaringan',
     definition:
-        'Teknologi yang membuat koneksi jaringan melalui jalur yang diamankan antara perangkat dan jaringan tujuan.',
+        'Teknologi yang membuat koneksi virtual melalui jaringan lain agar perangkat dapat terhubung ke jaringan atau layanan tertentu.',
     explanation:
-        'VPN dapat digunakan untuk membuat koneksi virtual melalui jaringan yang tersedia.',
+        'Perangkat membuat koneksi ke layanan VPN. Bergantung pada protokol dan pengaturannya, data pada koneksi tersebut dapat dienkripsi dan diarahkan melalui jaringan VPN. VPN tidak otomatis membuat semua aktivitas atau tujuan internet aman.',
     example:
-        'VPN dapat digunakan untuk menghubungkan pengguna dengan jaringan tertentu melalui koneksi internet.',
+        'Guru dapat memakai VPN yang disediakan sekolah untuk mengakses sumber daya jaringan internal saat bekerja dari luar sekolah.',
     icon: Icons.shield_outlined,
   ),
 ];
