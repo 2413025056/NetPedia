@@ -216,6 +216,19 @@ const List<Term> terms = [
   ),
 
   Term(
+    name: 'Server',
+    abbreviation: '',
+    category: 'Perangkat Jaringan',
+    definition:
+        'Komputer yang menyediakan data, aplikasi, atau layanan jaringan untuk digunakan oleh komputer lain yang disebut client.',
+    explanation:
+        'Server menerima permintaan dari client melalui jaringan, menjalankan layanan yang sesuai, lalu mengirimkan balasan. Server dapat berupa komputer khusus atau komputer yang dikonfigurasi untuk tugas tersebut; web server adalah salah satu jenis layanan server.',
+    example:
+        'Di sekolah, server dapat menyimpan berkas materi agar guru dan siswa dapat mengaksesnya melalui jaringan sesuai izin yang diberikan.',
+    icon: Icons.dns_outlined,
+  ),
+
+  Term(
     name: 'Bridge',
     abbreviation: '',
     category: 'Perangkat Jaringan',
