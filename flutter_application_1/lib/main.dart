@@ -124,6 +124,26 @@ const List<Category> categories = [
     icon: Icons.build_outlined,
     color: Color(0xFF0EA5A4),
   ),
+  Category(
+    name: 'Pemecahan Masalah Jaringan',
+    description: 'Perintah dan gejala dasar untuk memeriksa koneksi jaringan.',
+    icon: Icons.troubleshoot,
+    color: Color(0xFF3155D9),
+  ),
+  Category(
+    name: 'Kinerja Jaringan',
+    description:
+        'Ukuran dan kondisi yang memengaruhi kelancaran komunikasi jaringan.',
+    icon: Icons.speed_outlined,
+    color: Color(0xFF8B5CF6),
+  ),
+  Category(
+    name: 'Keamanan Jaringan',
+    description:
+        'Cara dasar mengatur akses dan melindungi data saat berkomunikasi.',
+    icon: Icons.security_outlined,
+    color: Color(0xFF0EA5A4),
+  ),
 ];
 
 // ============================================================
@@ -571,6 +591,76 @@ const List<Term> terms = [
     example: 'Guru dapat memakai VPN resmi sekolah untuk mengakses berkas pada jaringan internal saat bekerja dari rumah.',
     icon: Icons.shield_outlined,
   ),
+
+  Term(
+    name: 'Ping',
+    abbreviation: '',
+    category: 'Pemecahan Masalah Jaringan',
+    definition: 'Perintah diagnostik yang mengirim permintaan ICMP Echo untuk memeriksa apakah alamat tujuan dapat dijangkau melalui jaringan.',
+    explanation: 'Jika menerima balasan, ping biasanya menampilkan waktu bolak-balik (round-trip time) dan jumlah paket yang dibalas. Ping berguna untuk pemeriksaan awal, tetapi balasan yang gagal belum tentu berarti perangkat mati karena ICMP dapat dibatasi; balasan yang berhasil juga tidak memastikan semua layanan pada perangkat itu berfungsi.',
+    example: 'Siswa dapat menjalankan ping ke alamat gateway sekolah untuk memeriksa apakah komputer mendapat balasan dari router lokal.',
+    icon: Icons.network_ping,
+  ),
+
+  Term(
+    name: 'Packet Loss',
+    abbreviation: '',
+    category: 'Pemecahan Masalah Jaringan',
+    definition: 'Kondisi ketika sebagian paket data yang dikirim tidak sampai ke tujuan atau tidak diterima kembali.',
+    explanation: 'Packet loss dapat terlihat sebagai paket yang tidak mendapat balasan saat pengujian atau sebagai suara/video tersendat dan koneksi yang tidak stabil. Penyebabnya dapat beragam, misalnya gangguan sinyal, kabel atau port bermasalah, perangkat yang kelebihan beban, maupun kemacetan jaringan; pengukuran saja belum menentukan penyebabnya.',
+    example: 'Jika dari 20 permintaan ping hanya 18 yang mendapat balasan, terdapat 2 permintaan yang tidak mendapat balasan selama pengujian itu; periksa jalur dan ulangi tes sebelum menyimpulkan penyebabnya.',
+    icon: Icons.signal_wifi_statusbar_connected_no_internet_4,
+  ),
+
+  Term(
+    name: 'Latency',
+    abbreviation: '',
+    category: 'Kinerja Jaringan',
+    definition: 'Waktu tunda yang diperlukan data untuk bergerak antara dua titik jaringan.',
+    explanation: 'Latency dipengaruhi oleh jarak, jalur, pemrosesan perangkat, dan antrean pada jaringan. Hasil ping umumnya menunjukkan waktu pergi-pulang (RTT), bukan waktu satu arah. Latency tinggi dapat terasa sebagai jeda saat membuka layanan interaktif meskipun koneksi tetap tersambung.',
+    example: 'Saat bermain gim melalui internet, latency yang tinggi dapat membuat aksi pemain tampil terlambat dibandingkan saat tombol ditekan.',
+    icon: Icons.timer_outlined,
+  ),
+
+  Term(
+    name: 'Firewall',
+    abbreviation: '',
+    category: 'Keamanan Jaringan',
+    definition: 'Sistem keamanan yang mengizinkan atau membatasi lalu lintas jaringan berdasarkan aturan yang ditetapkan.',
+    explanation: 'Firewall dapat berupa fitur perangkat lunak atau perangkat khusus. Firewall memeriksa informasi lalu lintas, seperti alamat dan port, lalu menerapkan aturan. Firewall membantu mengurangi akses yang tidak diinginkan, tetapi bukan pengganti pembaruan sistem, kata sandi kuat, atau perlindungan lainnya.',
+    example: 'Firewall komputer sekolah dapat diatur agar hanya aplikasi dan koneksi yang diizinkan administrator yang dapat berkomunikasi melalui jaringan.',
+    icon: Icons.security,
+  ),
+
+  Term(
+    name: 'Enkripsi',
+    abbreviation: '',
+    category: 'Keamanan Jaringan',
+    definition: 'Proses mengubah data yang dapat dibaca menjadi bentuk tersandi agar isinya tidak mudah dipahami tanpa kunci yang sesuai.',
+    explanation: 'Pengirim mengenkripsi data dengan metode dan kunci tertentu, lalu penerima yang berwenang menggunakan kunci yang sesuai untuk mengembalikannya. Enkripsi membantu melindungi kerahasiaan data saat disimpan atau dikirim, tetapi tidak otomatis melindungi perangkat yang sudah dibobol atau membuktikan bahwa isi data benar.',
+    example: 'Saat siswa membuka situs sekolah dengan HTTPS, enkripsi TLS membantu melindungi data yang dikirim antara browser dan server dari pembacaan mudah oleh pihak lain di jalur jaringan.',
+    icon: Icons.lock_outline,
+  ),
+
+  Term(
+    name: 'Bandwidth',
+    abbreviation: '',
+    category: 'Kinerja Jaringan',
+    definition: 'Kapasitas maksimum suatu jalur jaringan untuk membawa data dalam satu waktu, biasanya dinyatakan dalam bit per detik.',
+    explanation: 'Bandwidth menggambarkan kapasitas jalur, bukan jaminan kecepatan yang selalu diterima satu pengguna. Kecepatan aktual juga dipengaruhi kualitas koneksi, perangkat, layanan tujuan, dan banyaknya pengguna yang berbagi jalur.',
+    example: 'Jika koneksi internet sekolah digunakan banyak kelas untuk mengunduh video bersamaan, kapasitas bandwidth dibagi di antara lalu lintas yang aktif.',
+    icon: Icons.speed,
+  ),
+
+  Term(
+    name: 'Kepadatan Lalu Lintas Jaringan',
+    abbreviation: 'Network congestion',
+    category: 'Kinerja Jaringan',
+    definition: 'Kondisi ketika jumlah data yang melewati suatu bagian jaringan mendekati atau melebihi kapasitas yang tersedia.',
+    explanation: 'Saat jalur atau perangkat jaringan menerima lebih banyak data daripada yang dapat diteruskan, data dapat mengantre. Antrean yang panjang dapat menambah latency; jika antrean penuh, sebagian paket dapat dibuang dan terjadi packet loss. Kondisi ini berbeda dari gangguan pada satu perangkat atau kabel.',
+    example: 'Ketika banyak siswa mengakses video daring pada jam yang sama, jaringan sekolah dapat terasa lambat karena lalu lintas menumpuk pada jalur internet bersama.',
+    icon: Icons.traffic_outlined,
+  ),
 ];
 
 class _TermPhoto {
@@ -761,6 +851,38 @@ const Map<String, _TermPhoto> _termPhotos = {
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/29/Virtual_Private_Network_overview_rus.svg/960px-Virtual_Private_Network_overview_rus.svg.png',
     attribution:
         'Virtual Private Network overview — Ludovic.ferre, CC BY-SA 3.0',
+  ),
+  'Ping': _TermPhoto(
+    url: 'https://upload.wikimedia.org/wikipedia/commons/e/e2/Ping_iputils_screenshot.png',
+    attribution:
+        'Ping iputils screenshot — YOSHIFUJI Hideaki / USAGI-WIDE Project, GPL',
+  ),
+  'Packet Loss': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Army_Packet_Radio_Network_Protocol_Study_-_SRI%2C_November_1977.pdf/page1-500px-Army_Packet_Radio_Network_Protocol_Study_-_SRI%2C_November_1977.pdf.jpg',
+    attribution:
+        'Army Packet Radio Network Protocol Study — SRI, public domain',
+  ),
+  'Latency': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/IPv6_geolocation_using_latency_constraints_%28IA_ipvgeolocationus1094541452%29.pdf/page1-960px-IPv6_geolocation_using_latency_constraints_%28IA_ipvgeolocationus1094541452%29.pdf.jpg',
+    attribution: 'IPv6 geolocation using latency constraints — Tony V.H. Tran, public domain',
+  ),
+  'Firewall': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/DMZ_network_diagram_2_firewall.svg/960px-DMZ_network_diagram_2_firewall.svg.png',
+    attribution: 'DMZ network diagram 2 firewall — Pbroks13, public domain',
+  ),
+  'Enkripsi': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/CCMP_Encryption_Working_Block_Diagram.pdf/page1-960px-CCMP_Encryption_Working_Block_Diagram.pdf.jpg',
+    attribution:
+        'CCMP Encryption Working Block Diagram — Cipher swami, CC BY-SA 4.0',
+  ),
+  'Bandwidth': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Bandwidth_Management_in_Resource_Constrained_Networks_%28IA_bandwidthmanagem109456866%29.pdf/page1-960px-Bandwidth_Management_in_Resource_Constrained_Networks_%28IA_bandwidthmanagem109456866%29.pdf.jpg',
+    attribution:
+        'Bandwidth Management in Resource Constrained Networks, public domain',
+  ),
+  'Kepadatan Lalu Lintas Jaringan': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Traffic_congestion_analysis_for_a_software-defined_network_%28IA_trafficcongestio1094558337%29.pdf/page1-960px-Traffic_congestion_analysis_for_a_software-defined_network_%28IA_trafficcongestio1094558337%29.pdf.jpg',
+    attribution: 'Traffic congestion analysis for a software-defined network — Moniqua J. Maxie, public domain',
   ),
 };
 
