@@ -111,6 +111,13 @@ const List<Category> categories = [
     icon: Icons.miscellaneous_services_outlined,
     color: Color(0xFF0EA5A4),
   ),
+  Category(
+    name: 'Topologi Jaringan',
+    description:
+        'Pola susunan perangkat dan jalur hubungan dalam sebuah jaringan.',
+    icon: Icons.account_tree_outlined,
+    color: Color(0xFFF59E0B),
+  ),
 ];
 
 // ============================================================
@@ -270,6 +277,71 @@ const List<Term> terms = [
     explanation: 'Patch cord memudahkan penyambungan tanpa perlu memasang konektor sendiri saat digunakan. Jenis kabel dan konektornya harus sesuai dengan port dan media jaringan, misalnya kabel Ethernet tembaga dengan konektor RJ45.',
     example: 'Di ruang server, patch cord menghubungkan port patch panel ke switch; di meja kerja, kabel ini dapat menghubungkan komputer ke soket jaringan.',
     icon: Icons.cable,
+  ),
+
+  Term(
+    name: 'Topologi Star',
+    abbreviation: '',
+    category: 'Topologi Jaringan',
+    definition:
+        'Topologi jaringan dengan setiap perangkat terhubung ke satu perangkat pusat, biasanya switch atau hub.',
+    explanation:
+        'Perangkat pusat meneruskan komunikasi antarperangkat. Susunan ini mudah ditambah dan gangguan pada satu kabel biasanya hanya memutus perangkat pada kabel tersebut. Namun, jika perangkat pusat rusak, komunikasi jaringan yang bergantung padanya dapat terganggu.',
+    example:
+        'Di laboratorium komputer, setiap PC dapat dihubungkan dengan kabel tersendiri ke satu switch di rak jaringan.',
+    icon: Icons.hub_outlined,
+  ),
+
+  Term(
+    name: 'Topologi Bus',
+    abbreviation: '',
+    category: 'Topologi Jaringan',
+    definition:
+        'Topologi jaringan yang menghubungkan beberapa perangkat pada satu jalur kabel utama.',
+    explanation:
+        'Data dibagikan melalui kabel utama dan perangkat tujuan menerima data yang sesuai. Susunannya sederhana dan membutuhkan kabel utama yang relatif sedikit, tetapi kerusakan pada jalur utama dapat mengganggu banyak perangkat. Topologi ini lebih umum dipelajari sebagai konsep atau jaringan lama daripada dipakai pada LAN modern.',
+    example:
+        'Diagram jaringan bus dapat menunjukkan beberapa komputer tersambung ke satu kabel utama dengan terminator di kedua ujungnya.',
+    icon: Icons.linear_scale,
+  ),
+
+  Term(
+    name: 'Topologi Ring',
+    abbreviation: '',
+    category: 'Topologi Jaringan',
+    definition:
+        'Topologi jaringan yang menghubungkan perangkat dalam jalur melingkar, sehingga tiap perangkat memiliki hubungan dengan perangkat di sebelahnya.',
+    explanation:
+        'Data diteruskan dari satu perangkat ke perangkat berikutnya mengitari ring sampai mencapai tujuan; pada teknologi yang dirancang untuk itu, alur ini dapat membuat giliran pengiriman lebih teratur. Kekurangannya, putusnya satu jalur dapat mengganggu ring biasa dan penelusuran gangguan bisa lebih sulit; sebagian rancangan memakai jalur cadangan.',
+    example:
+        'Topologi ring dapat dipelajari melalui diagram beberapa komputer yang tersambung melingkar, atau pada jaringan industri tertentu yang dirancang dengan jalur redundan.',
+    icon: Icons.autorenew,
+  ),
+
+  Term(
+    name: 'Topologi Mesh',
+    abbreviation: '',
+    category: 'Topologi Jaringan',
+    definition:
+        'Topologi jaringan yang menghubungkan perangkat melalui beberapa jalur; pada mesh penuh setiap pasangan perangkat memiliki hubungan langsung.',
+    explanation:
+        'Banyak jalur dapat memberi pilihan rute lain jika salah satu hubungan terputus. Namun, mesh penuh membutuhkan banyak sambungan dan lebih rumit serta mahal untuk dipasang. Mesh parsial menghubungkan hanya sebagian pasangan perangkat.',
+    example:
+        'Jaringan Wi-Fi mesh di rumah memakai beberapa node yang saling berkomunikasi untuk memperluas cakupan; susunannya tidak selalu mesh penuh.',
+    icon: Icons.device_hub_outlined,
+  ),
+
+  Term(
+    name: 'Topologi Tree',
+    abbreviation: '',
+    category: 'Topologi Jaringan',
+    definition:
+        'Topologi jaringan bertingkat yang menyusun beberapa kelompok star di bawah jalur atau perangkat penghubung utama.',
+    explanation:
+        'Perangkat cabang terhubung ke switch tingkat akses, lalu switch tersebut terhubung ke tingkat yang lebih tinggi. Susunan ini memudahkan jaringan diperluas dan dikelompokkan, tetapi gangguan pada jalur atau perangkat tingkat atas dapat memengaruhi cabang di bawahnya.',
+    example:
+        'Jaringan sekolah dapat memakai switch utama yang terhubung ke switch di tiap lantai, lalu komputer di setiap ruang terhubung ke switch lantai.',
+    icon: Icons.account_tree_outlined,
   ),
 
   // ----------------------------------------------------------
@@ -529,6 +601,26 @@ const Map<String, _TermPhoto> _termPhotos = {
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Patch_cable_with_RJ45_connector.jpg/960px-Patch_cable_with_RJ45_connector.jpg',
     attribution:
         'Patch cable with RJ45 connector — heimnetzwerke.net, CC BY 4.0',
+  ),
+  'Topologi Star': _TermPhoto(
+    url: 'https://upload.wikimedia.org/wikipedia/commons/3/35/Extended-star-topology.png',
+    attribution: 'Extended star topology — Costello, public domain',
+  ),
+  'Topologi Bus': _TermPhoto(
+    url: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Bus_Network_Topology.png',
+    attribution: 'Bus Network Topology — Bakshi41c, CC BY-SA 3.0',
+  ),
+  'Topologi Ring': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/SERCOS_III_Control_Interface_Ring_Topology_diagram.svg/960px-SERCOS_III_Control_Interface_Ring_Topology_diagram.svg.png',
+    attribution: 'SERCOS III Ring Topology — SCH56, public domain',
+  ),
+  'Topologi Mesh': _TermPhoto(
+    url: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Mesh-topology.png',
+    attribution: 'Mesh topology — Prinsen, public domain',
+  ),
+  'Topologi Tree': _TermPhoto(
+    url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Intercpunettree.svg/960px-Intercpunettree.svg.png',
+    attribution: 'Intercpunettree — KCVelaga, CC BY-SA 4.0',
   ),
   'IP Address': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/IP_stack_communication.svg/960px-IP_stack_communication.svg.png',
