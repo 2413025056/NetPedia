@@ -459,6 +459,89 @@ void main() {
     );
   });
 
+  testWidgets('quiz requires answers and preserves them when navigating', (
+    WidgetTester tester,
+  ) async {
+    final scores = <int>[];
+    final firstQuestion = quizQuestions.first;
+    final firstChoice =
+        (firstQuestion.correctAnswer + 1) % firstQuestion.options.length;
+    final previousButton = find.ancestor(
+      of: find.byIcon(Icons.arrow_back_rounded),
+      matching: find.byType(IconButton),
+    );
+    Future<void> scrollToTop() async {
+      await tester.drag(find.byType(ListView), const Offset(0, 2000));
+      await tester.pumpAndSettle();
+    }
+
+    await tester.pumpWidget(
+      MaterialApp(home: QuizPage(onFinished: scores.add)),
+    );
+
+    expect(find.text('1/${quizQuestions.length}'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('SOAL BERIKUTNYA'), 250);
+    expect(
+      tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
+      isNull,
+    );
+    expect(tester.widget<IconButton>(previousButton.first).onPressed, isNull);
+
+    await tester.ensureVisible(find.text(firstQuestion.options[firstChoice]));
+    await tester.tap(find.text(firstQuestion.options[firstChoice]));
+    await tester.pump();
+    await tester.scrollUntilVisible(find.text('SOAL BERIKUTNYA'), 250);
+    await tester.tap(find.text('SOAL BERIKUTNYA'));
+    await tester.pumpAndSettle();
+    await scrollToTop();
+
+    expect(find.text('2/${quizQuestions.length}'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('SOAL BERIKUTNYA'), 250);
+    expect(
+      tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
+      isNull,
+    );
+
+    await tester.tap(previousButton.first);
+    await tester.pump();
+    await scrollToTop();
+    expect(find.text('1/${quizQuestions.length}'), findsOneWidget);
+    expect(find.byIcon(Icons.check_circle), findsOneWidget);
+
+    await tester.scrollUntilVisible(find.text('SOAL BERIKUTNYA'), 250);
+    await tester.tap(find.text('SOAL BERIKUTNYA'));
+    await tester.tap(find.text('SOAL BERIKUTNYA'));
+    await scrollToTop();
+    expect(find.text('2/${quizQuestions.length}'), findsOneWidget);
+
+    for (
+      var questionIndex = 1;
+      questionIndex < quizQuestions.length;
+      questionIndex++
+    ) {
+      final question = quizQuestions[questionIndex];
+      await tester.ensureVisible(
+        find.text(question.options[question.correctAnswer]),
+      );
+      await tester.tap(find.text(question.options[question.correctAnswer]));
+      await tester.pump();
+
+      final actionText = questionIndex == quizQuestions.length - 1
+          ? 'SELESAI'
+          : 'SOAL BERIKUTNYA';
+      await tester.ensureVisible(find.text(actionText));
+      await tester.tap(find.text(actionText));
+      await tester.pumpAndSettle();
+    }
+
+    final expectedCorrect = quizQuestions.length - 1;
+    final expectedScore = (expectedCorrect / quizQuestions.length * 100)
+        .round();
+    expect(scores, [expectedScore]);
+    expect(find.text('Latihan Selesai!'), findsOneWidget);
+    expect(find.text('$expectedCorrect'), findsOneWidget);
+  });
+
   testWidgets('all term images stay contained in the mobile detail frame', (
     WidgetTester tester,
   ) async {

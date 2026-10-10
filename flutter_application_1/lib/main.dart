@@ -3443,23 +3443,35 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   int currentQuestion = 0;
-  int? selectedAnswer;
-  int correctCount = 0;
+  late final List<int?> selectedAnswers;
+  bool isSubmitting = false;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedAnswers = List<int?>.filled(quizQuestions.length, null);
+  }
+
+  int? get selectedAnswer => selectedAnswers[currentQuestion];
 
   void selectAnswer(int index) {
+    if (index < 0 || index >= quizQuestions[currentQuestion].options.length) {
+      return;
+    }
+
     setState(() {
-      selectedAnswer = index;
+      selectedAnswers[currentQuestion] = index;
     });
   }
 
   void nextQuestion() {
-    if (selectedAnswer == null) return;
-
-    if (selectedAnswer == quizQuestions[currentQuestion].correctAnswer) {
-      correctCount++;
-    }
+    if (isSubmitting || selectedAnswer == null) return;
 
     if (currentQuestion == quizQuestions.length - 1) {
+      isSubmitting = true;
+      final correctCount = quizQuestions.indexed
+          .where((entry) => selectedAnswers[entry.$1] == entry.$2.correctAnswer)
+          .length;
       final score = ((correctCount / quizQuestions.length) * 100).round();
 
       widget.onFinished(score);
@@ -3479,13 +3491,27 @@ class _QuizPageState extends State<QuizPage> {
     } else {
       setState(() {
         currentQuestion++;
-        selectedAnswer = null;
       });
     }
   }
 
+  void previousQuestion() {
+    if (currentQuestion == 0 || isSubmitting) return;
+
+    setState(() {
+      currentQuestion--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (quizQuestions.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Latihan NetPedia')),
+        body: const Center(child: Text('Belum ada soal kuis tersedia.')),
+      );
+    }
+
     final question = quizQuestions[currentQuestion];
     final progress = (currentQuestion + 1) / quizQuestions.length;
 
@@ -3627,23 +3653,35 @@ class _QuizPageState extends State<QuizPage> {
 
           const SizedBox(height: 15),
 
-          SizedBox(
-            height: 54,
-            child: FilledButton(
-              onPressed: selectedAnswer == null ? null : nextQuestion,
-              style: FilledButton.styleFrom(
-                backgroundColor: const Color(0xFF3155D9),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(17),
+          Row(
+            children: [
+              IconButton(
+                tooltip: 'Soal sebelumnya',
+                onPressed: currentQuestion == 0 ? null : previousQuestion,
+                icon: const Icon(Icons.arrow_back_rounded),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: SizedBox(
+                  height: 54,
+                  child: FilledButton(
+                    onPressed: selectedAnswer == null ? null : nextQuestion,
+                    style: FilledButton.styleFrom(
+                      backgroundColor: const Color(0xFF3155D9),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(17),
+                      ),
+                    ),
+                    child: Text(
+                      currentQuestion == quizQuestions.length - 1
+                          ? 'SELESAI'
+                          : 'SOAL BERIKUTNYA',
+                      style: const TextStyle(fontWeight: FontWeight.w800),
+                    ),
+                  ),
                 ),
               ),
-              child: Text(
-                currentQuestion == quizQuestions.length - 1
-                    ? 'SELESAI'
-                    : 'SOAL BERIKUTNYA',
-                style: const TextStyle(fontWeight: FontWeight.w800),
-              ),
-            ),
+            ],
           ),
         ],
       ),
