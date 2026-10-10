@@ -88,3 +88,37 @@ void main() {
 
     expect(favorites, contains('IPv4'));
   });
+
+  testWidgets('all term images stay contained in the mobile detail frame', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(320, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    for (final term in terms) {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TermDetailPage(
+            term: term,
+            isFavorite: false,
+            onFavorite: () {},
+          ),
+        ),
+      );
+      await tester.pump();
+
+      expect(tester.takeException(), isNull, reason: term.name);
+
+      final frame = find.byType(ClipRRect).first;
+      final frameSize = tester.getSize(frame);
+      expect(frameSize.width, 280, reason: term.name);
+      expect(frameSize.height, 190, reason: term.name);
+
+      final images = find.byType(Image);
+      if (images.evaluate().isNotEmpty) {
+        expect(tester.widget<Image>(images.first).fit, BoxFit.contain);
+      }
+    }
+  });

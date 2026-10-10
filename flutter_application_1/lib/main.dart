@@ -709,6 +709,84 @@ class _TermPhoto {
   });
 }
 
+String _localTermPhotoPath(String termName) {
+  final fileName = termName.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '_');
+  return 'assets/images/components/$fileName.jpg';
+}
+
+class _TermPhotoFrame extends StatelessWidget {
+  final Term term;
+  final _TermPhoto? photo;
+
+  const _TermPhotoFrame({required this.term, required this.photo});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 190,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(22),
+        child: _buildImage(context, useLocalAsset: true),
+      ),
+    );
+  }
+
+  Widget _buildImage(BuildContext context, {required bool useLocalAsset}) {
+    if (!useLocalAsset && photo == null) return _placeholder();
+
+    final ImageProvider imageProvider = useLocalAsset
+        ? AssetImage(_localTermPhotoPath(term.name))
+        : NetworkImage(photo!.url);
+
+    return Image(
+      image: imageProvider,
+      semanticLabel: photo?.description.isNotEmpty == true
+          ? photo!.description
+          : 'Ilustrasi ${term.name}',
+      width: double.infinity,
+      height: 190,
+      fit: BoxFit.contain,
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) return child;
+
+        return Container(
+          color: const Color(0xFFEAF0FF),
+          alignment: Alignment.center,
+          child: const CircularProgressIndicator(
+            color: Color(0xFF3155D9),
+          ),
+        );
+      },
+      errorBuilder: (context, error, stackTrace) {
+        if (useLocalAsset && photo != null) {
+          return _buildImage(context, useLocalAsset: false);
+        }
+        return _placeholder();
+      },
+    );
+  }
+
+  Widget _placeholder() {
+    return Container(
+      color: const Color(0xFFEAF0FF),
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(term.icon, size: 36, color: const Color(0xFF3155D9)),
+          const SizedBox(height: 8),
+          Text(
+            'Ilustrasi ${term.name} belum tersedia',
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Color(0xFF555D6D)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 const Map<String, _TermPhoto> _termPhotos = {
   'Router': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/ASUS_Wi-Fi_ROUTER_TUF_6500.jpg/960px-ASUS_Wi-Fi_ROUTER_TUF_6500.jpg',
@@ -2281,7 +2359,7 @@ class _TermDetailPageState extends State<TermDetailPage> {
     final category = categories.firstWhere(
       (c) => c.name == widget.term.category,
     );
-    final termPhoto = _termPhotos[widget.term.name]!;
+    final termPhoto = _termPhotos[widget.term.name];
     final relatedTerms = terms
         .where((term) => widget.term.relatedTermNames.contains(term.name))
         .toList();
@@ -2349,57 +2427,12 @@ class _TermDetailPageState extends State<TermDetailPage> {
 
           const SizedBox(height: 18),
 
-          ClipRRect(
-            borderRadius: BorderRadius.circular(22),
-            child: Image.network(
-              termPhoto.url,
-              semanticLabel: termPhoto.description.isEmpty
-                  ? 'Ilustrasi ${widget.term.name}.'
-                  : termPhoto.description,
-              height: 190,
-              width: double.infinity,
-              fit: BoxFit.contain,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-
-                return Container(
-                  height: 190,
-                  color: const Color(0xFFEAF0FF),
-                  alignment: Alignment.center,
-                  child: const CircularProgressIndicator(
-                    color: Color(0xFF3155D9),
-                  ),
-                );
-              },
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  height: 190,
-                  color: const Color(0xFFEAF0FF),
-                  alignment: Alignment.center,
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.image_not_supported_outlined,
-                        size: 36,
-                        color: Color(0xFF3155D9),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Foto materi tidak dapat dimuat',
-                        style: TextStyle(color: Color(0xFF555D6D)),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          if (termPhoto.description.isNotEmpty)
+          _TermPhotoFrame(term: widget.term, photo: termPhoto),
+          if (termPhoto?.description.isNotEmpty ?? false)
             Padding(
               padding: const EdgeInsets.only(top: 7, left: 4, right: 4),
               child: Text(
-                termPhoto.description,
+                termPhoto!.description,
                 style: const TextStyle(
                   color: Color(0xFF555D6D),
                   fontSize: 12,
@@ -2407,13 +2440,14 @@ class _TermDetailPageState extends State<TermDetailPage> {
                 ),
               ),
             ),
-          Padding(
-            padding: const EdgeInsets.only(top: 7, left: 4, right: 4),
-            child: Text(
-              'Sumber: ${termPhoto.attribution} • Wikimedia Commons',
-              style: const TextStyle(color: Color(0xFF737A89), fontSize: 10),
+          if (termPhoto != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 7, left: 4, right: 4),
+              child: Text(
+                'Sumber: ${termPhoto.attribution} • Wikimedia Commons',
+                style: const TextStyle(color: Color(0xFF737A89), fontSize: 10),
+              ),
             ),
-          ),
 
           const SizedBox(height: 22),
 
