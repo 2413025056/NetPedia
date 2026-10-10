@@ -285,6 +285,78 @@ void main() {
     expect(find.byIcon(Icons.bookmark_border_rounded), findsOneWidget);
   });
 
+  testWidgets('progress shows counts and percentage from current state', (
+    WidgetTester tester,
+  ) async {
+    final studiedTerms = <String>{terms.first.name, terms.last.name};
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: ProgressPage(
+          studiedTerms: studiedTerms,
+          favoriteCount: 3,
+          bestQuizScore: 85,
+          totalQuiz: 2,
+        ),
+      ),
+    );
+
+    final percentage = (studiedTerms.length / terms.length * 100).round();
+    expect(
+      find.text(
+        '${studiedTerms.length} dari ${terms.length} istilah telah dipelajari',
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('$percentage%'), findsOneWidget);
+    expect(find.text('3'), findsOneWidget);
+    expect(find.text('2'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('85%'), 250);
+    expect(find.text('85%'), findsOneWidget);
+    expect(find.text('Belum ada percobaan kuis.'), findsNothing);
+
+    await tester.scrollUntilVisible(find.text('Kategori yang Tersedia'), 250);
+    final category = categories.first;
+    final studiedInCategory = terms
+        .where(
+          (term) =>
+              term.category == category.name &&
+              studiedTerms.contains(term.name),
+        )
+        .length;
+    final totalInCategory = terms
+        .where((term) => term.category == category.name)
+        .length;
+    expect(
+      find.text('$studiedInCategory dari $totalInCategory istilah'),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('progress does not show a fabricated quiz score before a try', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: ProgressPage(
+          studiedTerms: const {},
+          favoriteCount: 0,
+          bestQuizScore: 0,
+          totalQuiz: 0,
+        ),
+      ),
+    );
+
+    expect(
+      find.text('0 dari ${terms.length} istilah telah dipelajari'),
+      findsOneWidget,
+    );
+    expect(find.text('0%'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('—'), 250);
+    expect(find.text('—'), findsOneWidget);
+    expect(find.text('Belum ada percobaan kuis.'), findsOneWidget);
+  });
+
   testWidgets('all term images stay contained in the mobile detail frame', (
     WidgetTester tester,
   ) async {

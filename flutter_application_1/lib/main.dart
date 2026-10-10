@@ -1354,7 +1354,7 @@ class _MainScreenState extends State<MainScreen> {
         onStudied: markStudied,
       ),
       ProgressPage(
-        studiedCount: studiedTerms.length,
+        studiedTerms: studiedTerms,
         favoriteCount: favorites.length,
         bestQuizScore: bestQuizScore,
         totalQuiz: totalQuiz,
@@ -2999,14 +2999,14 @@ class FavoritesPage extends StatelessWidget {
 // ============================================================
 
 class ProgressPage extends StatelessWidget {
-  final int studiedCount;
+  final Set<String> studiedTerms;
   final int favoriteCount;
   final int bestQuizScore;
   final int totalQuiz;
 
   const ProgressPage({
     super.key,
-    required this.studiedCount,
+    required this.studiedTerms,
     required this.favoriteCount,
     required this.bestQuizScore,
     required this.totalQuiz,
@@ -3014,8 +3014,11 @@ class ProgressPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final progress = studiedCount / terms.length;
+    final studiedCount = studiedTerms.length;
+    final totalTerms = terms.length;
+    final progress = totalTerms == 0 ? 0.0 : studiedCount / totalTerms;
     final percentage = (progress * 100).round();
+    final quizScore = totalQuiz == 0 ? '—' : '$bestQuizScore%';
 
     return SafeArea(
       child: ListView(
@@ -3135,13 +3138,21 @@ class ProgressPage extends StatelessWidget {
               Expanded(
                 child: _StatCard(
                   icon: Icons.emoji_events_rounded,
-                  value: '$bestQuizScore',
+                  value: quizScore,
                   label: 'Skor Terbaik',
                   color: const Color(0xFF0EA5A4),
                 ),
               ),
             ],
           ),
+
+          if (totalQuiz == 0) ...[
+            const SizedBox(height: 8),
+            const Text(
+              'Belum ada percobaan kuis.',
+              style: TextStyle(color: Color(0xFF737A89), fontSize: 12),
+            ),
+          ],
 
           const SizedBox(height: 25),
 
@@ -3158,10 +3169,12 @@ class ProgressPage extends StatelessWidget {
                 .toList();
 
             final studiedInCategory = categoryTerms
-                .where((term) => _containsStudied(term.name))
+                .where((term) => studiedTerms.contains(term.name))
                 .length;
 
-            final categoryProgress = studiedInCategory / categoryTerms.length;
+            final categoryProgress = categoryTerms.isEmpty
+                ? 0.0
+                : studiedInCategory / categoryTerms.length;
 
             return Padding(
               padding: const EdgeInsets.only(bottom: 12),
@@ -3176,12 +3189,6 @@ class ProgressPage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  bool _containsStudied(String name) {
-    // Progress kategori akan ditampilkan berdasarkan
-    // progress umum pada versi single-file ini.
-    return false;
   }
 }
 
