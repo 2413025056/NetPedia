@@ -417,13 +417,112 @@ void main() {
       ),
     );
 
-    await tester.tap(find.text('Coba Latihan Lagi'));
+    expect(find.text('ULANGI KUIS'), findsOneWidget);
+    expect(find.text('KEMBALI KE APLIKASI UTAMA'), findsOneWidget);
+    await tester.tap(find.text('ULANGI KUIS'));
     await tester.pumpAndSettle();
 
     expect(
       tester.widget<QuizPage>(find.byType(QuizPage)).onFinished,
       same(onFinished),
     );
+  });
+
+  testWidgets('quiz result shows final score and consistent answer totals', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(400, 900);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    const correct = 3;
+    const total = 5;
+    const incorrect = total - correct;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: QuizResultPage(
+          score: 60,
+          correct: correct,
+          total: total,
+          onFinished: (_) {},
+          questions: quizQuestions.take(total).toList(),
+        ),
+      ),
+    );
+
+    expect(find.text('60'), findsOneWidget);
+    expect(find.text('dari 100'), findsOneWidget);
+    expect(find.text('Bagus! Tingkatkan lagi pemahamanmu 💪'), findsOneWidget);
+    expect(find.text('Benar'), findsOneWidget);
+    expect(find.text('Salah'), findsOneWidget);
+    expect(find.text('Soal'), findsOneWidget);
+
+    final statsRow = find.ancestor(
+      of: find.text('Benar'),
+      matching: find.byType(Row),
+    );
+    expect(
+      find.descendant(of: statsRow, matching: find.text('$correct')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: statsRow, matching: find.text('$incorrect')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: statsRow, matching: find.text('$total')),
+      findsOneWidget,
+    );
+    expect(correct + incorrect, total);
+  });
+
+  testWidgets('return action goes back to the main app route', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(400, 900);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Builder(
+            builder: (context) => Column(
+              children: [
+                const Text('Aplikasi utama'),
+                TextButton(
+                  onPressed: () => Navigator.push<void>(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (_) => QuizResultPage(
+                        score: 60,
+                        correct: 3,
+                        total: 5,
+                        onFinished: (_) {},
+                        questions: quizQuestions.take(5).toList(),
+                      ),
+                    ),
+                  ),
+                  child: const Text('Buka hasil'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('Buka hasil'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('KEMBALI KE APLIKASI UTAMA'));
+    await tester.tap(find.text('KEMBALI KE APLIKASI UTAMA'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Aplikasi utama'), findsOneWidget);
+    expect(find.text('Latihan Selesai!'), findsNothing);
   });
 
   testWidgets('quiz result exposes explanations for the questions', (

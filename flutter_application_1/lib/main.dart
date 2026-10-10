@@ -3711,6 +3711,7 @@ class QuizResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final incorrect = total - correct;
     String message;
 
     if (score >= 80) {
@@ -3811,7 +3812,7 @@ class QuizResultPage extends StatelessWidget {
                                   icon: Icons.check_circle_outline,
                                 ),
                                 _ResultStat(
-                                  value: '${total - correct}',
+                                  value: '$incorrect',
                                   label: 'Salah',
                                   icon: Icons.cancel_outlined,
                                 ),
@@ -3839,9 +3840,12 @@ class QuizResultPage extends StatelessWidget {
                         width: double.infinity,
                         height: 53,
                         child: FilledButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
+                          onPressed: () => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => QuizPage(onFinished: onFinished),
+                            ),
+                          ),
                           style: FilledButton.styleFrom(
                             backgroundColor: const Color(0xFF3155D9),
                             shape: RoundedRectangleBorder(
@@ -3849,7 +3853,7 @@ class QuizResultPage extends StatelessWidget {
                             ),
                           ),
                           child: const Text(
-                            'KEMBALI KE NETPEDIA',
+                            'ULANGI KUIS',
                             style: TextStyle(fontWeight: FontWeight.w800),
                           ),
                         ),
@@ -3857,16 +3861,13 @@ class QuizResultPage extends StatelessWidget {
 
                       const SizedBox(height: 10),
 
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => QuizPage(onFinished: onFinished),
-                            ),
-                          );
-                        },
-                        child: const Text('Coba Latihan Lagi'),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 53,
+                        child: OutlinedButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('KEMBALI KE APLIKASI UTAMA'),
+                        ),
                       ),
                     ],
                   ),
