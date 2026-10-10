@@ -11,6 +11,43 @@ void main() {
     expect(find.text('MULAI BELAJAR'), findsOneWidget);
   });
 
+  testWidgets('categories show data-based descriptions and counts', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(400, 1800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: CategoriesPage(
+          favorites: {},
+          onFavorite: (_) {},
+          onStudied: (_) {},
+        ),
+      ),
+    );
+
+    for (final category in categories) {
+      final count = terms
+          .where((term) => term.category == category.name)
+          .length;
+      expect(find.text(category.description), findsOneWidget);
+      expect(find.text('$count materi istilah'), findsOneWidget);
+    }
+
+    await tester.tap(find.text(categories.first.name).first);
+    await tester.pumpAndSettle();
+    expect(find.text('Materi ${categories.first.name}'), findsOneWidget);
+    expect(
+      find.text(
+        '${terms.where((term) => term.category == categories.first.name).length} istilah tersedia untuk dipelajari.',
+      ),
+      findsOneWidget,
+    );
+  });
+
   testWidgets('term section icon opens its detail popup', (
     WidgetTester tester,
   ) async {

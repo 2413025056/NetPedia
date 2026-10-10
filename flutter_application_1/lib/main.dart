@@ -1616,13 +1616,16 @@ class DashboardPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             sliver: SliverToBoxAdapter(
               child: SizedBox(
-                height: 150,
+                height: 175,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: categories.length,
                   separatorBuilder: (_, __) => const SizedBox(width: 12),
                   itemBuilder: (context, index) {
                     final category = categories[index];
+                    final categoryTermCount = terms
+                        .where((term) => term.category == category.name)
+                        .length;
 
                     return InkWell(
                       borderRadius: BorderRadius.circular(20),
@@ -1647,10 +1650,11 @@ class DashboardPage extends StatelessWidget {
                               ),
                               child: Icon(category.icon, color: category.color),
                             ),
-                            const Spacer(),
+                            const SizedBox(height: 8),
                             Text(
                               category.name,
                               maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 fontWeight: FontWeight.w800,
                                 fontSize: 13,
@@ -1658,7 +1662,18 @@ class DashboardPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 3),
                             Text(
-                              '${terms.where((t) => t.category == category.name).length} istilah',
+                              category.description,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 10,
+                                height: 1.2,
+                                color: Color(0xFF737A89),
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              '$categoryTermCount istilah',
                               style: TextStyle(
                                 fontSize: 11,
                                 color: category.color,
