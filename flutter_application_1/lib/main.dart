@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+
+import 'progress_store.dart';
 
 void main() {
   runApp(const NetPediaApp());
@@ -1413,6 +1417,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final LocalProgressStore _progressStore = LocalProgressStore();
+  Future<void> _saveQueue = Future<void>.value();
   int selectedIndex = 0;
 
   final Set<String> favorites = {};
@@ -1420,6 +1426,70 @@ class _MainScreenState extends State<MainScreen> {
 
   int bestQuizScore = 0;
   int totalQuiz = 0;
+  bool _isLoadingProgress = true;
+  Object? _progressLoadError;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProgress();
+  }
+
+  Future<void> _loadProgress() async {
+    setState(() {
+      _isLoadingProgress = true;
+      _progressLoadError = null;
+    });
+
+    try {
+      final progress = await _progressStore.load();
+      if (!mounted) return;
+
+      final knownTermNames = terms.map((term) => term.name).toSet();
+      setState(() {
+        favorites
+          ..clear()
+          ..addAll(progress.favoriteTerms.where(knownTermNames.contains));
+        studiedTerms
+          ..clear()
+          ..addAll(progress.studiedTerms.where(knownTermNames.contains));
+        bestQuizScore = progress.bestQuizScore;
+        totalQuiz = progress.totalQuiz;
+        _isLoadingProgress = false;
+      });
+    } catch (error, stackTrace) {
+      debugPrint('Gagal memuat progress lokal: $error\n$stackTrace');
+      if (!mounted) return;
+      setState(() {
+        _progressLoadError = error;
+        _isLoadingProgress = false;
+      });
+    }
+  }
+
+  void _persistProgress() {
+    final snapshot = LocalProgressData(
+      favoriteTerms: Set<String>.of(favorites),
+      studiedTerms: Set<String>.of(studiedTerms),
+      bestQuizScore: bestQuizScore,
+      totalQuiz: totalQuiz,
+    );
+
+    _saveQueue = _saveQueue
+        .then((_) => _progressStore.save(snapshot))
+        .catchError((Object error, StackTrace stackTrace) {
+          debugPrint('Gagal menyimpan progress lokal: $error\n$stackTrace');
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  'Progress gagal disimpan di perangkat. Coba lagi.',
+                ),
+              ),
+            );
+          }
+        });
+  }
 
   void toggleFavorite(String termName) {
     setState(() {
@@ -1429,6 +1499,7 @@ class _MainScreenState extends State<MainScreen> {
         favorites.add(termName);
       }
     });
+    _persistProgress();
   }
 
   void markStudied(String termName) {
@@ -1436,6 +1507,7 @@ class _MainScreenState extends State<MainScreen> {
       setState(() {
         studiedTerms.add(termName);
       });
+      _persistProgress();
     }
   }
 
@@ -1446,10 +1518,55 @@ class _MainScreenState extends State<MainScreen> {
         bestQuizScore = score;
       }
     });
+    _persistProgress();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoadingProgress) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    if (_progressLoadError != null) {
+      return Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.error_outline,
+                  color: Color(0xFFB42318),
+                  size: 40,
+                ),
+                const SizedBox(height: 12),
+                const Text(
+                  'Progress lokal tidak dapat dibaca.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Data tidak dihapus. Periksa penyimpanan perangkat lalu coba lagi.',
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                FilledButton(
+                  onPressed: _loadProgress,
+                  child: const Text('COBA LAGI'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     final pages = [
       DashboardPage(
         favorites: favorites,

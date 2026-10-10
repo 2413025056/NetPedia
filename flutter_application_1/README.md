@@ -2,6 +2,15 @@
 
 A new Flutter project.
 
+## Offline data and progress
+
+Term content and quiz questions are bundled with the app and remain available
+offline. Favorites, learned terms, completed quiz count, and best quiz score are
+saved locally on the device using `shared_preferences`; they are not synced to
+an account or stored as individual quiz history. Uninstalling the app or
+clearing its device storage removes this progress. Some term illustrations are
+loaded from the network and may show a placeholder while offline.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

@@ -1,9 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
 
 import 'package:flutter_application_1/main.dart';
+import 'package:flutter_application_1/progress_store.dart';
 
 void main() {
+  test('local progress survives recreating the storage service', () async {
+    SharedPreferencesAsyncPlatform.instance =
+        InMemorySharedPreferencesAsync.empty();
+    addTearDown(() => SharedPreferencesAsyncPlatform.instance = null);
+    final firstStore = LocalProgressStore();
+    final progress = LocalProgressData(
+      favoriteTerms: {'Router', 'Switch'},
+      studiedTerms: {'Router'},
+      bestQuizScore: 80,
+      totalQuiz: 3,
+    );
+
+    await firstStore.save(progress);
+    final restored = await LocalProgressStore().load();
+
+    expect(restored.favoriteTerms, progress.favoriteTerms);
+    expect(restored.studiedTerms, progress.studiedTerms);
+    expect(restored.bestQuizScore, progress.bestQuizScore);
+    expect(restored.totalQuiz, progress.totalQuiz);
+  });
+
+  testWidgets('MainScreen restores locally saved progress', (
+    WidgetTester tester,
+  ) async {
+    SharedPreferencesAsyncPlatform.instance =
+        InMemorySharedPreferencesAsync.empty();
+    addTearDown(() => SharedPreferencesAsyncPlatform.instance = null);
+    await LocalProgressStore().save(
+      LocalProgressData(
+        favoriteTerms: {'Router'},
+        studiedTerms: {'Router', 'Switch'},
+        bestQuizScore: 80,
+        totalQuiz: 3,
+      ),
+    );
+
+    await tester.pumpWidget(const MaterialApp(home: MainScreen()));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Progress'));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text('2 dari ${terms.length} istilah telah dipelajari'),
+      findsOneWidget,
+    );
+    await tester.scrollUntilVisible(
+      find.text('80%'),
+      300,
+      scrollable: find.descendant(
+        of: find.byType(ProgressPage),
+        matching: find.byType(Scrollable),
+      ),
+    );
+    expect(find.text('80%'), findsOneWidget);
+    expect(find.text('3'), findsOneWidget);
+    expect(find.text('1'), findsOneWidget);
+
+    await tester.tap(find.byType(NavigationDestination).at(1));
+    await tester.pumpAndSettle();
+    expect(find.text('Router'), findsOneWidget);
+  });
+
   test('quiz questions are unique and have valid answers and explanations', () {
     final questionTexts = quizQuestions.map((question) => question.question);
 
