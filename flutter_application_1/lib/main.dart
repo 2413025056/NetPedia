@@ -3341,6 +3341,7 @@ class _QuizPageState extends State<QuizPage> {
             score: score,
             correct: correctCount,
             total: quizQuestions.length,
+            onFinished: widget.onFinished,
           ),
         ),
       );
@@ -3527,12 +3528,14 @@ class QuizResultPage extends StatelessWidget {
   final int score;
   final int correct;
   final int total;
+  final Function(int) onFinished;
 
   const QuizResultPage({
     super.key,
     required this.score,
     required this.correct,
     required this.total,
+    required this.onFinished,
   });
 
   @override
@@ -3673,7 +3676,7 @@ class QuizResultPage extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => QuizPage(onFinished: (_) {}),
+                        builder: (_) => QuizPage(onFinished: onFinished),
                       ),
                     );
                   },

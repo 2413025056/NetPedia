@@ -357,6 +357,36 @@ void main() {
     expect(find.text('Belum ada percobaan kuis.'), findsOneWidget);
   });
 
+  testWidgets('retry quiz keeps the result callback connected', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(400, 900);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    void onFinished(int _) {}
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: QuizResultPage(
+          score: 80,
+          correct: 4,
+          total: 5,
+          onFinished: onFinished,
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('Coba Latihan Lagi'));
+    await tester.pumpAndSettle();
+
+    expect(
+      tester.widget<QuizPage>(find.byType(QuizPage)).onFinished,
+      same(onFinished),
+    );
+  });
+
   testWidgets('all term images stay contained in the mobile detail frame', (
     WidgetTester tester,
   ) async {
