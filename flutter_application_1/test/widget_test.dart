@@ -114,6 +114,134 @@ void main() {
     expect(find.text('MULAI BELAJAR'), findsOneWidget);
   });
 
+  testWidgets(
+    'dashboard promotes learning actions and uses actual study state',
+    (WidgetTester tester) async {
+      tester.view.physicalSize = const Size(500, 1200);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final studiedTerms = {'Router'};
+      final studiedCallbacks = <String>[];
+      final recommendedTerm = terms.firstWhere(
+        (term) => !studiedTerms.contains(term.name),
+      );
+      var quizOpened = false;
+      var progressOpened = false;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: DashboardPage(
+              favorites: {},
+              studiedTerms: studiedTerms,
+              onFavorite: (_) {},
+              onStudied: studiedCallbacks.add,
+              onOpenCategory: (_) {},
+              onOpenQuiz: () => quizOpened = true,
+              onOpenProgress: () => progressOpened = true,
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Cari istilah...'), findsOneWidget);
+      expect(find.text('Mulai belajar'), findsOneWidget);
+      expect(find.text('Kategori'), findsOneWidget);
+
+      final dashboardScrollable = find
+          .descendant(
+            of: find.byType(DashboardPage),
+            matching: find.byType(Scrollable),
+          )
+          .first;
+      await tester.scrollUntilVisible(
+        find.text('Mulai kuis'),
+        250,
+        scrollable: dashboardScrollable,
+      );
+      await tester.tap(find.text('Mulai kuis'));
+      expect(quizOpened, isTrue);
+
+      await tester.tap(find.text('Progress Belajar'));
+      expect(progressOpened, isTrue);
+
+      await tester.scrollUntilVisible(
+        find.text('Belum dipelajari · ${recommendedTerm.category}'),
+        250,
+        scrollable: dashboardScrollable,
+      );
+      expect(find.text(recommendedTerm.name), findsOneWidget);
+      await tester.tap(
+        find.text('Belum dipelajari · ${recommendedTerm.category}'),
+      );
+      await tester.pumpAndSettle();
+      expect(studiedCallbacks, [recommendedTerm.name]);
+      expect(find.text(recommendedTerm.name), findsWidgets);
+    },
+  );
+
+  testWidgets('dashboard hides recommendation when all terms are studied', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: DashboardPage(
+            favorites: {},
+            studiedTerms: terms.map((term) => term.name).toSet(),
+            onFavorite: (_) {},
+            onStudied: (_) {},
+            onOpenCategory: (_) {},
+            onOpenQuiz: () {},
+            onOpenProgress: () {},
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Rekomendasi belajar'), findsNothing);
+  });
+
+  testWidgets('dashboard actions fit a narrow mobile viewport', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(320, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: DashboardPage(
+            favorites: {},
+            studiedTerms: {},
+            onFavorite: (_) {},
+            onStudied: (_) {},
+            onOpenCategory: (_) {},
+            onOpenQuiz: () {},
+            onOpenProgress: () {},
+          ),
+        ),
+      ),
+    );
+
+    await tester.scrollUntilVisible(
+      find.text('Mulai kuis'),
+      200,
+      scrollable: find
+          .descendant(
+            of: find.byType(DashboardPage),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    expect(tester.takeException(), isNull);
+    expect(find.text('Progress Belajar'), findsOneWidget);
+  });
+
   testWidgets('categories show data-based descriptions and counts', (
     WidgetTester tester,
   ) async {

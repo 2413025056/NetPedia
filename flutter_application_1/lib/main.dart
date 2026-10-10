@@ -1524,11 +1524,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     if (_isLoadingProgress) {
-      return const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     if (_progressLoadError != null) {
@@ -1594,6 +1590,11 @@ class _MainScreenState extends State<MainScreen> {
             ),
           );
         },
+        onOpenProgress: () {
+          setState(() {
+            selectedIndex = 2;
+          });
+        },
       ),
       FavoritesPage(
         favorites: favorites,
@@ -1652,6 +1653,7 @@ class DashboardPage extends StatelessWidget {
   final Function(String) onStudied;
   final Function(String) onOpenCategory;
   final VoidCallback onOpenQuiz;
+  final VoidCallback onOpenProgress;
 
   const DashboardPage({
     super.key,
@@ -1661,11 +1663,18 @@ class DashboardPage extends StatelessWidget {
     required this.onStudied,
     required this.onOpenCategory,
     required this.onOpenQuiz,
+    required this.onOpenProgress,
   });
 
   @override
   Widget build(BuildContext context) {
-    final progress = studiedTerms.length / terms.length;
+    final progress = terms.isEmpty ? 0.0 : studiedTerms.length / terms.length;
+    final unstudiedTerms = terms
+        .where((term) => !studiedTerms.contains(term.name))
+        .toList();
+    final recommendedTerm = unstudiedTerms.isEmpty
+        ? null
+        : unstudiedTerms.first;
 
     return SafeArea(
       child: CustomScrollView(
@@ -1752,7 +1761,7 @@ class DashboardPage extends StatelessWidget {
                           const SizedBox(height: 18),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 13,
+                              horizontal: 10,
                               vertical: 8,
                             ),
                             decoration: BoxDecoration(
@@ -1763,7 +1772,7 @@ class DashboardPage extends StatelessWidget {
                               '${studiedTerms.length} istilah sudah dipelajari',
                               style: const TextStyle(
                                 color: Colors.white,
-                                fontSize: 12,
+                                fontSize: 11,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -1771,11 +1780,11 @@ class DashboardPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 8),
                     const Icon(
                       Icons.school_rounded,
                       color: Colors.white,
-                      size: 72,
+                      size: 60,
                     ),
                   ],
                 ),
@@ -1813,9 +1822,12 @@ class DashboardPage extends StatelessWidget {
                     children: [
                       Icon(Icons.search_rounded, color: Color(0xFF687083)),
                       SizedBox(width: 12),
-                      Text(
-                        'Cari istilah...',
-                        style: TextStyle(color: Color(0xFF8A91A0)),
+                      Expanded(
+                        child: Text(
+                          'Cari istilah...',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: Color(0xFF8A91A0)),
+                        ),
                       ),
                     ],
                   ),
@@ -1824,9 +1836,98 @@ class DashboardPage extends StatelessWidget {
             ),
           ),
 
-          // Categories
+          // Learning cards
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+            sliver: SliverToBoxAdapter(
+              child: const Text(
+                'Mulai belajar',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+              ),
+            ),
+          ),
+
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            sliver: SliverToBoxAdapter(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final quizCard = _DashboardActionCard(
+                    title: 'Kuis',
+                    subtitle: 'Uji pemahamanmu',
+                    icon: Icons.quiz_outlined,
+                    color: const Color(0xFFFF8A4C),
+                    buttonText: 'Mulai kuis',
+                    onTap: onOpenQuiz,
+                  );
+                  final progressCard = _ProgressCard(
+                    progress: progress,
+                    studiedCount: studiedTerms.length,
+                    totalCount: terms.length,
+                    onTap: onOpenProgress,
+                  );
+
+                  if (constraints.maxWidth < 380) {
+                    return Column(
+                      children: [
+                        quizCard,
+                        const SizedBox(height: 12),
+                        progressCard,
+                      ],
+                    );
+                  }
+
+                  return Row(
+                    children: [
+                      Expanded(child: quizCard),
+                      const SizedBox(width: 12),
+                      Expanded(child: progressCard),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+
+          if (recommendedTerm != null) ...[
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(20, 24, 20, 10),
+              sliver: SliverToBoxAdapter(
+                child: const Text(
+                  'Rekomendasi belajar',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              sliver: SliverToBoxAdapter(
+                child: _RecommendedTermCard(
+                  term: recommendedTerm,
+                  onTap: () {
+                    onStudied(recommendedTerm.name);
+                    Navigator.push<void>(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (_) => TermDetailPage(
+                          term: recommendedTerm,
+                          isFavorite: favorites.contains(recommendedTerm.name),
+                          onFavorite: () => onFavorite(recommendedTerm.name),
+                          favorites: favorites,
+                          onFavoriteByName: onFavorite,
+                          onStudied: onStudied,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+
+          // Categories
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(20, 24, 20, 10),
             sliver: SliverToBoxAdapter(
               child: Row(
                 children: [
@@ -1937,48 +2038,6 @@ class DashboardPage extends StatelessWidget {
             ),
           ),
 
-          // Learning cards
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(20, 25, 20, 10),
-            sliver: SliverToBoxAdapter(
-              child: Row(
-                children: [
-                  const Expanded(
-                    child: Text(
-                      'Belajar & Latihan',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            sliver: SliverToBoxAdapter(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: _DashboardActionCard(
-                      title: 'Latihan',
-                      subtitle: 'Uji pemahamanmu',
-                      icon: Icons.quiz_outlined,
-                      color: const Color(0xFFFF8A4C),
-                      buttonText: 'Mulai Latihan',
-                      onTap: onOpenQuiz,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(child: _ProgressCard(progress: progress)),
-                ],
-              ),
-            ),
-          ),
-
           // Favorite
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(20, 25, 20, 10),
@@ -2053,6 +2112,72 @@ class DashboardPage extends StatelessWidget {
 // ============================================================
 // DASHBOARD WIDGETS
 // ============================================================
+
+class _RecommendedTermCard extends StatelessWidget {
+  final Term term;
+  final VoidCallback onTap;
+
+  const _RecommendedTermCard({required this.term, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      label: 'Rekomendasi belajar: ${term.name}, ${term.category}',
+      hint: 'Buka materi istilah',
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: const Color(0xFFE2E6EF)),
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 46,
+                height: 46,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE8EDFF),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(term.icon, color: const Color(0xFF3155D9)),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      term.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      'Belum dipelajari · ${term.category}',
+                      style: const TextStyle(
+                        color: Color(0xFF737A89),
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              const Icon(Icons.arrow_forward_rounded, color: Color(0xFF3155D9)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class _DashboardActionCard extends StatelessWidget {
   final String title;
@@ -2132,61 +2257,96 @@ class _DashboardActionCard extends StatelessWidget {
 
 class _ProgressCard extends StatelessWidget {
   final double progress;
+  final int studiedCount;
+  final int totalCount;
+  final VoidCallback onTap;
 
-  const _ProgressCard({required this.progress});
+  const _ProgressCard({
+    required this.progress,
+    required this.studiedCount,
+    required this.totalCount,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     final percentage = (progress * 100).round();
 
-    return Container(
-      height: 175,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
+    return Semantics(
+      button: true,
+      label:
+          'Progress belajar: $studiedCount dari $totalCount istilah, $percentage persen',
+      hint: 'Buka ringkasan progress',
+      child: InkWell(
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE2E6EF)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Progress Belajar',
-            style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15),
+        onTap: onTap,
+        child: Container(
+          height: 175,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: const Color(0xFFE2E6EF)),
           ),
-          const Spacer(),
-          Center(
-            child: SizedBox(
-              width: 68,
-              height: 68,
-              child: Stack(
-                alignment: Alignment.center,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
                 children: [
-                  CircularProgressIndicator(
-                    value: progress,
-                    strokeWidth: 7,
-                    backgroundColor: const Color(0xFFE8EBF1),
-                    color: const Color(0xFF3155D9),
-                  ),
-                  Text(
-                    '$percentage%',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14,
+                  Expanded(
+                    child: Text(
+                      'Progress Belajar',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 14,
+                      ),
                     ),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_rounded,
+                    size: 16,
+                    color: Color(0xFF737A89),
                   ),
                 ],
               ),
-            ),
+              const Spacer(),
+              Center(
+                child: SizedBox(
+                  width: 68,
+                  height: 68,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        value: progress,
+                        strokeWidth: 7,
+                        backgroundColor: const Color(0xFFE8EBF1),
+                        color: const Color(0xFF3155D9),
+                      ),
+                      Text(
+                        '$percentage%',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const Spacer(),
+              Center(
+                child: Text(
+                  '$studiedCount / $totalCount istilah',
+                  style: const TextStyle(
+                    color: Color(0xFF737A89),
+                    fontSize: 11,
+                  ),
+                ),
+              ),
+            ],
           ),
-          const Spacer(),
-          Center(
-            child: Text(
-              '${(progress * terms.length).round()} / ${terms.length} istilah',
-              style: const TextStyle(color: Color(0xFF737A89), fontSize: 11),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -2997,9 +3157,7 @@ class _SearchPageState extends State<SearchPage> {
         term.abbreviation,
         term.definition,
         term.category,
-      ].any(
-        (field) => _normalizeSearchText(field).contains(normalizedQuery),
-      );
+      ].any((field) => _normalizeSearchText(field).contains(normalizedQuery));
     }).toList();
 
     return Scaffold(
@@ -3124,10 +3282,8 @@ class _SearchPageState extends State<SearchPage> {
   }
 }
 
-String _normalizeSearchText(String value) => value
-    .toLowerCase()
-    .trim()
-    .replaceAll(RegExp(r'\s+'), ' ');
+String _normalizeSearchText(String value) =>
+    value.toLowerCase().trim().replaceAll(RegExp(r'\s+'), ' ');
 
 // ============================================================
 // FAVORITES PAGE
