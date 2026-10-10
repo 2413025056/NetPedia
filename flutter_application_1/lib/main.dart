@@ -63,6 +63,8 @@ class Term {
   final String explanation;
   final String example;
   final IconData icon;
+  final List<String> relatedTermNames;
+  final String studyTip;
 
   const Term({
     required this.name,
@@ -72,6 +74,8 @@ class Term {
     required this.explanation,
     required this.example,
     required this.icon,
+    this.relatedTermNames = const [],
+    this.studyTip = '',
   });
 }
 
@@ -163,6 +167,8 @@ const List<Term> terms = [
     explanation: 'Fungsi router adalah memilih jalur agar data sampai ke jaringan tujuan. Router membaca alamat IP tujuan pada paket data, lalu meneruskannya melalui jalur yang sesuai.',
     example: 'Di rumah, router menghubungkan jaringan Wi-Fi keluarga ke internet dan meneruskan permintaan dari ponsel ke layanan yang dibuka.',
     icon: Icons.router,
+    relatedTermNames: ['Switch', 'IP Address', 'Default Gateway'],
+    studyTip: 'Ikuti perjalanan paket: router meneruskan data antarjaringan, sedangkan switch menghubungkan perangkat dalam satu LAN.',
   ),
 
   Term(
@@ -173,6 +179,8 @@ const List<Term> terms = [
     explanation: 'Switch mempelajari alamat MAC perangkat yang terhubung pada setiap port. Saat menerima data, switch meneruskannya ke port tujuan jika alamatnya sudah diketahui, sehingga data tidak perlu dikirim ke semua perangkat.',
     example: 'Komputer, printer, dan server di laboratorium sekolah dapat dihubungkan ke switch agar saling bertukar data.',
     icon: Icons.hub_outlined,
+    relatedTermNames: ['Router', 'Hub', 'MAC Address'],
+    studyTip: 'Bedakan switch dan hub: switch meneruskan data ke port tujuan berdasarkan alamat MAC, sedangkan hub menyalinnya ke port lain.',
   ),
 
   Term(
@@ -193,6 +201,7 @@ const List<Term> terms = [
     explanation: 'Access Point memancarkan dan menerima sinyal Wi-Fi, lalu menjembatani komunikasi perangkat nirkabel dengan jaringan yang terhubung, biasanya melalui kabel ke switch atau router.',
     example: 'Sekolah dapat memasang access point di ruang kelas agar siswa dan guru terhubung ke jaringan sekolah melalui Wi-Fi.',
     icon: Icons.wifi,
+    relatedTermNames: ['Router', 'NIC', 'DHCP'],
   ),
 
   Term(
@@ -417,6 +426,8 @@ const List<Term> terms = [
     explanation: 'IP Address membantu perangkat dan router mengetahui asal data dan jaringan tujuannya. Alamat ini dapat diberikan otomatis oleh DHCP atau diatur manual. Alamat IP dapat berubah, dan tidak sama dengan MAC Address.',
     example: 'Saat ponsel membuka situs, paket data memakai alamat IP ponsel sebagai sumber dan alamat IP layanan sebagai tujuan.',
     icon: Icons.location_on,
+    relatedTermNames: ['IPv4', 'Subnet Mask', 'Default Gateway', 'MAC Address'],
+    studyTip: 'IP mengidentifikasi antarmuka pada jaringan; MAC dipakai untuk pengiriman lokal. Keduanya punya fungsi berbeda.',
   ),
 
   Term(
@@ -427,6 +438,7 @@ const List<Term> terms = [
     explanation: 'IPv4 memberi alamat sumber dan tujuan pada paket. Setiap angka pada penulisannya mewakili 8 bit; alamat dan subnet mask membantu perangkat menentukan apakah tujuan berada di jaringan lokal.',
     example: 'Laptop dapat menerima IPv4 lokal 192.168.1.10 dari router rumah melalui DHCP.',
     icon: Icons.pin_outlined,
+    relatedTermNames: ['IP Address', 'IPv6', 'Subnet Mask'],
   ),
 
   Term(
@@ -447,6 +459,7 @@ const List<Term> terms = [
     explanation: 'Switch menggunakan alamat MAC tujuan untuk meneruskan bingkai ke perangkat yang sesuai pada LAN. MAC Address berbeda dari IP Address dan pada beberapa perangkat dapat diubah atau diacak oleh sistem operasi.',
     example: 'Saat komputer mengirim data ke printer yang berada di LAN yang sama, alamat MAC printer digunakan untuk mengantarkan bingkai lokal tersebut.',
     icon: Icons.fingerprint,
+    relatedTermNames: ['IP Address', 'Switch', 'NIC'],
   ),
 
   Term(
@@ -457,6 +470,8 @@ const List<Term> terms = [
     explanation: 'Perangkat memakai IP Address bersama subnet mask untuk memeriksa apakah tujuan berada pada subnet yang sama. Jika tidak, paket dikirim ke default gateway.',
     example: 'Dengan IP 192.168.1.10 dan subnet mask 255.255.255.0, komputer dapat mengenali 192.168.1.20 sebagai alamat dalam subnet lokal yang sama.',
     icon: Icons.grid_3x3,
+    relatedTermNames: ['IPv4', 'Network Address', 'Broadcast Address', 'Default Gateway'],
+    studyTip: 'Gunakan IP dan subnet mask bersama-sama untuk menentukan apakah alamat tujuan berada di subnet yang sama.',
   ),
 
   Term(
@@ -467,6 +482,7 @@ const List<Term> terms = [
     explanation: 'Perangkat mengirim paket ke default gateway ketika alamat tujuan tidak berada di subnet lokal. Gateway kemudian meneruskan paket sesuai rute yang tersedia. Istilah “gateway” pada pengaturan dasar perangkat sering merujuk pada default gateway.',
     example: 'Pada Wi-Fi rumah, ponsel memakai alamat IP router sebagai default gateway untuk mencapai situs di internet.',
     icon: Icons.exit_to_app,
+    relatedTermNames: ['Router', 'IP Address', 'Subnet Mask'],
   ),
 
   Term(
@@ -500,6 +516,8 @@ const List<Term> terms = [
     explanation: 'Saat bergabung ke jaringan, perangkat meminta konfigurasi kepada server DHCP. Server memberikan konfigurasi untuk masa sewa tertentu agar alamat dapat dikelola dan digunakan tanpa mengatur setiap perangkat secara manual.',
     example: 'Ketika laptop siswa tersambung ke Wi-Fi sekolah, DHCP dapat memberikan IP Address dan gateway secara otomatis.',
     icon: Icons.settings_ethernet,
+    relatedTermNames: ['IP Address', 'Subnet Mask', 'Default Gateway'],
+    studyTip: 'Ingat DHCP sebagai pemberi konfigurasi otomatis: alamat IP, subnet mask, dan gateway biasanya didapat dalam satu proses.',
   ),
 
   Term(
@@ -510,6 +528,8 @@ const List<Term> terms = [
     explanation: 'Perangkat meminta resolver DNS mencari alamat IP untuk nama domain. Setelah memperoleh jawaban, perangkat dapat mencoba menghubungi server tujuan. DNS membantu pengguna memakai nama yang mudah diingat.',
     example: 'Saat mengetik nama situs di browser, DNS membantu mencari alamat IP yang perlu dihubungi browser.',
     icon: Icons.dns_outlined,
+    relatedTermNames: ['IP Address', 'Web Server', 'HTTP'],
+    studyTip: 'DNS mencari alamat berdasarkan nama domain; setelah alamat ditemukan, browser tetap perlu menghubungi server web.',
   ),
 
   Term(
@@ -520,6 +540,8 @@ const List<Term> terms = [
     explanation: 'TCP memeriksa data yang diterima dan dapat mengirim ulang bagian yang hilang. Karena itu TCP cocok untuk komunikasi yang membutuhkan data lengkap dan berurutan, meskipun pengaturan ini menambah proses komunikasi.',
     example: 'Unduhan berkas melalui jaringan umumnya memakai TCP agar bagian-bagian berkas dapat diterima dan disusun dengan benar.',
     icon: Icons.compare_arrows,
+    relatedTermNames: ['UDP', 'HTTP', 'HTTPS'],
+    studyTip: 'Bandingkan kebutuhan aplikasi: TCP mengutamakan data lengkap dan berurutan, sedangkan UDP mengurangi proses pengiriman.',
   ),
 
   Term(
@@ -530,6 +552,7 @@ const List<Term> terms = [
     explanation: 'UDP memiliki proses pengiriman yang sederhana dan tidak menunggu konfirmasi penerimaan dari penerima. Aplikasi dapat memilih UDP ketika pengiriman cepat atau jeda kecil lebih penting, lalu menangani kehilangan data bila diperlukan.',
     example: 'Sebagian aplikasi panggilan suara atau video langsung dapat menggunakan UDP agar percakapan tidak terlalu tertunda; aplikasi biasanya mengelola dampak paket yang hilang.',
     icon: Icons.flash_on_outlined,
+    relatedTermNames: ['TCP', 'Latency', 'Packet Loss'],
   ),
 
   Term(
@@ -540,6 +563,7 @@ const List<Term> terms = [
     explanation: 'Browser mengirim permintaan, misalnya meminta halaman, lalu server mengirimkan balasan. HTTP biasa tidak mengenkripsi data, sehingga informasi sensitif lebih baik dikirim melalui HTTPS.',
     example: 'Browser meminta halaman informasi dari web server menggunakan HTTP saat membuka layanan yang tidak memakai HTTPS.',
     icon: Icons.http,
+    relatedTermNames: ['HTTPS', 'DNS', 'Web Server'],
   ),
 
   Term(
@@ -550,6 +574,8 @@ const List<Term> terms = [
     explanation: 'Browser memeriksa sertifikat server lalu membuat koneksi TLS sebelum bertukar data. HTTPS melindungi data selama perjalanan, tetapi tidak menjamin bahwa semua isi situs pasti benar atau aman.',
     example: 'Saat siswa masuk ke portal sekolah melalui HTTPS, kata sandi dienkripsi ketika dikirim antara browser dan server.',
     icon: Icons.lock_outline,
+    relatedTermNames: ['HTTP', 'Enkripsi', 'Web Server'],
+    studyTip: 'HTTPS melindungi komunikasi dengan TLS; tetap periksa alamat situs karena enkripsi tidak menjamin isi situs dapat dipercaya.',
   ),
 
   Term(
@@ -600,6 +626,8 @@ const List<Term> terms = [
     explanation: 'Jika menerima balasan, ping biasanya menampilkan waktu bolak-balik (round-trip time) dan jumlah paket yang dibalas. Ping berguna untuk pemeriksaan awal, tetapi balasan yang gagal belum tentu berarti perangkat mati karena ICMP dapat dibatasi; balasan yang berhasil juga tidak memastikan semua layanan pada perangkat itu berfungsi.',
     example: 'Siswa dapat menjalankan ping ke alamat gateway sekolah untuk memeriksa apakah komputer mendapat balasan dari router lokal.',
     icon: Icons.network_ping,
+    relatedTermNames: ['Default Gateway', 'Packet Loss', 'Latency'],
+    studyTip: 'Gunakan ping sebagai pemeriksaan awal, lalu uji layanan yang dibutuhkan karena balasan ping saja tidak membuktikan semua layanan aktif.',
   ),
 
   Term(
@@ -610,6 +638,7 @@ const List<Term> terms = [
     explanation: 'Packet loss dapat terlihat sebagai paket yang tidak mendapat balasan saat pengujian atau sebagai suara/video tersendat dan koneksi yang tidak stabil. Penyebabnya dapat beragam, misalnya gangguan sinyal, kabel atau port bermasalah, perangkat yang kelebihan beban, maupun kemacetan jaringan; pengukuran saja belum menentukan penyebabnya.',
     example: 'Jika dari 20 permintaan ping hanya 18 yang mendapat balasan, terdapat 2 permintaan yang tidak mendapat balasan selama pengujian itu; periksa jalur dan ulangi tes sebelum menyimpulkan penyebabnya.',
     icon: Icons.signal_wifi_statusbar_connected_no_internet_4,
+    relatedTermNames: ['Ping', 'Latency', 'Kepadatan Lalu Lintas Jaringan'],
   ),
 
   Term(
@@ -620,6 +649,8 @@ const List<Term> terms = [
     explanation: 'Latency dipengaruhi oleh jarak, jalur, pemrosesan perangkat, dan antrean pada jaringan. Hasil ping umumnya menunjukkan waktu pergi-pulang (RTT), bukan waktu satu arah. Latency tinggi dapat terasa sebagai jeda saat membuka layanan interaktif meskipun koneksi tetap tersambung.',
     example: 'Saat bermain gim melalui internet, latency yang tinggi dapat membuat aksi pemain tampil terlambat dibandingkan saat tombol ditekan.',
     icon: Icons.timer_outlined,
+    relatedTermNames: ['Ping', 'Bandwidth', 'Packet Loss'],
+    studyTip: 'Latency adalah waktu tunda, bukan kapasitas jalur. Ping biasanya menampilkan waktu pergi-pulang (RTT).',
   ),
 
   Term(
@@ -650,6 +681,8 @@ const List<Term> terms = [
     explanation: 'Bandwidth menggambarkan kapasitas jalur, bukan jaminan kecepatan yang selalu diterima satu pengguna. Kecepatan aktual juga dipengaruhi kualitas koneksi, perangkat, layanan tujuan, dan banyaknya pengguna yang berbagi jalur.',
     example: 'Jika koneksi internet sekolah digunakan banyak kelas untuk mengunduh video bersamaan, kapasitas bandwidth dibagi di antara lalu lintas yang aktif.',
     icon: Icons.speed,
+    relatedTermNames: ['Latency', 'Kepadatan Lalu Lintas Jaringan', 'Packet Loss'],
+    studyTip: 'Bandwidth adalah kapasitas maksimum jalur, bukan kecepatan yang selalu diterima satu pengguna.',
   ),
 
   Term(
@@ -660,6 +693,7 @@ const List<Term> terms = [
     explanation: 'Saat jalur atau perangkat jaringan menerima lebih banyak data daripada yang dapat diteruskan, data dapat mengantre. Antrean yang panjang dapat menambah latency; jika antrean penuh, sebagian paket dapat dibuang dan terjadi packet loss. Kondisi ini berbeda dari gangguan pada satu perangkat atau kabel.',
     example: 'Ketika banyak siswa mengakses video daring pada jam yang sama, jaringan sekolah dapat terasa lambat karena lalu lintas menumpuk pada jalur internet bersama.',
     icon: Icons.traffic_outlined,
+    relatedTermNames: ['Bandwidth', 'Latency', 'Packet Loss'],
   ),
 ];
 
@@ -1604,6 +1638,9 @@ class DashboardPage extends StatelessWidget {
                                     term: term,
                                     isFavorite: favorites.contains(term.name),
                                     onFavorite: () => onFavorite(term.name),
+                                    favorites: favorites,
+                                    onFavoriteByName: onFavorite,
+                                    onStudied: onStudied,
                                   ),
                                 ),
                               );
@@ -2028,6 +2065,9 @@ class CategoryTermsPage extends StatelessWidget {
                         term: term,
                         isFavorite: favorites.contains(term.name),
                         onFavorite: () => onFavorite(term.name),
+                        favorites: favorites,
+                        onFavoriteByName: onFavorite,
+                        onStudied: onStudied,
                       ),
                     ),
                   );
@@ -2144,12 +2184,18 @@ class TermDetailPage extends StatefulWidget {
   final Term term;
   final bool isFavorite;
   final VoidCallback onFavorite;
+  final Set<String> favorites;
+  final ValueChanged<String>? onFavoriteByName;
+  final ValueChanged<String>? onStudied;
 
   const TermDetailPage({
     super.key,
     required this.term,
     required this.isFavorite,
     required this.onFavorite,
+    this.favorites = const {},
+    this.onFavoriteByName,
+    this.onStudied,
   });
 
   @override
@@ -2166,7 +2212,12 @@ class _TermDetailPageState extends State<TermDetailPage> {
   }
 
   void favorite() {
-    widget.onFavorite();
+    final onFavoriteByName = widget.onFavoriteByName;
+    if (onFavoriteByName == null) {
+      widget.onFavorite();
+    } else {
+      onFavoriteByName(widget.term.name);
+    }
     setState(() {
       isFavorite = !isFavorite;
     });
@@ -2178,6 +2229,9 @@ class _TermDetailPageState extends State<TermDetailPage> {
       (c) => c.name == widget.term.category,
     );
     final termPhoto = _termPhotos[widget.term.name]!;
+    final relatedTerms = terms
+        .where((term) => widget.term.relatedTermNames.contains(term.name))
+        .toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -2356,6 +2410,68 @@ class _TermDetailPageState extends State<TermDetailPage> {
               widget.term.example,
             ),
           ),
+
+          if (relatedTerms.isNotEmpty) ...[
+            const SizedBox(height: 15),
+            _DetailSection(
+              icon: Icons.device_hub_outlined,
+              title: 'Istilah Terkait',
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                children: relatedTerms.map((relatedTerm) {
+                  return ActionChip(
+                    avatar: const Icon(Icons.menu_book_outlined, size: 17),
+                    label: Text(relatedTerm.name),
+                    onPressed: () {
+                      widget.onStudied?.call(relatedTerm.name);
+                      Navigator.push<void>(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (_) => TermDetailPage(
+                            term: relatedTerm,
+                            isFavorite: widget.favorites.contains(
+                              relatedTerm.name,
+                            ),
+                            onFavorite: () {},
+                            favorites: widget.favorites,
+                            onFavoriteByName: widget.onFavoriteByName,
+                            onStudied: widget.onStudied,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+              onIconTap: () => _showDetailPopup(
+                context,
+                'Istilah Terkait',
+                relatedTerms.map((term) => term.name).join(', '),
+              ),
+            ),
+          ],
+
+          if (widget.term.studyTip.isNotEmpty) ...[
+            const SizedBox(height: 15),
+            _DetailSection(
+              icon: Icons.tips_and_updates_outlined,
+              title: 'Tips Belajar',
+              child: Text(
+                widget.term.studyTip,
+                style: const TextStyle(
+                  fontSize: 14,
+                  height: 1.6,
+                  color: Color(0xFF46516A),
+                ),
+              ),
+              onIconTap: () => _showDetailPopup(
+                context,
+                'Tips Belajar',
+                widget.term.studyTip,
+              ),
+            ),
+          ],
 
           const SizedBox(height: 20),
 
@@ -2592,6 +2708,9 @@ class _SearchPageState extends State<SearchPage> {
                                   onFavorite: () {
                                     widget.onFavorite(term.name);
                                   },
+                                  favorites: widget.favorites,
+                                  onFavoriteByName: widget.onFavorite,
+                                  onStudied: widget.onStudied,
                                 ),
                               ),
                             );
@@ -2701,6 +2820,11 @@ class FavoritesPage extends StatelessWidget {
                                   term: term,
                                   isFavorite: true,
                                   onFavorite: () => onFavorite(term.name),
+                                  favorites: favoriteTerms
+                                      .map((favoriteTerm) => favoriteTerm.name)
+                                      .toSet(),
+                                  onFavoriteByName: onFavorite,
+                                  onStudied: onStudied,
                                 ),
                               ),
                             );

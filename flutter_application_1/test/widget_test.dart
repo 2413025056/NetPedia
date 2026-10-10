@@ -38,3 +38,50 @@ void main() {
     );
   });
 }
+
+  testWidgets('related terms open their detail and retain favorite actions', (
+    WidgetTester tester,
+  ) async {
+    final term = terms.firstWhere((term) => term.name == 'IP Address');
+    final relatedTerm = terms.firstWhere((term) => term.name == 'IPv4');
+    final favorites = <String>{};
+
+    for (final term in terms) {
+      for (final relatedName in term.relatedTermNames) {
+        expect(
+          terms.any((candidate) => candidate.name == relatedName),
+          isTrue,
+          reason: '${term.name} references missing term $relatedName',
+        );
+      }
+    }
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: TermDetailPage(
+          term: term,
+          isFavorite: false,
+          onFavorite: () {},
+          favorites: favorites,
+          onFavoriteByName: (name) {
+            if (!favorites.add(name)) favorites.remove(name);
+          },
+        ),
+      ),
+    );
+
+    expect(find.text('Tips Belajar'), findsOneWidget);
+
+    final relatedChip = find.widgetWithText(ActionChip, 'IPv4');
+    await tester.ensureVisible(relatedChip);
+    await tester.tap(relatedChip);
+    await tester.pumpAndSettle();
+
+    expect(find.text(relatedTerm.definition), findsOneWidget);
+    final favoriteButton = find.text('Simpan ke Favorit');
+    await tester.ensureVisible(favoriteButton);
+    await tester.tap(favoriteButton);
+    await tester.pump();
+
+    expect(favorites, contains('IPv4'));
+  });
