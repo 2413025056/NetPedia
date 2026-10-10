@@ -630,6 +630,9 @@ void main() {
           : 'SOAL BERIKUTNYA';
       await tester.ensureVisible(find.text(actionText));
       await tester.tap(find.text(actionText));
+      if (questionIndex == quizQuestions.length - 1) {
+        await tester.tap(find.text(actionText));
+      }
       await tester.pumpAndSettle();
     }
 
@@ -639,6 +642,38 @@ void main() {
     expect(scores, [expectedScore]);
     expect(find.text('Latihan Selesai!'), findsOneWidget);
     expect(find.text('$expectedCorrect'), findsOneWidget);
+  });
+
+  testWidgets('leaving an unfinished quiz does not report a completed try', (
+    WidgetTester tester,
+  ) async {
+    final scores = <int>[];
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Builder(
+            builder: (context) => TextButton(
+              onPressed: () => Navigator.push<void>(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (_) => QuizPage(onFinished: scores.add),
+                ),
+              ),
+              child: const Text('Buka kuis'),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('Buka kuis'));
+    await tester.pumpAndSettle();
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+
+    expect(scores, isEmpty);
+    expect(find.text('Buka kuis'), findsOneWidget);
   });
 
   testWidgets('all term images stay contained in the mobile detail frame', (
