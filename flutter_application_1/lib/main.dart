@@ -83,11 +83,13 @@ class QuizQuestion {
   final String question;
   final List<String> options;
   final int correctAnswer;
+  final String explanation;
 
   const QuizQuestion({
     required this.question,
     required this.options,
     required this.correctAnswer,
+    required this.explanation,
   });
 }
 
@@ -1060,42 +1062,170 @@ const List<QuizQuestion> quizQuestions = [
     question: 'Perangkat yang digunakan untuk menghubungkan beberapa jaringan adalah...',
     options: ['Switch', 'Router', 'Hub', 'Repeater'],
     correctAnswer: 1,
+    explanation: 'Router memilih jalur dan meneruskan paket menuju jaringan tujuan yang berbeda.',
   ),
   QuizQuestion(
     question: 'Alamat yang digunakan untuk mengidentifikasi perangkat dalam jaringan disebut...',
     options: ['IP Address', 'DNS', 'HTTP', 'FTP'],
     correctAnswer: 0,
+    explanation: 'IP Address adalah alamat logis pada antarmuka yang membantu pengiriman data melalui jaringan IP.',
   ),
   QuizQuestion(
     question: 'Perangkat yang menghubungkan beberapa komputer dalam jaringan lokal adalah...',
     options: ['Router', 'Switch', 'Modem', 'DNS'],
     correctAnswer: 1,
+    explanation: 'Switch menghubungkan perangkat dalam LAN dan meneruskan bingkai berdasarkan alamat MAC.',
   ),
   QuizQuestion(
     question: 'Layanan yang memberikan IP Address secara otomatis adalah...',
     options: ['DNS', 'HTTP', 'DHCP', 'FTP'],
     correctAnswer: 2,
+    explanation: 'DHCP membagikan konfigurasi jaringan secara otomatis, termasuk IP Address dan gateway.',
   ),
   QuizQuestion(
     question:
         'Layanan yang menerjemahkan nama domain menjadi alamat IP adalah...',
     options: ['DHCP', 'DNS', 'VPN', 'FTP'],
     correctAnswer: 1,
+    explanation:
+        'DNS membantu mencari alamat IP berdasarkan nama domain yang diminta.',
   ),
   QuizQuestion(
     question: 'Protokol yang digunakan untuk transfer file adalah...',
     options: ['FTP', 'HTTP', 'DNS', 'DHCP'],
     correctAnswer: 0,
+    explanation: 'FTP dirancang untuk mengirim atau mengambil file antara client dan server.',
   ),
   QuizQuestion(
     question: 'Alamat perangkat pada antarmuka jaringan disebut...',
     options: ['DNS', 'MAC Address', 'Gateway', 'HTTP'],
     correctAnswer: 1,
+    explanation: 'MAC Address digunakan untuk pengiriman bingkai pada jaringan lokal; alamat ini berbeda dari IP Address.',
   ),
   QuizQuestion(
     question: 'Teknologi yang digunakan untuk membuat koneksi jaringan virtual adalah...',
     options: ['VPN', 'Hub', 'Switch', 'NIC'],
     correctAnswer: 0,
+    explanation: 'VPN membuat koneksi virtual melalui jaringan lain untuk mengakses jaringan pribadi dari lokasi berbeda.',
+  ),
+  QuizQuestion(
+    question: 'Perangkat yang menyediakan akses Wi-Fi agar perangkat nirkabel dapat bergabung ke LAN adalah...',
+    options: ['Access Point', 'LAN Tester', 'Bridge', 'Modem'],
+    correctAnswer: 0,
+    explanation: 'Access Point memancarkan dan menerima Wi-Fi, lalu menjembatani perangkat nirkabel ke jaringan.',
+  ),
+  QuizQuestion(
+    question: 'Media jaringan yang membawa data sebagai pulsa cahaya adalah...',
+    options: ['Kabel UTP', 'Kabel koaksial', 'Fiber Optik', 'Kabel STP'],
+    correctAnswer: 2,
+    explanation: 'Fiber Optik membawa data melalui serat kaca atau plastik menggunakan sinyal cahaya.',
+  ),
+  QuizQuestion(
+    question: 'Apa fungsi pelindung pada Kabel STP?',
+    options: [
+      'Mengurangi gangguan elektromagnetik',
+      'Mengubah alamat IP perangkat',
+      'Menyediakan koneksi Wi-Fi',
+      'Menguji kecepatan internet',
+    ],
+    correctAnswer: 0,
+    explanation: 'Lapisan pelindung Kabel STP membantu mengurangi gangguan elektromagnetik dari luar.',
+  ),
+  QuizQuestion(
+    question: 'Konektor yang umum dipasang pada ujung kabel twisted pair Ethernet adalah...',
+    options: ['RJ45', 'USB-C', 'HDMI', 'SATA'],
+    correctAnswer: 0,
+    explanation: 'Konektor RJ45 (umumnya merujuk ke konektor Ethernet 8P8C) dipasang pada kabel twisted pair Ethernet.',
+  ),
+  QuizQuestion(
+    question: 'Berapa panjang alamat IPv4?',
+    options: ['16 bit', '32 bit', '64 bit', '128 bit'],
+    correctAnswer: 1,
+    explanation: 'IPv4 memiliki panjang 32 bit dan biasanya ditulis sebagai empat angka desimal yang dipisahkan titik.',
+  ),
+  QuizQuestion(
+    question: 'Bagaimana alamat IPv6 umumnya ditulis?',
+    options: [
+      'Empat angka desimal yang dipisahkan titik',
+      'Kelompok heksadesimal yang dipisahkan titik dua',
+      'Nama domain yang dipisahkan garis miring',
+      'Angka biner yang dipisahkan koma',
+    ],
+    correctAnswer: 1,
+    explanation: 'IPv6 memiliki alamat 128 bit yang ditulis dalam kelompok heksadesimal dipisahkan tanda titik dua.',
+  ),
+  QuizQuestion(
+    question: 'Apa yang ditentukan perangkat dengan membandingkan IP Address dan subnet mask?',
+    options: [
+      'Apakah tujuan berada pada subnet yang sama',
+      'Nama domain dari server',
+      'Alamat MAC milik router di internet',
+      'Kecepatan maksimum kabel',
+    ],
+    correctAnswer: 0,
+    explanation: 'IP Address bersama subnet mask membantu perangkat mengetahui apakah tujuan lokal atau perlu dikirim ke gateway.',
+  ),
+  QuizQuestion(
+    question: 'Kapan perangkat biasanya mengirim paket ke default gateway?',
+    options: [
+      'Saat tujuan berada di luar subnet lokal',
+      'Saat mengganti nama berkas',
+      'Saat mengirim bingkai ke host di subnet yang sama',
+      'Saat mengubah alamat MAC menjadi nama domain',
+    ],
+    correctAnswer: 0,
+    explanation: 'Default gateway menjadi jalur keluar dari subnet lokal menuju jaringan lain.',
+  ),
+  QuizQuestion(
+    question: 'Ciri utama TCP yang membedakannya dari UDP adalah...',
+    options: [
+      'Mengatur agar data diterima berurutan dan dapat mengirim ulang data yang hilang',
+      'Selalu mengirim data sebagai pulsa cahaya',
+      'Menerjemahkan nama domain menjadi IP Address',
+      'Membagikan IP Address secara otomatis',
+    ],
+    correctAnswer: 0,
+    explanation: 'TCP membangun koneksi, menjaga urutan data, dan dapat mengirim ulang bagian yang hilang.',
+  ),
+  QuizQuestion(
+    question: 'Apa perlindungan yang diberikan HTTPS pada komunikasi web?',
+    options: [
+      'Mengenkripsi komunikasi menggunakan TLS',
+      'Menjamin semua isi situs benar',
+      'Mengatur alamat IP secara otomatis',
+      'Memastikan jaringan tidak mengalami packet loss',
+    ],
+    correctAnswer: 0,
+    explanation: 'HTTPS menggunakan TLS untuk mengenkripsi komunikasi dan membantu memeriksa identitas server, tetapi tidak menjamin isi situs benar.',
+  ),
+  QuizQuestion(
+    question: 'Apa yang diperiksa oleh perintah ping?',
+    options: [
+      'Apakah alamat tujuan dapat dijangkau melalui jaringan',
+      'Apakah semua aplikasi di tujuan berjalan',
+      'Apakah kabel memenuhi seluruh standar kinerja',
+      'Apakah DNS mengubah kata sandi pengguna',
+    ],
+    correctAnswer: 0,
+    explanation: 'Ping mengirim permintaan ICMP Echo untuk pemeriksaan awal keterjangkauan; hasilnya tidak membuktikan semua layanan berfungsi.',
+  ),
+  QuizQuestion(
+    question: 'Jika sebagian paket yang dikirim tidak sampai atau tidak mendapat balasan, kondisi itu disebut...',
+    options: ['Packet Loss', 'Bandwidth', 'DNS', 'Subnet Mask'],
+    correctAnswer: 0,
+    explanation: 'Packet Loss berarti sebagian paket tidak sampai atau tidak diterima kembali; pengukuran saja belum menentukan penyebabnya.',
+  ),
+  QuizQuestion(
+    question:
+        'Apa yang dapat diperiksa LAN Tester sederhana pada kabel jaringan?',
+    options: [
+      'Kawat putus, hubungan singkat, atau urutan kawat yang salah',
+      'Apakah semua situs internet dapat dibuka',
+      'Apakah router memiliki rute ke seluruh dunia',
+      'Berapa banyak alamat IPv6 yang tersedia',
+    ],
+    correctAnswer: 0,
+    explanation: 'LAN Tester sederhana memeriksa jalur dan urutan kawat kabel, tetapi tidak membuktikan koneksi internet atau seluruh kinerja jaringan.',
   ),
 ];
 
@@ -3342,6 +3472,7 @@ class _QuizPageState extends State<QuizPage> {
             correct: correctCount,
             total: quizQuestions.length,
             onFinished: widget.onFinished,
+            questions: quizQuestions,
           ),
         ),
       );
@@ -3529,6 +3660,7 @@ class QuizResultPage extends StatelessWidget {
   final int correct;
   final int total;
   final Function(int) onFinished;
+  final List<QuizQuestion> questions;
 
   const QuizResultPage({
     super.key,
@@ -3536,6 +3668,7 @@ class QuizResultPage extends StatelessWidget {
     required this.correct,
     required this.total,
     required this.onFinished,
+    required this.questions,
   });
 
   @override
@@ -3552,143 +3685,200 @@ class QuizResultPage extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(25),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 105,
-                  height: 105,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFEAF0FF),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    score >= 70
-                        ? Icons.emoji_events_rounded
-                        : Icons.menu_book_rounded,
-                    size: 55,
-                    color: const Color(0xFF3155D9),
-                  ),
-                ),
-
-                const SizedBox(height: 25),
-
-                const Text(
-                  'Latihan Selesai!',
-                  style: TextStyle(fontSize: 27, fontWeight: FontWeight.w800),
-                ),
-
-                const SizedBox(height: 8),
-
-                Text(
-                  message,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Color(0xFF737A89)),
-                ),
-
-                const SizedBox(height: 30),
-
-                Container(
-                  width: double.infinity,
+        child: LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Center(
+                child: Padding(
                   padding: const EdgeInsets.all(25),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(25),
-                    border: Border.all(color: const Color(0xFFE1E5EE)),
-                  ),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Container(
+                        width: 105,
+                        height: 105,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFEAF0FF),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          score >= 70
+                              ? Icons.emoji_events_rounded
+                              : Icons.menu_book_rounded,
+                          size: 55,
+                          color: const Color(0xFF3155D9),
+                        ),
+                      ),
+
+                      const SizedBox(height: 25),
+
                       const Text(
-                        'SKOR KAMU',
+                        'Latihan Selesai!',
                         style: TextStyle(
-                          color: Color(0xFF737A89),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
+                          fontSize: 27,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
-                      const SizedBox(height: 5),
+
+                      const SizedBox(height: 8),
+
                       Text(
-                        '$score',
-                        style: const TextStyle(
-                          fontSize: 55,
-                          fontWeight: FontWeight.w900,
-                          color: Color(0xFF3155D9),
+                        message,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(color: Color(0xFF737A89)),
+                      ),
+
+                      const SizedBox(height: 30),
+
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(25),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                          border: Border.all(color: const Color(0xFFE1E5EE)),
+                        ),
+                        child: Column(
+                          children: [
+                            const Text(
+                              'SKOR KAMU',
+                              style: TextStyle(
+                                color: Color(0xFF737A89),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              '$score',
+                              style: const TextStyle(
+                                fontSize: 55,
+                                fontWeight: FontWeight.w900,
+                                color: Color(0xFF3155D9),
+                              ),
+                            ),
+                            const Text(
+                              'dari 100',
+                              style: TextStyle(color: Color(0xFF737A89)),
+                            ),
+                            const Divider(height: 30),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                _ResultStat(
+                                  value: '$correct',
+                                  label: 'Benar',
+                                  icon: Icons.check_circle_outline,
+                                ),
+                                _ResultStat(
+                                  value: '${total - correct}',
+                                  label: 'Salah',
+                                  icon: Icons.cancel_outlined,
+                                ),
+                                _ResultStat(
+                                  value: '$total',
+                                  label: 'Soal',
+                                  icon: Icons.quiz_outlined,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      const Text(
-                        'dari 100',
-                        style: TextStyle(color: Color(0xFF737A89)),
+
+                      TextButton.icon(
+                        onPressed: () =>
+                            _showQuizExplanations(context, questions),
+                        icon: const Icon(Icons.menu_book_outlined),
+                        label: const Text('Lihat Pembahasan'),
                       ),
-                      const Divider(height: 30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          _ResultStat(
-                            value: '$correct',
-                            label: 'Benar',
-                            icon: Icons.check_circle_outline,
+
+                      const SizedBox(height: 25),
+
+                      SizedBox(
+                        width: double.infinity,
+                        height: 53,
+                        child: FilledButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          style: FilledButton.styleFrom(
+                            backgroundColor: const Color(0xFF3155D9),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(17),
+                            ),
                           ),
-                          _ResultStat(
-                            value: '${total - correct}',
-                            label: 'Salah',
-                            icon: Icons.cancel_outlined,
+                          child: const Text(
+                            'KEMBALI KE NETPEDIA',
+                            style: TextStyle(fontWeight: FontWeight.w800),
                           ),
-                          _ResultStat(
-                            value: '$total',
-                            label: 'Soal',
-                            icon: Icons.quiz_outlined,
-                          ),
-                        ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => QuizPage(onFinished: onFinished),
+                            ),
+                          );
+                        },
+                        child: const Text('Coba Latihan Lagi'),
                       ),
                     ],
                   ),
                 ),
-
-                const SizedBox(height: 25),
-
-                SizedBox(
-                  width: double.infinity,
-                  height: 53,
-                  child: FilledButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: FilledButton.styleFrom(
-                      backgroundColor: const Color(0xFF3155D9),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(17),
-                      ),
-                    ),
-                    child: const Text(
-                      'KEMBALI KE NETPEDIA',
-                      style: TextStyle(fontWeight: FontWeight.w800),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 10),
-
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => QuizPage(onFinished: onFinished),
-                      ),
-                    );
-                  },
-                  child: const Text('Coba Latihan Lagi'),
-                ),
-              ],
+              ),
             ),
           ),
         ),
       ),
     );
   }
+}
+
+void _showQuizExplanations(BuildContext context, List<QuizQuestion> questions) {
+  showDialog<void>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Pembahasan Soal'),
+      content: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (var index = 0; index < questions.length; index++) ...[
+              Text(
+                '${index + 1}. ${questions[index].question}',
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                'Jawaban: ${questions[index].options[questions[index].correctAnswer]}',
+                style: const TextStyle(
+                  color: Color(0xFF3155D9),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(questions[index].explanation),
+              if (index < questions.length - 1) const Divider(height: 24),
+            ],
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Tutup'),
+        ),
+      ],
+    ),
+  );
 }
 
 class _ResultStat extends StatelessWidget {

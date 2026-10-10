@@ -4,6 +4,44 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_application_1/main.dart';
 
 void main() {
+  test('quiz questions are unique and have valid answers and explanations', () {
+    final questionTexts = quizQuestions.map((question) => question.question);
+
+    expect(questionTexts.toSet(), hasLength(quizQuestions.length));
+    for (final question in quizQuestions) {
+      expect(question.options, hasLength(4), reason: question.question);
+      expect(
+        question.options.toSet(),
+        hasLength(question.options.length),
+        reason: question.question,
+      );
+      expect(
+        question.correctAnswer,
+        inInclusiveRange(0, question.options.length - 1),
+        reason: question.question,
+      );
+      expect(
+        question.explanation.trim(),
+        isNotEmpty,
+        reason: question.question,
+      );
+    }
+
+    expect(quizQuestions.length, greaterThan(8));
+    expect(
+      quizQuestions.any((question) => question.question.contains('Kabel STP')),
+      isTrue,
+    );
+    expect(
+      quizQuestions.any((question) => question.question.contains('IPv4')),
+      isTrue,
+    );
+    expect(
+      quizQuestions.any((question) => question.question.contains('ping')),
+      isTrue,
+    );
+  });
+
   testWidgets('NetPedia welcome screen renders', (WidgetTester tester) async {
     await tester.pumpWidget(const NetPediaApp());
 
@@ -374,6 +412,7 @@ void main() {
           correct: 4,
           total: 5,
           onFinished: onFinished,
+          questions: quizQuestions,
         ),
       ),
     );
@@ -384,6 +423,39 @@ void main() {
     expect(
       tester.widget<QuizPage>(find.byType(QuizPage)).onFinished,
       same(onFinished),
+    );
+  });
+
+  testWidgets('quiz result exposes explanations for the questions', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(400, 900);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: QuizResultPage(
+          score: 80,
+          correct: 4,
+          total: 5,
+          onFinished: (_) {},
+          questions: quizQuestions,
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('Lihat Pembahasan'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Pembahasan Soal'), findsOneWidget);
+    expect(find.text(quizQuestions.first.explanation), findsOneWidget);
+    expect(
+      find.text(
+        'Jawaban: ${quizQuestions.first.options[quizQuestions.first.correctAnswer]}',
+      ),
+      findsOneWidget,
     );
   });
 
