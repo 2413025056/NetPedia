@@ -700,178 +700,223 @@ const List<Term> terms = [
 class _TermPhoto {
   final String url;
   final String attribution;
+  final String description;
 
-  const _TermPhoto({required this.url, required this.attribution});
+  const _TermPhoto({
+    required this.url,
+    required this.attribution,
+    this.description = '',
+  });
 }
 
 const Map<String, _TermPhoto> _termPhotos = {
   'Router': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/ASUS_Wi-Fi_ROUTER_TUF_6500.jpg/960px-ASUS_Wi-Fi_ROUTER_TUF_6500.jpg',
     attribution: 'ASUS Wi-Fi ROUTER TUF 6500 — Dinkun Chen, CC BY-SA 4.0',
+    description: 'Contoh perangkat router yang meneruskan paket data antarjaringan.',
   ),
   'Switch': _TermPhoto(
     url: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/2550T-PWR-Front.jpg',
     attribution: '2550T-PWR-Front — Geek2003, CC BY-SA 3.0',
+    description: 'Tampak depan switch Ethernet dengan port untuk perangkat LAN.',
   ),
   'Hub': _TermPhoto(
     url: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/4_port_netgear_ethernet_hub.jpg',
     attribution: '4 port netgear ethernet hub, public domain',
+    description: 'Hub Ethernet dengan beberapa port yang meneruskan sinyal ke perangkat lain.',
   ),
   'Access Point': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Outdoors_Wireless_Access_Point.jpg/960px-Outdoors_Wireless_Access_Point.jpg',
     attribution: 'Outdoors Wireless Access Point — Mbrickn, CC BY 4.0',
+    description: 'Access point luar ruang untuk menghubungkan perangkat ke jaringan melalui Wi-Fi.',
   ),
   'Modem': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/ADSL_modem_router_internals_labeled.jpg/960px-ADSL_modem_router_internals_labeled.jpg',
     attribution:
         'ADSL modem router internals labeled — Mike1024, public domain',
+    description: 'Ilustrasi bagian dalam modem-router yang menghubungkan jaringan lokal ke jalur layanan internet.',
   ),
   'Repeater': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Wireless_networking_wndw.pdf/page1-500px-Wireless_networking_wndw.pdf.jpg',
     attribution: 'Wireless Networking in the Developing World — CC BY-SA 3.0',
+    description: 'Ilustrasi perluasan jangkauan jaringan nirkabel menggunakan perangkat perantara.',
   ),
   'NIC': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/3Com-Etherlink-Network-Interface-Card-05.jpg/960px-3Com-Etherlink-Network-Interface-Card-05.jpg',
     attribution:
         '3Com Etherlink Network Interface Card — Uwe Aranas, CC BY-SA 3.0',
+    description: 'Kartu antarmuka jaringan yang menyediakan koneksi Ethernet untuk komputer.',
   ),
   'Server': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Servers_in_a_Rack.jpg/960px-Servers_in_a_Rack.jpg',
     attribution: 'Servers in a Rack — Abigor, CC BY-SA 3.0',
+    description: 'Rak berisi server yang menyediakan layanan dan sumber daya melalui jaringan.',
   ),
   'Bridge': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Schema_bridge.jpg/960px-Schema_bridge.jpg',
     attribution: 'Schema bridge — Daniele Giacomini, CC BY-SA 2.5',
+    description: 'Diagram bridge yang meneruskan komunikasi di antara segmen jaringan lokal.',
   ),
   'Kabel UTP': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Coiled-up_Ethernet_cable.jpg/960px-Coiled-up_Ethernet_cable.jpg',
     attribution: 'Coiled-up Ethernet cable — Jakub T. Jankiewicz, CC BY-SA 4.0',
+    description: 'Kabel Ethernet yang digunakan untuk menghubungkan perangkat jaringan berkabel.',
   ),
   'Kabel STP': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Twisted_pair_sftp.svg/960px-Twisted_pair_sftp.svg.png',
     attribution: 'Twisted pair S/FTP — cmglee, CC BY-SA 4.0',
+    description: 'Penampang kabel twisted pair berpelindung untuk membantu mengurangi gangguan elektromagnetik.',
   ),
   'Fiber Optik': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Optical_fiber_cable-01ASD.jpg/960px-Optical_fiber_cable-01ASD.jpg',
     attribution: 'Optical fiber cable — Asurnipal, CC BY-SA 4.0',
+    description: 'Kabel fiber optik yang membawa data sebagai pulsa cahaya di dalam serat.',
   ),
   'Kabel Koaksial': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Coaxial_cable_cutaway-es.svg/960px-Coaxial_cable_cutaway-es.svg.png',
     attribution: 'Coaxial cable cutaway — Tkgd2007 and Begoon, CC BY 4.0',
+    description: 'Penampang kabel koaksial yang menunjukkan konduktor, isolasi, dan lapisan pelindung.',
   ),
   'Konektor RJ45': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Assemblaggio_cavo_RJ45_passo_3.jpg/960px-Assemblaggio_cavo_RJ45_passo_3.jpg',
     attribution: 'Assemblaggio cavo RJ45 — Giacomo Alessandroni, CC BY-SA 4.0',
+    description: 'Pemasangan konektor Ethernet pada ujung kabel twisted pair.',
   ),
   'Patch Cord': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Patch_cable_with_RJ45_connector.jpg/960px-Patch_cable_with_RJ45_connector.jpg',
     attribution:
         'Patch cable with RJ45 connector — heimnetzwerke.net, CC BY 4.0',
+    description: 'Kabel patch dengan konektor di kedua ujung untuk menghubungkan port jaringan.',
   ),
   'Topologi Star': _TermPhoto(
     url: 'https://upload.wikimedia.org/wikipedia/commons/3/35/Extended-star-topology.png',
     attribution: 'Extended star topology — Costello, public domain',
+    description: 'Diagram topologi star: perangkat terhubung ke satu perangkat pusat.',
   ),
   'Topologi Bus': _TermPhoto(
     url: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Bus_Network_Topology.png',
     attribution: 'Bus Network Topology — Bakshi41c, CC BY-SA 3.0',
+    description: 'Diagram topologi bus dengan beberapa perangkat pada satu jalur kabel utama.',
   ),
   'Topologi Ring': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/SERCOS_III_Control_Interface_Ring_Topology_diagram.svg/960px-SERCOS_III_Control_Interface_Ring_Topology_diagram.svg.png',
     attribution: 'SERCOS III Ring Topology — SCH56, public domain',
+    description: 'Diagram topologi ring yang menghubungkan perangkat dalam jalur melingkar.',
   ),
   'Topologi Mesh': _TermPhoto(
     url:
         'https://upload.wikimedia.org/wikipedia/commons/c/ce/Mesh-topology.png',
     attribution: 'Mesh topology — Prinsen, public domain',
+    description: 'Diagram topologi mesh dengan beberapa jalur komunikasi antarnode.',
   ),
   'Topologi Tree': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Intercpunettree.svg/960px-Intercpunettree.svg.png',
     attribution: 'Intercpunettree — KCVelaga, CC BY-SA 4.0',
+    description: 'Diagram topologi tree yang menyusun jaringan dalam beberapa tingkat.',
   ),
   'Tang Crimping': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Crimping-pliers-pro-RJ-0a.jpg/960px-Crimping-pliers-pro-RJ-0a.jpg',
     attribution: 'Crimping pliers pro RJ — Adamantios, CC BY-SA 3.0',
+    description: 'Tang crimping untuk memasang konektor modular pada kabel jaringan.',
   ),
   'LAN Tester': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Teste_cabo.jpg/960px-Teste_cabo.jpg',
     attribution: 'Teste cabo — Mvdiogo, CC BY-SA 4.0',
+    description: 'LAN tester untuk memeriksa sambungan dan urutan kawat kabel jaringan.',
   ),
   'Punch-down Tool': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Ideal_punchdown_tool.jpg/960px-Ideal_punchdown_tool.jpg',
     attribution: 'Ideal punchdown tool — J.C. Fields, CC BY-SA 3.0',
+    description: 'Punch-down tool untuk menekan kawat ke terminal pada patch panel atau keystone jack.',
   ),
   'Pengupas Kabel': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Cable_stripper%2C_cable_tester_%28RJ45%2C_RJ11%29%2C_LSA-Tool_and_crimping_tool.jpg/960px-Cable_stripper%2C_cable_tester_%28RJ45%2C_RJ11%29%2C_LSA-Tool_and_crimping_tool.jpg',
     attribution: 'Cable stripper, cable tester and LSA tool — heimnetzwerke.net, CC BY 4.0',
+    description: 'Alat pengupas untuk membuka jaket kabel sebelum kawat disiapkan.',
   ),
   'Pengikat Kabel': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/100x_Nylon_Cable_Zip_10cm_Tie_Wraps_%282USD_on_eBay%29_%288924977735%29.jpg/960px-100x_Nylon_Cable_Zip_10cm_Tie_Wraps_%282USD_on_eBay%29_%288924977735%29.jpg',
     attribution: 'Nylon cable zip ties — Artem M., CC BY-SA 2.0',
+    description: 'Pengikat kabel untuk merapikan jalur instalasi tanpa menekan kabel terlalu kuat.',
   ),
   'IP Address': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/IP_stack_communication.svg/960px-IP_stack_communication.svg.png',
     attribution: 'IP stack communication — Cburnett, Kbrose, and JensLechtenboerger, CC BY-SA 4.0',
+    description: 'Diagram komunikasi jaringan yang menunjukkan alamat sumber dan tujuan pada paket IP.',
   ),
   'IPv4': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/IPv4_Packet-ar.svg/960px-IPv4_Packet-ar.svg.png',
     attribution: 'IPv4 Packet — Michel Bakni, CC BY-SA 4.0',
+    description: 'Diagram paket IPv4 yang memperlihatkan bagian-bagian header paket.',
   ),
   'IPv6': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/IPv6_Fragmentation_Example.svg/960px-IPv6_Fragmentation_Example.svg.png',
     attribution: 'IPv6 Fragmentation Example — Jhoveran Cuno, CC BY-SA 4.0',
+    description: 'Diagram contoh fragmentasi paket pada komunikasi IPv6.',
   ),
   'MAC Address': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Network_card.jpg/960px-Network_card.jpg',
     attribution: 'Network card, CC BY-SA 3.0',
+    description: 'Kartu jaringan sebagai antarmuka perangkat untuk mengirim dan menerima bingkai jaringan.',
   ),
   'Subnet Mask': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Address_space_in_Variable_Length_Subnet_Masking_%28VLSM%29.svg/960px-Address_space_in_Variable_Length_Subnet_Masking_%28VLSM%29.svg.png',
     attribution: 'Address space in VLSM — And1mu, CC BY-SA 4.0',
+    description: 'Diagram pembagian ruang alamat IP untuk memahami subnet dan subnet mask.',
   ),
   'Default Gateway': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/TP-Link_AX1500_Wi-Fi_6_Router_Front.jpg/960px-TP-Link_AX1500_Wi-Fi_6_Router_Front.jpg',
     attribution: 'TP-Link AX1500 Wi-Fi 6 Router Front — Wikimedia Commons',
+    description: 'Contoh router yang dapat menjadi gateway perangkat menuju jaringan lain.',
   ),
   'Network Address': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Address_space_in_Variable_Length_Subnet_Masking_%28VLSM%29.svg/960px-Address_space_in_Variable_Length_Subnet_Masking_%28VLSM%29.svg.png',
     attribution: 'Address space in VLSM — And1mu, CC BY-SA 4.0',
+    description: 'Diagram pembagian alamat jaringan untuk membedakan network dan host.',
   ),
   'Broadcast Address': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/IPv4_Packet-ar.svg/960px-IPv4_Packet-ar.svg.png',
     attribution: 'IPv4 Packet — Michel Bakni, CC BY-SA 4.0',
+    description: 'Diagram paket IPv4 sebagai konteks pengiriman data ke alamat broadcast subnet.',
   ),
   'DHCP': _TermPhoto(
     url: 'https://upload.wikimedia.org/wikipedia/commons/8/86/DHCP_Header_-_ar.png',
     attribution: 'DHCP Header — Michel Bakni, CC BY-SA 4.0',
+    description: 'Diagram struktur pesan DHCP yang digunakan untuk pertukaran konfigurasi jaringan.',
   ),
   'DNS': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/DNS_Architecture.svg/960px-DNS_Architecture.svg.png',
     attribution: 'DNS Architecture — Aaron Filbert, CC BY-SA 4.0',
+    description: 'Diagram alur pencarian nama domain melalui resolver dan server DNS.',
   ),
   'TCP': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Internetworking_with_Internet_Protocol_%28IP%29_and_Transmission_Control_Protocol_%28TCP%29_within_the_Military_%28IA_internetworkingw1094543854%29.pdf/page1-960px-Internetworking_with_Internet_Protocol_%28IP%29_and_Transmission_Control_Protocol_%28TCP%29_within_the_Military_%28IA_internetworkingw1094543854%29.pdf.jpg',
     attribution:
         'Internetworking with IP and TCP — Bruce R. Eikenberg, public domain',
+    description: 'Diagram hubungan protokol IP dan TCP dalam pengiriman data jaringan.',
   ),
   'UDP': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/UDP_IP_Ethernet.jpg/960px-UDP_IP_Ethernet.jpg',
     attribution: 'UDP IP Ethernet — Arkrishna, public domain',
+    description: 'Diagram susunan protokol Ethernet, IP, dan UDP pada komunikasi jaringan.',
   ),
   'HTTP': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/HTTP_connection_summary.png/960px-HTTP_connection_summary.png',
     attribution:
         'HTTP connection summary — Electronic Frontier Foundation, CC BY 3.0',
+    description: 'Diagram pertukaran permintaan dan balasan HTTP antara browser dan server web.',
   ),
   'HTTPS': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/A_trusted_connection_framework_for_multilevel_secure_Local_Area_Networks_%28IA_atrustedconnecti109459182%29.pdf/page1-960px-A_trusted_connection_framework_for_multilevel_secure_Local_Area_Networks_%28IA_atrustedconnecti109459182%29.pdf.jpg',
     attribution:
         'A trusted connection framework — Jeffery Dwane Wilson, public domain',
+    description: 'Diagram koneksi tepercaya sebagai konteks perlindungan komunikasi web.',
   ),
   'FTP': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/FTP_active_mode_ru.svg/960px-FTP_active_mode_ru.svg.png',
     attribution:
         'FTP active mode — Jérôme Blum and Alexander Golubev, CC BY-SA 4.0',
+    description: 'Diagram mode aktif FTP yang memperlihatkan alur koneksi client dan server.',
   ),
   'Web Server': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/First_Web_Server.jpg/960px-First_Web_Server.jpg',
@@ -885,38 +930,46 @@ const Map<String, _TermPhoto> _termPhotos = {
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/29/Virtual_Private_Network_overview_rus.svg/960px-Virtual_Private_Network_overview_rus.svg.png',
     attribution:
         'Virtual Private Network overview — Ludovic.ferre, CC BY-SA 3.0',
+    description: 'Diagram koneksi VPN yang menghubungkan perangkat ke jaringan melalui terowongan virtual.',
   ),
   'Ping': _TermPhoto(
     url: 'https://upload.wikimedia.org/wikipedia/commons/e/e2/Ping_iputils_screenshot.png',
     attribution:
         'Ping iputils screenshot — YOSHIFUJI Hideaki / USAGI-WIDE Project, GPL',
+    description: 'Contoh keluaran perintah ping untuk memeriksa balasan dan waktu tempuh jaringan.',
   ),
   'Packet Loss': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Army_Packet_Radio_Network_Protocol_Study_-_SRI%2C_November_1977.pdf/page1-500px-Army_Packet_Radio_Network_Protocol_Study_-_SRI%2C_November_1977.pdf.jpg',
     attribution:
         'Army Packet Radio Network Protocol Study — SRI, public domain',
+    description: 'Ilustrasi komunikasi radio paket sebagai konteks kemungkinan paket tidak sampai.',
   ),
   'Latency': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/IPv6_geolocation_using_latency_constraints_%28IA_ipvgeolocationus1094541452%29.pdf/page1-960px-IPv6_geolocation_using_latency_constraints_%28IA_ipvgeolocationus1094541452%29.pdf.jpg',
     attribution: 'IPv6 geolocation using latency constraints — Tony V.H. Tran, public domain',
+    description: 'Ilustrasi pemanfaatan waktu tunda jaringan untuk memperkirakan jarak atau lokasi.',
   ),
   'Firewall': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/DMZ_network_diagram_2_firewall.svg/960px-DMZ_network_diagram_2_firewall.svg.png',
     attribution: 'DMZ network diagram 2 firewall — Pbroks13, public domain',
+    description: 'Diagram firewall yang memisahkan jaringan internal, DMZ, dan jaringan luar.',
   ),
   'Enkripsi': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/CCMP_Encryption_Working_Block_Diagram.pdf/page1-960px-CCMP_Encryption_Working_Block_Diagram.pdf.jpg',
     attribution:
         'CCMP Encryption Working Block Diagram — Cipher swami, CC BY-SA 4.0',
+    description: 'Diagram tahapan enkripsi dan dekripsi data pada mekanisme CCMP.',
   ),
   'Bandwidth': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Bandwidth_Management_in_Resource_Constrained_Networks_%28IA_bandwidthmanagem109456866%29.pdf/page1-960px-Bandwidth_Management_in_Resource_Constrained_Networks_%28IA_bandwidthmanagem109456866%29.pdf.jpg',
     attribution:
         'Bandwidth Management in Resource Constrained Networks, public domain',
+    description: 'Materi pengelolaan kapasitas jalur jaringan saat sumber daya terbatas.',
   ),
   'Kepadatan Lalu Lintas Jaringan': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Traffic_congestion_analysis_for_a_software-defined_network_%28IA_trafficcongestio1094558337%29.pdf/page1-960px-Traffic_congestion_analysis_for_a_software-defined_network_%28IA_trafficcongestio1094558337%29.pdf.jpg',
     attribution: 'Traffic congestion analysis for a software-defined network — Moniqua J. Maxie, public domain',
+    description: 'Materi analisis kepadatan lalu lintas pada jaringan yang dapat diprogram.',
   ),
 };
 
@@ -2300,6 +2353,9 @@ class _TermDetailPageState extends State<TermDetailPage> {
             borderRadius: BorderRadius.circular(22),
             child: Image.network(
               termPhoto.url,
+              semanticLabel: termPhoto.description.isEmpty
+                  ? 'Ilustrasi ${widget.term.name}.'
+                  : termPhoto.description,
               height: 190,
               width: double.infinity,
               fit: BoxFit.contain,
@@ -2339,6 +2395,18 @@ class _TermDetailPageState extends State<TermDetailPage> {
               },
             ),
           ),
+          if (termPhoto.description.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 7, left: 4, right: 4),
+              child: Text(
+                termPhoto.description,
+                style: const TextStyle(
+                  color: Color(0xFF555D6D),
+                  fontSize: 12,
+                  height: 1.4,
+                ),
+              ),
+            ),
           Padding(
             padding: const EdgeInsets.only(top: 7, left: 4, right: 4),
             child: Text(

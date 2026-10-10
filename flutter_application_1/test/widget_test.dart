@@ -36,8 +36,11 @@ void main() {
       find.descendant(of: dialog, matching: find.text(term.definition)),
       findsOneWidget,
     );
+    expect(
+      find.text('Contoh perangkat router yang meneruskan paket data antarjaringan.'),
+      findsOneWidget,
+    );
   });
-}
 
   testWidgets('related terms open their detail and retain favorite actions', (
     WidgetTester tester,
