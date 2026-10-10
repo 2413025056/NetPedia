@@ -2390,8 +2390,12 @@ class _TermDetailPageState extends State<TermDetailPage> {
       (c) => c.name == widget.term.category,
     );
     final termPhoto = _termPhotos[widget.term.name];
-    final relatedTerms = terms
-        .where((term) => widget.term.relatedTermNames.contains(term.name))
+    final termsByName = {for (final term in terms) term.name: term};
+    final relatedTerms = widget.term.relatedTermNames
+        .toSet()
+        .where((name) => name != widget.term.name)
+        .map((name) => termsByName[name])
+        .whereType<Term>()
         .toList();
 
     return Scaffold(

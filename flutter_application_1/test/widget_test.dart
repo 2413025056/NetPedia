@@ -176,6 +176,35 @@ void main() {
     expect(favorites, contains('IPv4'));
   });
 
+  testWidgets('missing related terms do not show a broken section', (
+    WidgetTester tester,
+  ) async {
+    final sourceTerm = terms.first;
+    final termWithMissingRelations = Term(
+      name: 'Istilah Uji',
+      abbreviation: '',
+      category: sourceTerm.category,
+      definition: 'Definisi untuk pengujian.',
+      explanation: 'Penjelasan untuk pengujian.',
+      example: 'Contoh untuk pengujian.',
+      icon: Icons.device_unknown,
+      relatedTermNames: ['Tidak Ada', 'Tidak Ada', 'Istilah Uji'],
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: TermDetailPage(
+          term: termWithMissingRelations,
+          isFavorite: false,
+          onFavorite: () {},
+        ),
+      ),
+    );
+
+    expect(find.text('Istilah Terkait'), findsNothing);
+    expect(find.byType(ActionChip), findsNothing);
+  });
+
   testWidgets('category list and detail share favorite state', (
     WidgetTester tester,
   ) async {
