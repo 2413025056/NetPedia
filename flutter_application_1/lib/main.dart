@@ -2118,7 +2118,7 @@ class CategoriesPage extends StatelessWidget {
 // CATEGORY TERMS PAGE
 // ============================================================
 
-class CategoryTermsPage extends StatelessWidget {
+class CategoryTermsPage extends StatefulWidget {
   final String category;
   final Set<String> favorites;
   final Function(String) onFavorite;
@@ -2133,13 +2133,22 @@ class CategoryTermsPage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final categoryData = categories.firstWhere((c) => c.name == category);
+  State<CategoryTermsPage> createState() => _CategoryTermsPageState();
+}
 
-    final categoryTerms = terms.where((t) => t.category == category).toList();
+class _CategoryTermsPageState extends State<CategoryTermsPage> {
+  @override
+  Widget build(BuildContext context) {
+    final categoryData = categories.firstWhere(
+      (c) => c.name == widget.category,
+    );
+
+    final categoryTerms = terms
+        .where((t) => t.category == widget.category)
+        .toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text(category)),
+      appBar: AppBar(title: Text(widget.category)),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 5, 20, 30),
         children: [
@@ -2182,7 +2191,7 @@ class CategoryTermsPage extends StatelessWidget {
           const SizedBox(height: 25),
 
           Text(
-            'Materi ${category}',
+            'Materi ${widget.category}',
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
           ),
 
@@ -2200,23 +2209,29 @@ class CategoryTermsPage extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 10),
               child: TermTile(
                 term: term,
-                isFavorite: favorites.contains(term.name),
-                onFavorite: () => onFavorite(term.name),
-                onTap: () {
-                  onStudied(term.name);
-                  Navigator.push(
+                isFavorite: widget.favorites.contains(term.name),
+                onFavorite: () {
+                  widget.onFavorite(term.name);
+                  setState(() {});
+                },
+                onTap: () async {
+                  widget.onStudied(term.name);
+                  await Navigator.push<void>(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (_) => TermDetailPage(
                         term: term,
-                        isFavorite: favorites.contains(term.name),
-                        onFavorite: () => onFavorite(term.name),
-                        favorites: favorites,
-                        onFavoriteByName: onFavorite,
-                        onStudied: onStudied,
+                        isFavorite: widget.favorites.contains(term.name),
+                        onFavorite: () => widget.onFavorite(term.name),
+                        favorites: widget.favorites,
+                        onFavoriteByName: widget.onFavorite,
+                        onStudied: widget.onStudied,
                       ),
                     ),
                   );
+                  if (mounted) {
+                    setState(() {});
+                  }
                 },
               ),
             ),
@@ -2365,7 +2380,7 @@ class _TermDetailPageState extends State<TermDetailPage> {
       onFavoriteByName(widget.term.name);
     }
     setState(() {
-      isFavorite = !isFavorite;
+      isFavorite = widget.favorites.contains(widget.term.name);
     });
   }
 
@@ -2540,9 +2555,9 @@ class _TermDetailPageState extends State<TermDetailPage> {
                   return ActionChip(
                     avatar: const Icon(Icons.menu_book_outlined, size: 17),
                     label: Text(relatedTerm.name),
-                    onPressed: () {
+                    onPressed: () async {
                       widget.onStudied?.call(relatedTerm.name);
-                      Navigator.push<void>(
+                      await Navigator.push<void>(
                         context,
                         MaterialPageRoute<void>(
                           builder: (_) => TermDetailPage(
@@ -2557,6 +2572,13 @@ class _TermDetailPageState extends State<TermDetailPage> {
                           ),
                         ),
                       );
+                      if (mounted) {
+                        setState(() {
+                          isFavorite = widget.favorites.contains(
+                            widget.term.name,
+                          );
+                        });
+                      }
                     },
                   );
                 }).toList(),
@@ -2816,12 +2838,12 @@ class _SearchPageState extends State<SearchPage> {
                             widget.onFavorite(term.name);
                             setState(() {});
                           },
-                          onTap: () {
+                          onTap: () async {
                             widget.onStudied(term.name);
 
-                            Navigator.push(
+                            await Navigator.push<void>(
                               context,
-                              MaterialPageRoute(
+                              MaterialPageRoute<void>(
                                 builder: (_) => TermDetailPage(
                                   term: term,
                                   isFavorite: widget.favorites.contains(
@@ -2836,6 +2858,9 @@ class _SearchPageState extends State<SearchPage> {
                                 ),
                               ),
                             );
+                            if (mounted) {
+                              setState(() {});
+                            }
                           },
                         ),
                       );
@@ -2940,16 +2965,14 @@ class FavoritesPage extends StatelessWidget {
                           onTap: () {
                             onStudied(term.name);
 
-                            Navigator.push(
+                            Navigator.push<void>(
                               context,
-                              MaterialPageRoute(
+                              MaterialPageRoute<void>(
                                 builder: (_) => TermDetailPage(
                                   term: term,
                                   isFavorite: true,
                                   onFavorite: () => onFavorite(term.name),
-                                  favorites: favoriteTerms
-                                      .map((favoriteTerm) => favoriteTerm.name)
-                                      .toSet(),
+                                  favorites: favorites,
                                   onFavoriteByName: onFavorite,
                                   onStudied: onStudied,
                                 ),

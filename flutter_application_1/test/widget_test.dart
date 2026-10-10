@@ -53,11 +53,7 @@ void main() {
   ) async {
     await tester.pumpWidget(
       MaterialApp(
-        home: SearchPage(
-          favorites: {},
-          onFavorite: (_) {},
-          onStudied: (_) {},
-        ),
+        home: SearchPage(favorites: {}, onFavorite: (_) {}, onStudied: (_) {}),
       ),
     );
 
@@ -71,7 +67,10 @@ void main() {
     await tester.pump();
     expect(find.text('IP Address'), findsOneWidget);
 
-    await tester.enterText(searchField, '  dYnAmIc   hOsT configuration protocol ');
+    await tester.enterText(
+      searchField,
+      '  dYnAmIc   hOsT configuration protocol ',
+    );
     await tester.pump();
     expect(find.text('DHCP'), findsOneWidget);
 
@@ -122,7 +121,9 @@ void main() {
       findsOneWidget,
     );
     expect(
-      find.text('Contoh perangkat router yang meneruskan paket data antarjaringan.'),
+      find.text(
+        'Contoh perangkat router yang meneruskan paket data antarjaringan.',
+      ),
       findsOneWidget,
     );
   });
@@ -158,6 +159,7 @@ void main() {
       ),
     );
 
+    await tester.scrollUntilVisible(find.text('Tips Belajar'), 250);
     expect(find.text('Tips Belajar'), findsOneWidget);
 
     final relatedChip = find.widgetWithText(ActionChip, 'IPv4');
@@ -167,11 +169,91 @@ void main() {
 
     expect(find.text(relatedTerm.definition), findsOneWidget);
     final favoriteButton = find.text('Simpan ke Favorit');
-    await tester.ensureVisible(favoriteButton);
+    await tester.scrollUntilVisible(favoriteButton, 250);
     await tester.tap(favoriteButton);
     await tester.pump();
 
     expect(favorites, contains('IPv4'));
+  });
+
+  testWidgets('category list and detail share favorite state', (
+    WidgetTester tester,
+  ) async {
+    final term = terms.first;
+    final favorites = <String>{};
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: CategoryTermsPage(
+          category: term.category,
+          favorites: favorites,
+          onFavorite: (name) {
+            if (!favorites.add(name)) favorites.remove(name);
+          },
+          onStudied: (_) {},
+        ),
+      ),
+    );
+
+    await tester.tap(find.byIcon(Icons.bookmark_border_rounded).first);
+    await tester.pump();
+
+    expect(favorites, contains(term.name));
+    expect(find.byIcon(Icons.bookmark_rounded), findsOneWidget);
+
+    await tester.tap(find.text(term.name).first);
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('Hapus dari Favorit'), 250);
+    expect(find.text('Hapus dari Favorit'), findsOneWidget);
+    await tester.tap(find.text('Hapus dari Favorit'));
+    await tester.pump();
+    expect(favorites, isNot(contains(term.name)));
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(
+      find.descendant(
+        of: find.byType(TermTile).first,
+        matching: find.byIcon(Icons.bookmark_border_rounded),
+      ),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('detail favorite action updates its icon and label', (
+    WidgetTester tester,
+  ) async {
+    final term = terms.first;
+    final favorites = <String>{};
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: TermDetailPage(
+          term: term,
+          isFavorite: false,
+          onFavorite: () {},
+          favorites: favorites,
+          onFavoriteByName: (name) {
+            if (!favorites.add(name)) favorites.remove(name);
+          },
+        ),
+      ),
+    );
+
+    await tester.tap(find.byIcon(Icons.bookmark_border_rounded).first);
+    await tester.pump();
+
+    expect(favorites, contains(term.name));
+    await tester.scrollUntilVisible(find.text('Hapus dari Favorit'), 250);
+    expect(find.text('Hapus dari Favorit'), findsOneWidget);
+    expect(find.byIcon(Icons.bookmark_rounded), findsOneWidget);
+
+    await tester.tap(find.text('Hapus dari Favorit'));
+    await tester.pump();
+
+    expect(favorites, isNot(contains(term.name)));
+    expect(find.text('Simpan ke Favorit'), findsOneWidget);
+    expect(find.byIcon(Icons.bookmark_border_rounded), findsOneWidget);
   });
 
   testWidgets('all term images stay contained in the mobile detail frame', (
@@ -207,3 +289,4 @@ void main() {
       }
     }
   });
+}
