@@ -2715,13 +2715,18 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final normalizedQuery = _normalizeSearchText(query);
     final results = terms.where((term) {
-      final q = query.toLowerCase();
+      if (normalizedQuery.isEmpty) return true;
 
-      return term.name.toLowerCase().contains(q) ||
-          term.abbreviation.toLowerCase().contains(q) ||
-          term.category.toLowerCase().contains(q) ||
-          term.definition.toLowerCase().contains(q);
+      return [
+        term.name,
+        term.abbreviation,
+        term.definition,
+        term.category,
+      ].any(
+        (field) => _normalizeSearchText(field).contains(normalizedQuery),
+      );
     }).toList();
 
     return Scaffold(
@@ -2842,6 +2847,11 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 }
+
+String _normalizeSearchText(String value) => value
+    .toLowerCase()
+    .trim()
+    .replaceAll(RegExp(r'\s+'), ' ');
 
 // ============================================================
 // FAVORITES PAGE

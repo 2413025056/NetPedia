@@ -48,6 +48,54 @@ void main() {
     );
   });
 
+  testWidgets('search matches normalized term fields and shows empty state', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: SearchPage(
+          favorites: {},
+          onFavorite: (_) {},
+          onStudied: (_) {},
+        ),
+      ),
+    );
+
+    final searchField = find.byType(TextField);
+
+    await tester.enterText(searchField, '  rOuTeR  ');
+    await tester.pump();
+    expect(find.text('Router'), findsOneWidget);
+
+    await tester.enterText(searchField, '  iP   aDdReSs  ');
+    await tester.pump();
+    expect(find.text('IP Address'), findsOneWidget);
+
+    await tester.enterText(searchField, '  dYnAmIc   hOsT configuration protocol ');
+    await tester.pump();
+    expect(find.text('DHCP'), findsOneWidget);
+
+    await tester.enterText(
+      searchField,
+      'PERANGKAT   JARINGAN YANG MENGHUBUNGKAN JARINGAN YANG BERBEDA',
+    );
+    await tester.pump();
+    expect(find.text('Router'), findsOneWidget);
+
+    await tester.enterText(searchField, 'pemecahan   masalah jaringan');
+    await tester.pump();
+    expect(find.text('Ping'), findsOneWidget);
+
+    await tester.enterText(searchField, '  Keamanan   JARINGAN ');
+    await tester.pump();
+    expect(find.text('Firewall'), findsOneWidget);
+
+    await tester.enterText(searchField, 'kata kunci yang tidak tersedia');
+    await tester.pump();
+    expect(find.text('Istilah tidak ditemukan'), findsOneWidget);
+    expect(find.text('Coba gunakan kata kunci lain.'), findsOneWidget);
+  });
+
   testWidgets('term section icon opens its detail popup', (
     WidgetTester tester,
   ) async {
