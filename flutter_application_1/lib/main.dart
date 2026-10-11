@@ -1609,34 +1609,44 @@ class _MainScreenState extends State<MainScreen> {
       ),
     ];
 
-    return Scaffold(
-      body: IndexedStack(index: selectedIndex, children: pages),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: selectedIndex,
-        onDestinationSelected: (index) {
+    return PopScope<Object?>(
+      canPop: selectedIndex == 0,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop && selectedIndex != 0) {
           setState(() {
-            selectedIndex = index;
+            selectedIndex = 0;
           });
-        },
-        backgroundColor: Colors.white,
-        indicatorColor: const Color(0xFFE4EAFF),
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: 'Beranda',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.bookmark_border),
-            selectedIcon: Icon(Icons.bookmark),
-            label: 'Favorit',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.bar_chart_outlined),
-            selectedIcon: Icon(Icons.bar_chart),
-            label: 'Progress',
-          ),
-        ],
+        }
+      },
+      child: Scaffold(
+        body: IndexedStack(index: selectedIndex, children: pages),
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: selectedIndex,
+          onDestinationSelected: (index) {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
+          backgroundColor: Colors.white,
+          indicatorColor: const Color(0xFFE4EAFF),
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: 'Beranda',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.bookmark_border),
+              selectedIcon: Icon(Icons.bookmark),
+              label: 'Favorit',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.bar_chart_outlined),
+              selectedIcon: Icon(Icons.bar_chart),
+              label: 'Progress',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -2400,122 +2410,124 @@ class CategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: CustomScrollView(
-        slivers: [
-          const SliverPadding(
-            padding: EdgeInsets.fromLTRB(20, 25, 20, 5),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                'Kategori Materi',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800),
+    return Scaffold(
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            const SliverPadding(
+              padding: EdgeInsets.fromLTRB(20, 25, 20, 5),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'Kategori Materi',
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800),
+                ),
               ),
             ),
-          ),
-          const SliverPadding(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 22),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                'Pilih materi yang ingin kamu pelajari.',
-                style: TextStyle(color: Color(0xFF737A89), fontSize: 14),
+            const SliverPadding(
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 22),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'Pilih materi yang ingin kamu pelajari.',
+                  style: TextStyle(color: Color(0xFF737A89), fontSize: 14),
+                ),
               ),
             ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                final category = categories[index];
-                final categoryTerms = terms
-                    .where((t) => t.category == category.name)
-                    .toList();
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final category = categories[index];
+                  final categoryTerms = terms
+                      .where((t) => t.category == category.name)
+                      .toList();
 
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 15),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(22),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => CategoryTermsPage(
-                            category: category.name,
-                            favorites: favorites,
-                            onFavorite: onFavorite,
-                            onStudied: onStudied,
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 15),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(22),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => CategoryTermsPage(
+                              category: category.name,
+                              favorites: favorites,
+                              onFavorite: onFavorite,
+                              onStudied: onStudied,
+                            ),
                           ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(22),
+                          border: Border.all(color: const Color(0xFFE1E5EE)),
                         ),
-                      );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(22),
-                        border: Border.all(color: const Color(0xFFE1E5EE)),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 62,
-                            height: 62,
-                            decoration: BoxDecoration(
-                              color: category.color.withOpacity(.12),
-                              borderRadius: BorderRadius.circular(18),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 62,
+                              height: 62,
+                              decoration: BoxDecoration(
+                                color: category.color.withOpacity(.12),
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              child: Icon(
+                                category.icon,
+                                size: 31,
+                                color: category.color,
+                              ),
                             ),
-                            child: Icon(
-                              category.icon,
-                              size: 31,
-                              color: category.color,
+                            const SizedBox(width: 17),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    category.name,
+                                    style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    category.description,
+                                    style: const TextStyle(
+                                      color: Color(0xFF737A89),
+                                      fontSize: 12,
+                                      height: 1.4,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 9),
+                                  Text(
+                                    '${categoryTerms.length} materi istilah',
+                                    style: TextStyle(
+                                      color: category.color,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 17),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  category.name,
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  category.description,
-                                  style: const TextStyle(
-                                    color: Color(0xFF737A89),
-                                    fontSize: 12,
-                                    height: 1.4,
-                                  ),
-                                ),
-                                const SizedBox(height: 9),
-                                Text(
-                                  '${categoryTerms.length} materi istilah',
-                                  style: TextStyle(
-                                    color: category.color,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
+                            const Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 17,
+                              color: Color(0xFF8A91A0),
                             ),
-                          ),
-                          const Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 17,
-                            color: Color(0xFF8A91A0),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }, childCount: categories.length),
+                  );
+                }, childCount: categories.length),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

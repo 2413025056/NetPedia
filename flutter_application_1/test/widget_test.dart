@@ -69,6 +69,182 @@ void main() {
     expect(find.text('Router'), findsOneWidget);
   });
 
+  testWidgets('Android back from a secondary tab returns to the dashboard', (
+    WidgetTester tester,
+  ) async {
+    SharedPreferencesAsyncPlatform.instance =
+        InMemorySharedPreferencesAsync.empty();
+    addTearDown(() => SharedPreferencesAsyncPlatform.instance = null);
+
+    await tester.pumpWidget(const MaterialApp(home: MainScreen()));
+    await tester.pumpAndSettle();
+
+    for (final tabIndex in [1, 2]) {
+      await tester.tap(find.byType(NavigationDestination).at(tabIndex));
+      await tester.pumpAndSettle();
+
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+
+      expect(
+        tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+        0,
+      );
+      expect(find.text('Cari istilah...'), findsOneWidget);
+    }
+  });
+
+  testWidgets(
+    'category, detail, favorites and progress keep state while returning',
+    (WidgetTester tester) async {
+      tester.view.physicalSize = const Size(400, 900);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      SharedPreferencesAsyncPlatform.instance =
+          InMemorySharedPreferencesAsync.empty();
+      addTearDown(() => SharedPreferencesAsyncPlatform.instance = null);
+
+      await tester.pumpWidget(const MaterialApp(home: MainScreen()));
+      await tester.pumpAndSettle();
+
+      final dashboardScrollable = find
+          .descendant(
+            of: find.byType(DashboardPage),
+            matching: find.byType(Scrollable),
+          )
+          .first;
+      await tester.scrollUntilVisible(
+        find.text('Lihat Semua'),
+        250,
+        scrollable: dashboardScrollable,
+      );
+      await tester.tap(find.text('Lihat Semua'));
+      await tester.pumpAndSettle();
+
+      final term = terms.first;
+      await tester.tap(find.text(term.category).first);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(term.name).first);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Detail Istilah'), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.bookmark_border_rounded).first);
+      await tester.pumpAndSettle();
+
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+      expect(find.text('Materi ${term.category}'), findsOneWidget);
+      expect(find.byIcon(Icons.bookmark_rounded), findsOneWidget);
+
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+      expect(find.text('Kategori Materi'), findsOneWidget);
+
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+        0,
+      );
+
+      await tester.tap(find.byType(NavigationDestination).at(1));
+      await tester.pumpAndSettle();
+      expect(find.text(term.name), findsOneWidget);
+
+      await tester.tap(find.text(term.name).first);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.bookmark_rounded).first);
+      await tester.pumpAndSettle();
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+      expect(find.text('Belum ada Favorit'), findsOneWidget);
+
+      await tester.tap(find.byType(NavigationDestination).at(2));
+      await tester.pumpAndSettle();
+      expect(
+        find.text('1 dari ${terms.length} istilah telah dipelajari'),
+        findsOneWidget,
+      );
+      final favoriteStat = find.ancestor(
+        of: find.text('Favorit'),
+        matching: find.byType(Column),
+      );
+      expect(
+        find.descendant(of: favoriteStat.first, matching: find.text('0')),
+        findsOneWidget,
+      );
+    },
+  );
+
+  testWidgets('quiz result returns to main and updates progress', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(400, 900);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    SharedPreferencesAsyncPlatform.instance =
+        InMemorySharedPreferencesAsync.empty();
+    addTearDown(() => SharedPreferencesAsyncPlatform.instance = null);
+
+    await tester.pumpWidget(const MaterialApp(home: MainScreen()));
+    await tester.pumpAndSettle();
+
+    final dashboardScrollable = find
+        .descendant(
+          of: find.byType(DashboardPage),
+          matching: find.byType(Scrollable),
+        )
+        .first;
+    await tester.scrollUntilVisible(
+      find.text('Mulai kuis'),
+      250,
+      scrollable: dashboardScrollable,
+    );
+    await tester.tap(find.text('Mulai kuis'));
+    await tester.pumpAndSettle();
+
+    for (var index = 0; index < quizQuestions.length; index++) {
+      final question = quizQuestions[index];
+      await tester.ensureVisible(
+        find.text(question.options[question.correctAnswer]),
+      );
+      await tester.tap(find.text(question.options[question.correctAnswer]));
+      await tester.pump();
+
+      final action = index == quizQuestions.length - 1
+          ? 'SELESAI'
+          : 'SOAL BERIKUTNYA';
+      await tester.ensureVisible(find.text(action));
+      await tester.tap(find.text(action));
+      await tester.pumpAndSettle();
+    }
+
+    expect(find.text('Latihan Selesai!'), findsOneWidget);
+    await tester.binding.handlePopRoute();
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+      0,
+    );
+
+    await tester.tap(find.byType(NavigationDestination).at(2));
+    await tester.pumpAndSettle();
+    expect(find.text('1'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('100%'),
+      250,
+      scrollable: find
+          .descendant(
+            of: find.byType(ProgressPage),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    expect(find.text('100%'), findsOneWidget);
+  });
+
   test('quiz questions are unique and have valid answers and explanations', () {
     final questionTexts = quizQuestions.map((question) => question.question);
 
@@ -264,8 +440,18 @@ void main() {
       final count = terms
           .where((term) => term.category == category.name)
           .length;
+      final categoriesWithSameCount = categories
+          .where(
+            (candidate) =>
+                terms.where((term) => term.category == candidate.name).length ==
+                count,
+          )
+          .length;
       expect(find.text(category.description), findsOneWidget);
-      expect(find.text('$count materi istilah'), findsOneWidget);
+      expect(
+        find.text('$count materi istilah'),
+        findsNWidgets(categoriesWithSameCount),
+      );
     }
 
     await tester.tap(find.text(categories.first.name).first);
@@ -337,6 +523,12 @@ void main() {
       ),
     );
 
+    final photoCaption = find.text(
+      'Contoh perangkat router yang meneruskan paket data antarjaringan.',
+    );
+    await tester.scrollUntilVisible(photoCaption, 250);
+    expect(photoCaption, findsOneWidget);
+
     final definitionButton = find.byTooltip('Tampilkan Pengertian');
     await tester.ensureVisible(definitionButton);
     await tester.tap(definitionButton);
@@ -349,12 +541,6 @@ void main() {
     );
     expect(
       find.descendant(of: dialog, matching: find.text(term.definition)),
-      findsOneWidget,
-    );
-    expect(
-      find.text(
-        'Contoh perangkat router yang meneruskan paket data antarjaringan.',
-      ),
       findsOneWidget,
     );
   });
