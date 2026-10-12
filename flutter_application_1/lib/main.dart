@@ -476,7 +476,12 @@ const List<Term> terms = [
     explanation: 'Perangkat memakai IP Address bersama subnet mask untuk memeriksa apakah tujuan berada pada subnet yang sama. Jika tidak, paket dikirim ke default gateway.',
     example: 'Dengan IP 192.168.1.10 dan subnet mask 255.255.255.0, komputer dapat mengenali 192.168.1.20 sebagai alamat dalam subnet lokal yang sama.',
     icon: Icons.grid_3x3,
-    relatedTermNames: ['IPv4', 'Network Address', 'Broadcast Address', 'Default Gateway'],
+    relatedTermNames: [
+      'IPv4',
+      'Network Address',
+      'Broadcast Address',
+      'Default Gateway',
+    ],
     studyTip: 'Gunakan IP dan subnet mask bersama-sama untuk menentukan apakah alamat tujuan berada di subnet yang sama.',
   ),
 
@@ -687,7 +692,11 @@ const List<Term> terms = [
     explanation: 'Bandwidth menggambarkan kapasitas jalur, bukan jaminan kecepatan yang selalu diterima satu pengguna. Kecepatan aktual juga dipengaruhi kualitas koneksi, perangkat, layanan tujuan, dan banyaknya pengguna yang berbagi jalur.',
     example: 'Jika koneksi internet sekolah digunakan banyak kelas untuk mengunduh video bersamaan, kapasitas bandwidth dibagi di antara lalu lintas yang aktif.',
     icon: Icons.speed,
-    relatedTermNames: ['Latency', 'Kepadatan Lalu Lintas Jaringan', 'Packet Loss'],
+    relatedTermNames: [
+      'Latency',
+      'Kepadatan Lalu Lintas Jaringan',
+      'Packet Loss',
+    ],
     studyTip: 'Bandwidth adalah kapasitas maksimum jalur, bukan kecepatan yang selalu diterima satu pengguna.',
   ),
 
@@ -716,7 +725,10 @@ class _TermPhoto {
 }
 
 String _localTermPhotoPath(String termName) {
-  final fileName = termName.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '_');
+  final fileName = termName.toLowerCase().replaceAll(
+    RegExp(r'[^a-z0-9]+'),
+    '_',
+  );
   return 'assets/images/components/$fileName.jpg';
 }
 
@@ -759,9 +771,7 @@ class _TermPhotoFrame extends StatelessWidget {
         return Container(
           color: const Color(0xFFEAF0FF),
           alignment: Alignment.center,
-          child: const CircularProgressIndicator(
-            color: Color(0xFF3155D9),
-          ),
+          child: const CircularProgressIndicator(color: Color(0xFF3155D9)),
         );
       },
       errorBuilder: (context, error, stackTrace) {
@@ -797,12 +807,14 @@ const Map<String, _TermPhoto> _termPhotos = {
   'Router': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/ASUS_Wi-Fi_ROUTER_TUF_6500.jpg/960px-ASUS_Wi-Fi_ROUTER_TUF_6500.jpg',
     attribution: 'ASUS Wi-Fi ROUTER TUF 6500 — Dinkun Chen, CC BY-SA 4.0',
-    description: 'Contoh perangkat router yang meneruskan paket data antarjaringan.',
+    description:
+        'Contoh perangkat router yang meneruskan paket data antarjaringan.',
   ),
   'Switch': _TermPhoto(
     url: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/2550T-PWR-Front.jpg',
     attribution: '2550T-PWR-Front — Geek2003, CC BY-SA 3.0',
-    description: 'Tampak depan switch Ethernet dengan port untuk perangkat LAN.',
+    description:
+        'Tampak depan switch Ethernet dengan port untuk perangkat LAN.',
   ),
   'Hub': _TermPhoto(
     url: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/4_port_netgear_ethernet_hub.jpg',
@@ -875,7 +887,8 @@ const Map<String, _TermPhoto> _termPhotos = {
   'Topologi Star': _TermPhoto(
     url: 'https://upload.wikimedia.org/wikipedia/commons/3/35/Extended-star-topology.png',
     attribution: 'Extended star topology — Costello, public domain',
-    description: 'Diagram topologi star: perangkat terhubung ke satu perangkat pusat.',
+    description:
+        'Diagram topologi star: perangkat terhubung ke satu perangkat pusat.',
   ),
   'Topologi Bus': _TermPhoto(
     url: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Bus_Network_Topology.png',
@@ -891,22 +904,26 @@ const Map<String, _TermPhoto> _termPhotos = {
     url:
         'https://upload.wikimedia.org/wikipedia/commons/c/ce/Mesh-topology.png',
     attribution: 'Mesh topology — Prinsen, public domain',
-    description: 'Diagram topologi mesh dengan beberapa jalur komunikasi antarnode.',
+    description:
+        'Diagram topologi mesh dengan beberapa jalur komunikasi antarnode.',
   ),
   'Topologi Tree': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Intercpunettree.svg/960px-Intercpunettree.svg.png',
     attribution: 'Intercpunettree — KCVelaga, CC BY-SA 4.0',
-    description: 'Diagram topologi tree yang menyusun jaringan dalam beberapa tingkat.',
+    description:
+        'Diagram topologi tree yang menyusun jaringan dalam beberapa tingkat.',
   ),
   'Tang Crimping': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Crimping-pliers-pro-RJ-0a.jpg/960px-Crimping-pliers-pro-RJ-0a.jpg',
     attribution: 'Crimping pliers pro RJ — Adamantios, CC BY-SA 3.0',
-    description: 'Tang crimping untuk memasang konektor modular pada kabel jaringan.',
+    description:
+        'Tang crimping untuk memasang konektor modular pada kabel jaringan.',
   ),
   'LAN Tester': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Teste_cabo.jpg/960px-Teste_cabo.jpg',
     attribution: 'Teste cabo — Mvdiogo, CC BY-SA 4.0',
-    description: 'LAN tester untuk memeriksa sambungan dan urutan kawat kabel jaringan.',
+    description:
+        'LAN tester untuk memeriksa sambungan dan urutan kawat kabel jaringan.',
   ),
   'Punch-down Tool': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Ideal_punchdown_tool.jpg/960px-Ideal_punchdown_tool.jpg',
@@ -916,7 +933,8 @@ const Map<String, _TermPhoto> _termPhotos = {
   'Pengupas Kabel': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Cable_stripper%2C_cable_tester_%28RJ45%2C_RJ11%29%2C_LSA-Tool_and_crimping_tool.jpg/960px-Cable_stripper%2C_cable_tester_%28RJ45%2C_RJ11%29%2C_LSA-Tool_and_crimping_tool.jpg',
     attribution: 'Cable stripper, cable tester and LSA tool — heimnetzwerke.net, CC BY 4.0',
-    description: 'Alat pengupas untuk membuka jaket kabel sebelum kawat disiapkan.',
+    description:
+        'Alat pengupas untuk membuka jaket kabel sebelum kawat disiapkan.',
   ),
   'Pengikat Kabel': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/100x_Nylon_Cable_Zip_10cm_Tie_Wraps_%282USD_on_eBay%29_%288924977735%29.jpg/960px-100x_Nylon_Cable_Zip_10cm_Tie_Wraps_%282USD_on_eBay%29_%288924977735%29.jpg',
@@ -931,7 +949,8 @@ const Map<String, _TermPhoto> _termPhotos = {
   'IPv4': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/IPv4_Packet-ar.svg/960px-IPv4_Packet-ar.svg.png',
     attribution: 'IPv4 Packet — Michel Bakni, CC BY-SA 4.0',
-    description: 'Diagram paket IPv4 yang memperlihatkan bagian-bagian header paket.',
+    description:
+        'Diagram paket IPv4 yang memperlihatkan bagian-bagian header paket.',
   ),
   'IPv6': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/IPv6_Fragmentation_Example.svg/960px-IPv6_Fragmentation_Example.svg.png',
@@ -956,7 +975,8 @@ const Map<String, _TermPhoto> _termPhotos = {
   'Network Address': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Address_space_in_Variable_Length_Subnet_Masking_%28VLSM%29.svg/960px-Address_space_in_Variable_Length_Subnet_Masking_%28VLSM%29.svg.png',
     attribution: 'Address space in VLSM — And1mu, CC BY-SA 4.0',
-    description: 'Diagram pembagian alamat jaringan untuk membedakan network dan host.',
+    description:
+        'Diagram pembagian alamat jaringan untuk membedakan network dan host.',
   ),
   'Broadcast Address': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/IPv4_Packet-ar.svg/960px-IPv4_Packet-ar.svg.png',
@@ -971,13 +991,15 @@ const Map<String, _TermPhoto> _termPhotos = {
   'DNS': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/DNS_Architecture.svg/960px-DNS_Architecture.svg.png',
     attribution: 'DNS Architecture — Aaron Filbert, CC BY-SA 4.0',
-    description: 'Diagram alur pencarian nama domain melalui resolver dan server DNS.',
+    description:
+        'Diagram alur pencarian nama domain melalui resolver dan server DNS.',
   ),
   'TCP': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Internetworking_with_Internet_Protocol_%28IP%29_and_Transmission_Control_Protocol_%28TCP%29_within_the_Military_%28IA_internetworkingw1094543854%29.pdf/page1-960px-Internetworking_with_Internet_Protocol_%28IP%29_and_Transmission_Control_Protocol_%28TCP%29_within_the_Military_%28IA_internetworkingw1094543854%29.pdf.jpg',
     attribution:
         'Internetworking with IP and TCP — Bruce R. Eikenberg, public domain',
-    description: 'Diagram hubungan protokol IP dan TCP dalam pengiriman data jaringan.',
+    description:
+        'Diagram hubungan protokol IP dan TCP dalam pengiriman data jaringan.',
   ),
   'UDP': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/UDP_IP_Ethernet.jpg/960px-UDP_IP_Ethernet.jpg',
@@ -1042,7 +1064,8 @@ const Map<String, _TermPhoto> _termPhotos = {
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/CCMP_Encryption_Working_Block_Diagram.pdf/page1-960px-CCMP_Encryption_Working_Block_Diagram.pdf.jpg',
     attribution:
         'CCMP Encryption Working Block Diagram — Cipher swami, CC BY-SA 4.0',
-    description: 'Diagram tahapan enkripsi dan dekripsi data pada mekanisme CCMP.',
+    description:
+        'Diagram tahapan enkripsi dan dekripsi data pada mekanisme CCMP.',
   ),
   'Bandwidth': _TermPhoto(
     url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Bandwidth_Management_in_Resource_Constrained_Networks_%28IA_bandwidthmanagem109456866%29.pdf/page1-960px-Bandwidth_Management_in_Resource_Constrained_Networks_%28IA_bandwidthmanagem109456866%29.pdf.jpg',
@@ -1253,137 +1276,146 @@ class WelcomeScreen extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            child: Column(
-              children: [
-                const Spacer(),
-
-                // Logo
-                Container(
-                  width: 110,
-                  height: 110,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFF3155D9).withOpacity(.18),
-                        blurRadius: 30,
-                        offset: const Offset(0, 12),
+          child: LayoutBuilder(
+            builder: (context, constraints) => SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Logo
+                      Container(
+                        width: 110,
+                        height: 110,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF3155D9).withOpacity(.18),
+                              blurRadius: 30,
+                              offset: const Offset(0, 12),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.hub,
+                          size: 62,
+                          color: Color(0xFF3155D9),
+                        ),
                       ),
-                    ],
-                  ),
-                  child: const Icon(
-                    Icons.hub,
-                    size: 62,
-                    color: Color(0xFF3155D9),
-                  ),
-                ),
 
-                const SizedBox(height: 26),
+                      const SizedBox(height: 26),
 
-                const Text(
-                  'NetPedia',
-                  style: TextStyle(
-                    fontSize: 38,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -1,
-                  ),
-                ),
-
-                const SizedBox(height: 10),
-
-                const Text(
-                  'Kamus Interaktif Istilah\nJaringan Komputer',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 17,
-                    height: 1.5,
-                    color: Color(0xFF5D6472),
-                  ),
-                ),
-
-                const SizedBox(height: 8),
-
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFE9EEFF),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: const Text(
-                    'Untuk Siswa SMK TJKT',
-                    style: TextStyle(
-                      color: Color(0xFF3155D9),
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 55),
-
-                // Ilustrasi
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _welcomeDevice(Icons.router_outlined),
-                    Container(
-                      width: 65,
-                      height: 3,
-                      color: const Color(0xFF3155D9),
-                    ),
-                    _welcomeDevice(Icons.laptop_mac_outlined),
-                  ],
-                ),
-
-                const Spacer(),
-
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: FilledButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (_) => const MainScreen()),
-                      );
-                    },
-                    style: FilledButton.styleFrom(
-                      backgroundColor: const Color(0xFF3155D9),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18),
+                      const Text(
+                        'NetPedia',
+                        style: TextStyle(
+                          fontSize: 38,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: -1,
+                        ),
                       ),
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'MULAI BELAJAR',
+
+                      const SizedBox(height: 10),
+
+                      const Text(
+                        'Kamus Interaktif Istilah\nJaringan Komputer',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 17,
+                          height: 1.5,
+                          color: Color(0xFF5D6472),
+                        ),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE9EEFF),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: const Text(
+                          'Untuk Siswa SMK TJKT',
                           style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 16,
+                            color: Color(0xFF3155D9),
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                        SizedBox(width: 10),
-                        Icon(Icons.arrow_forward_rounded),
-                      ],
-                    ),
+                      ),
+
+                      const SizedBox(height: 32),
+
+                      // Ilustrasi
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _welcomeDevice(Icons.router_outlined),
+                          Container(
+                            width: 65,
+                            height: 3,
+                            color: const Color(0xFF3155D9),
+                          ),
+                          _welcomeDevice(Icons.laptop_mac_outlined),
+                        ],
+                      ),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: FilledButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const MainScreen(),
+                              ),
+                            );
+                          },
+                          style: FilledButton.styleFrom(
+                            backgroundColor: const Color(0xFF3155D9),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                          ),
+                          child: const Wrap(
+                            alignment: WrapAlignment.center,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: [
+                              Text(
+                                'MULAI BELAJAR',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Icon(Icons.arrow_forward_rounded),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      const Text(
+                        'Belajar istilah jaringan jadi lebih mudah 🚀',
+                        style: TextStyle(
+                          color: Color(0xFF777E8B),
+                          fontSize: 13,
+                        ),
+                      ),
+
+                      const SizedBox(height: 15),
+                    ],
                   ),
                 ),
-
-                const SizedBox(height: 24),
-
-                const Text(
-                  'Belajar istilah jaringan jadi lebih mudah 🚀',
-                  style: TextStyle(color: Color(0xFF777E8B), fontSize: 13),
-                ),
-
-                const SizedBox(height: 15),
-              ],
+              ),
             ),
           ),
         ),
@@ -1678,6 +1710,8 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textScale = MediaQuery.textScalerOf(context).scale(16) / 16;
+    final responsiveTextScale = textScale < 1 ? 1.0 : textScale;
     final progress = terms.isEmpty ? 0.0 : studiedTerms.length / terms.length;
     final unstudiedTerms = terms
         .where((term) => !studiedTerms.contains(term.name))
@@ -1727,6 +1761,7 @@ class DashboardPage extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {},
+                    tooltip: 'Notifikasi',
                     icon: const Icon(Icons.notifications_none_rounded),
                   ),
                 ],
@@ -1868,16 +1903,19 @@ class DashboardPage extends StatelessWidget {
                     icon: Icons.quiz_outlined,
                     color: const Color(0xFFFF8A4C),
                     buttonText: 'Mulai kuis',
+                    cardHeight: 190 * responsiveTextScale,
                     onTap: onOpenQuiz,
                   );
                   final progressCard = _ProgressCard(
                     progress: progress,
                     studiedCount: studiedTerms.length,
                     totalCount: terms.length,
+                    cardHeight: 190 * responsiveTextScale,
                     onTap: onOpenProgress,
                   );
 
-                  if (constraints.maxWidth < 380) {
+                  if (constraints.maxWidth < 380 ||
+                      responsiveTextScale > 1.15) {
                     return Column(
                       children: [
                         quizCard,
@@ -1939,16 +1977,14 @@ class DashboardPage extends StatelessWidget {
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 10),
             sliver: SliverToBoxAdapter(
-              child: Row(
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                runSpacing: 4,
                 children: [
-                  const Expanded(
-                    child: Text(
-                      'Kategori',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
+                  const Text(
+                    'Kategori',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
                   ),
                   TextButton(
                     onPressed: () {
@@ -1972,80 +2008,159 @@ class DashboardPage extends StatelessWidget {
 
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            sliver: SliverToBoxAdapter(
-              child: SizedBox(
-                height: 175,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: 12),
-                  itemBuilder: (context, index) {
-                    final category = categories[index];
-                    final categoryTermCount = terms
-                        .where((term) => term.category == category.name)
-                        .length;
+            sliver: responsiveTextScale > 1.15
+                ? SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      final category = categories[index];
+                      final categoryTermCount = terms
+                          .where((term) => term.category == category.name)
+                          .length;
 
-                    return InkWell(
-                      borderRadius: BorderRadius.circular(20),
-                      onTap: () => onOpenCategory(category.name),
-                      child: Container(
-                        width: 145,
-                        padding: const EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: InkWell(
                           borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: const Color(0xFFE2E6EF)),
+                          onTap: () => onOpenCategory(category.name),
+                          child: Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: const Color(0xFFE2E6EF),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 48,
+                                  height: 48,
+                                  decoration: BoxDecoration(
+                                    color: category.color.withOpacity(.12),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  child: Icon(
+                                    category.icon,
+                                    color: category.color,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        category.name,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w800,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        category.description,
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          height: 1.4,
+                                          color: Color(0xFF737A89),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        '$categoryTermCount istilah',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: category.color,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 45,
-                              height: 45,
+                      );
+                    }, childCount: categories.length),
+                  )
+                : SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 310,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: categories.length,
+                        separatorBuilder: (_, __) => const SizedBox(width: 12),
+                        itemBuilder: (context, index) {
+                          final category = categories[index];
+                          final categoryTermCount = terms
+                              .where((term) => term.category == category.name)
+                              .length;
+
+                          return InkWell(
+                            borderRadius: BorderRadius.circular(20),
+                            onTap: () => onOpenCategory(category.name),
+                            child: Container(
+                              width: 165,
+                              padding: const EdgeInsets.all(15),
                               decoration: BoxDecoration(
-                                color: category.color.withOpacity(.12),
-                                borderRadius: BorderRadius.circular(13),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: const Color(0xFFE2E6EF),
+                                ),
                               ),
-                              child: Icon(category.icon, color: category.color),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              category.name,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 13,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 45,
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                      color: category.color.withOpacity(.12),
+                                      borderRadius: BorderRadius.circular(13),
+                                    ),
+                                    child: Icon(
+                                      category.icon,
+                                      color: category.color,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    category.name,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  Text(
+                                    category.description,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      height: 1.4,
+                                      color: Color(0xFF737A89),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    '$categoryTermCount istilah',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: category.color,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            const SizedBox(height: 3),
-                            Text(
-                              category.description,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 10,
-                                height: 1.2,
-                                color: Color(0xFF737A89),
-                              ),
-                            ),
-                            const Spacer(),
-                            Text(
-                              '$categoryTermCount istilah',
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: category.color,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-              ),
-            ),
+                    ),
+                  ),
           ),
 
           // Favorite
@@ -2195,6 +2310,7 @@ class _DashboardActionCard extends StatelessWidget {
   final String buttonText;
   final IconData icon;
   final Color color;
+  final double cardHeight;
   final VoidCallback onTap;
 
   const _DashboardActionCard({
@@ -2203,13 +2319,14 @@ class _DashboardActionCard extends StatelessWidget {
     required this.buttonText,
     required this.icon,
     required this.color,
+    required this.cardHeight,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 175,
+      height: cardHeight,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -2238,7 +2355,7 @@ class _DashboardActionCard extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: const TextStyle(color: Color(0xFF737A89), fontSize: 11),
+            style: const TextStyle(color: Color(0xFF737A89), fontSize: 13),
           ),
           const Spacer(),
           SizedBox(
@@ -2248,12 +2365,12 @@ class _DashboardActionCard extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                 foregroundColor: color,
                 side: BorderSide(color: color.withOpacity(.5)),
-                padding: const EdgeInsets.symmetric(vertical: 8),
+                minimumSize: const Size.fromHeight(48),
               ),
               child: Text(
                 buttonText,
                 style: const TextStyle(
-                  fontSize: 11,
+                  fontSize: 13,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -2269,12 +2386,14 @@ class _ProgressCard extends StatelessWidget {
   final double progress;
   final int studiedCount;
   final int totalCount;
+  final double cardHeight;
   final VoidCallback onTap;
 
   const _ProgressCard({
     required this.progress,
     required this.studiedCount,
     required this.totalCount,
+    required this.cardHeight,
     required this.onTap,
   });
 
@@ -2291,7 +2410,7 @@ class _ProgressCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         onTap: onTap,
         child: Container(
-          height: 175,
+          height: cardHeight,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -2719,7 +2838,7 @@ class TermTile extends StatelessWidget {
                     Text(
                       term.abbreviation,
                       style: const TextStyle(
-                        fontSize: 10,
+                        fontSize: 12,
                         color: Color(0xFF737A89),
                       ),
                     ),
@@ -2727,10 +2846,8 @@ class TermTile extends StatelessWidget {
                   const SizedBox(height: 5),
                   Text(
                     term.definition,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                      fontSize: 11,
+                      fontSize: 13,
                       height: 1.4,
                       color: Color(0xFF737A89),
                     ),
@@ -2740,6 +2857,9 @@ class TermTile extends StatelessWidget {
             ),
             IconButton(
               onPressed: onFavorite,
+              tooltip: isFavorite
+                  ? 'Hapus ${term.name} dari favorit'
+                  : 'Simpan ${term.name} ke favorit',
               icon: Icon(
                 isFavorite
                     ? Icons.bookmark_rounded
@@ -2823,6 +2943,9 @@ class _TermDetailPageState extends State<TermDetailPage> {
         actions: [
           IconButton(
             onPressed: favorite,
+            tooltip: isFavorite
+                ? 'Hapus ${widget.term.name} dari favorit'
+                : 'Simpan ${widget.term.name} ke favorit',
             icon: Icon(
               isFavorite
                   ? Icons.bookmark_rounded
@@ -2888,8 +3011,8 @@ class _TermDetailPageState extends State<TermDetailPage> {
                 termPhoto!.description,
                 style: const TextStyle(
                   color: Color(0xFF555D6D),
-                  fontSize: 12,
-                  height: 1.4,
+                  fontSize: 14,
+                  height: 1.5,
                 ),
               ),
             ),
@@ -2898,7 +3021,11 @@ class _TermDetailPageState extends State<TermDetailPage> {
               padding: const EdgeInsets.only(top: 7, left: 4, right: 4),
               child: Text(
                 'Sumber: ${termPhoto.attribution} • Wikimedia Commons',
-                style: const TextStyle(color: Color(0xFF737A89), fontSize: 10),
+                style: const TextStyle(
+                  color: Color(0xFF737A89),
+                  fontSize: 12,
+                  height: 1.5,
+                ),
               ),
             ),
 
@@ -3109,20 +3236,16 @@ class _DetailSection extends StatelessWidget {
               IconButton(
                 onPressed: onIconTap,
                 tooltip: 'Tampilkan $title',
-                visualDensity: VisualDensity.compact,
-                padding: EdgeInsets.zero,
-                constraints: const BoxConstraints.tightFor(
-                  width: 32,
-                  height: 32,
-                ),
-                icon: Icon(icon, color: const Color(0xFF3155D9), size: 21),
+                icon: Icon(icon, color: const Color(0xFF3155D9), size: 24),
               ),
               const SizedBox(width: 9),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w800,
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ],
@@ -3200,6 +3323,7 @@ class _SearchPageState extends State<SearchPage> {
                             query = '';
                           });
                         },
+                        tooltip: 'Hapus pencarian',
                         icon: const Icon(Icons.clear),
                       )
                     : null,
@@ -3842,15 +3966,21 @@ class _QuizPageState extends State<QuizPage> {
               color: const Color(0xFFEAF0FF),
               borderRadius: BorderRadius.circular(22),
             ),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(Icons.quiz_rounded, color: Color(0xFF3155D9), size: 28),
-                SizedBox(width: 12),
-                Text(
-                  'Uji Pemahamanmu!',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    color: Color(0xFF3155D9),
+                const Icon(
+                  Icons.quiz_rounded,
+                  color: Color(0xFF3155D9),
+                  size: 28,
+                ),
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Text(
+                    'Uji Pemahamanmu!',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF3155D9),
+                    ),
                   ),
                 ),
               ],
@@ -3947,22 +4077,21 @@ class _QuizPageState extends State<QuizPage> {
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: SizedBox(
-                  height: 54,
-                  child: FilledButton(
-                    onPressed: selectedAnswer == null ? null : nextQuestion,
-                    style: FilledButton.styleFrom(
-                      backgroundColor: const Color(0xFF3155D9),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(17),
-                      ),
+                child: FilledButton(
+                  onPressed: selectedAnswer == null ? null : nextQuestion,
+                  style: FilledButton.styleFrom(
+                    backgroundColor: const Color(0xFF3155D9),
+                    minimumSize: const Size.fromHeight(54),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(17),
                     ),
-                    child: Text(
-                      currentQuestion == quizQuestions.length - 1
-                          ? 'SELESAI'
-                          : 'SOAL BERIKUTNYA',
-                      style: const TextStyle(fontWeight: FontWeight.w800),
-                    ),
+                  ),
+                  child: Text(
+                    currentQuestion == quizQuestions.length - 1
+                        ? 'SELESAI'
+                        : 'SOAL BERIKUTNYA',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontWeight: FontWeight.w800),
                   ),
                 ),
               ),
@@ -4088,25 +4217,45 @@ class QuizResultPage extends StatelessWidget {
                               style: TextStyle(color: Color(0xFF737A89)),
                             ),
                             const Divider(height: 30),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                _ResultStat(
-                                  value: '$correct',
-                                  label: 'Benar',
-                                  icon: Icons.check_circle_outline,
-                                ),
-                                _ResultStat(
-                                  value: '$incorrect',
-                                  label: 'Salah',
-                                  icon: Icons.cancel_outlined,
-                                ),
-                                _ResultStat(
-                                  value: '$total',
-                                  label: 'Soal',
-                                  icon: Icons.quiz_outlined,
-                                ),
-                              ],
+                            LayoutBuilder(
+                              builder: (context, constraints) {
+                                final stats = [
+                                  _ResultStat(
+                                    value: '$correct',
+                                    label: 'Benar',
+                                    icon: Icons.check_circle_outline,
+                                  ),
+                                  _ResultStat(
+                                    value: '$incorrect',
+                                    label: 'Salah',
+                                    icon: Icons.cancel_outlined,
+                                  ),
+                                  _ResultStat(
+                                    value: '$total',
+                                    label: 'Soal',
+                                    icon: Icons.quiz_outlined,
+                                  ),
+                                ];
+                                final textScale =
+                                    MediaQuery.textScalerOf(context).scale(16) /
+                                    16;
+
+                                if (constraints.maxWidth < 420 ||
+                                    textScale > 1.25) {
+                                  return Wrap(
+                                    alignment: WrapAlignment.spaceEvenly,
+                                    spacing: 24,
+                                    runSpacing: 12,
+                                    children: stats,
+                                  );
+                                }
+
+                                return Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: stats,
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -4123,7 +4272,6 @@ class QuizResultPage extends StatelessWidget {
 
                       SizedBox(
                         width: double.infinity,
-                        height: 53,
                         child: FilledButton(
                           onPressed: () => Navigator.pushReplacement(
                             context,
@@ -4148,7 +4296,6 @@ class QuizResultPage extends StatelessWidget {
 
                       SizedBox(
                         width: double.infinity,
-                        height: 53,
                         child: OutlinedButton(
                           onPressed: () => Navigator.pop(context),
                           child: const Text('KEMBALI KE APLIKASI UTAMA'),

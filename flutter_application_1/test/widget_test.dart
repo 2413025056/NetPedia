@@ -418,6 +418,61 @@ void main() {
     expect(find.text('Progress Belajar'), findsOneWidget);
   });
 
+  testWidgets('welcome and dashboard remain usable with large text', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(320, 640);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    Widget withLargeText(Widget child) {
+      return MaterialApp(
+        home: child,
+        builder: (context, child) => MediaQuery(
+          data: MediaQuery.of(context)
+              .copyWith(textScaler: TextScaler.linear(2)),
+          child: child!,
+        ),
+      );
+    }
+
+    await tester.pumpWidget(withLargeText(const WelcomeScreen()));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('MULAI BELAJAR'));
+    expect(tester.takeException(), isNull);
+
+    await tester.pumpWidget(
+      withLargeText(
+        Scaffold(
+          body: DashboardPage(
+            favorites: {},
+            studiedTerms: {},
+            onFavorite: (_) {},
+            onStudied: (_) {},
+            onOpenCategory: (_) {},
+            onOpenQuiz: () {},
+            onOpenProgress: () {},
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    await tester.scrollUntilVisible(
+      find.text(categories.first.description),
+      200,
+      scrollable: find
+          .descendant(
+            of: find.byType(DashboardPage),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    expect(tester.takeException(), isNull);
+    expect(find.text(categories.first.description), findsOneWidget);
+  });
+
   testWidgets('categories show data-based descriptions and counts', (
     WidgetTester tester,
   ) async {
@@ -515,6 +570,11 @@ void main() {
   testWidgets('term section icon opens its detail popup', (
     WidgetTester tester,
   ) async {
+    tester.view.physicalSize = const Size(800, 900);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
     final term = terms.first;
 
     await tester.pumpWidget(
@@ -530,7 +590,6 @@ void main() {
     expect(photoCaption, findsOneWidget);
 
     final definitionButton = find.byTooltip('Tampilkan Pengertian');
-    await tester.ensureVisible(definitionButton);
     await tester.tap(definitionButton);
     await tester.pumpAndSettle();
 
@@ -840,7 +899,9 @@ void main() {
 
     final statsRow = find.ancestor(
       of: find.text('Benar'),
-      matching: find.byType(Row),
+      matching: find.byWidgetPredicate(
+        (widget) => widget is Row || widget is Wrap,
+      ),
     );
     expect(
       find.descendant(of: statsRow, matching: find.text('$correct')),
