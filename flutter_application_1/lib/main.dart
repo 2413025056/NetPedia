@@ -724,14 +724,6 @@ class _TermPhoto {
   });
 }
 
-String _localTermPhotoPath(String termName) {
-  final fileName = termName.toLowerCase().replaceAll(
-    RegExp(r'[^a-z0-9]+'),
-    '_',
-  );
-  return 'assets/images/components/$fileName.jpg';
-}
-
 class _TermPhotoFrame extends StatelessWidget {
   final Term term;
   final _TermPhoto? photo;
@@ -745,20 +737,14 @@ class _TermPhotoFrame extends StatelessWidget {
       height: 190,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(22),
-        child: _buildImage(context, useLocalAsset: true),
+        child: photo == null ? _placeholder() : _buildImage(context),
       ),
     );
   }
 
-  Widget _buildImage(BuildContext context, {required bool useLocalAsset}) {
-    if (!useLocalAsset && photo == null) return _placeholder();
-
-    final ImageProvider imageProvider = useLocalAsset
-        ? AssetImage(_localTermPhotoPath(term.name))
-        : NetworkImage(photo!.url);
-
+  Widget _buildImage(BuildContext context) {
     return Image(
-      image: imageProvider,
+      image: NetworkImage(photo!.url),
       semanticLabel: photo?.description.isNotEmpty == true
           ? photo!.description
           : 'Ilustrasi ${term.name}',
@@ -775,9 +761,6 @@ class _TermPhotoFrame extends StatelessWidget {
         );
       },
       errorBuilder: (context, error, stackTrace) {
-        if (useLocalAsset && photo != null) {
-          return _buildImage(context, useLocalAsset: false);
-        }
         return _placeholder();
       },
     );
@@ -1079,6 +1062,8 @@ const Map<String, _TermPhoto> _termPhotos = {
     description: 'Materi analisis kepadatan lalu lintas pada jaringan yang dapat diprogram.',
   ),
 };
+
+Set<String> get termPhotoTermNames => _termPhotos.keys.toSet();
 
 // ============================================================
 // DATA SOAL LATIHAN
