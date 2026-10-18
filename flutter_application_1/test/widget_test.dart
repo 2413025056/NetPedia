@@ -100,6 +100,8 @@ void main() {
 
     delayedPreferences.completeLoad();
     await tester.pumpAndSettle();
+    await tester.pageBack();
+    await tester.pumpAndSettle();
     await tester.tap(find.byType(NavigationDestination).at(1));
     await tester.pumpAndSettle();
 
@@ -763,6 +765,44 @@ void main() {
     );
   });
 
+  testWidgets('category term tiles are built lazily', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(320, 400);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final category = categories.reduce((largest, candidate) {
+      final largestCount = terms
+          .where((term) => term.category == largest.name)
+          .length;
+      final candidateCount = terms
+          .where((term) => term.category == candidate.name)
+          .length;
+      return candidateCount > largestCount ? candidate : largest;
+    });
+    final categoryTermCount = terms
+        .where((term) => term.category == category.name)
+        .length;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: CategoryTermsPage(
+          category: category.name,
+          favorites: const {},
+          onFavorite: (_) {},
+          onStudied: (_) {},
+        ),
+      ),
+    );
+
+    expect(
+      find.byType(TermTile).evaluate().length,
+      lessThan(categoryTermCount),
+    );
+  });
+
   testWidgets('detail favorite action updates its icon and label', (
     WidgetTester tester,
   ) async {
@@ -1183,13 +1223,18 @@ void main() {
 
       final images = find.byType(Image);
       if (images.evaluate().isNotEmpty) {
-        expect(tester.widget<Image>(images.first).fit, BoxFit.contain);
+        final image = tester.widget<Image>(images.first);
+        expect(image.fit, BoxFit.contain);
+        final resizedImage = image.image as ResizeImage;
+        expect(resizedImage.width, frameSize.width.toInt());
+        expect(resizedImage.height, frameSize.height.toInt());
       }
     }
   });
 }
 
-base class _DelayedSharedPreferencesAsync extends InMemorySharedPreferencesAsync {
+base class _DelayedSharedPreferencesAsync
+    extends InMemorySharedPreferencesAsync {
   _DelayedSharedPreferencesAsync(Map<String, Object> data)
     : super.withData(data);
 

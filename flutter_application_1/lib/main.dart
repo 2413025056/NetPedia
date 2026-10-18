@@ -732,24 +732,44 @@ class _TermPhotoFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 190,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(22),
-        child: photo == null ? _placeholder() : _buildImage(context),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final pixelRatio = MediaQuery.devicePixelRatioOf(context);
+        final cacheWidth = (constraints.maxWidth * pixelRatio).round();
+        final cacheHeight = (190 * pixelRatio).round();
+
+        return SizedBox(
+          width: double.infinity,
+          height: 190,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(22),
+            child: photo == null
+                ? _placeholder()
+                : _buildImage(
+                    context,
+                    cacheWidth: cacheWidth,
+                    cacheHeight: cacheHeight,
+                  ),
+          ),
+        );
+      },
     );
   }
 
-  Widget _buildImage(BuildContext context) {
-    return Image(
-      image: NetworkImage(photo!.url),
+  Widget _buildImage(
+    BuildContext context, {
+    required int cacheWidth,
+    required int cacheHeight,
+  }) {
+    return Image.network(
+      photo!.url,
       semanticLabel: photo?.description.isNotEmpty == true
           ? photo!.description
           : 'Ilustrasi ${term.name}',
       width: double.infinity,
       height: 190,
+      cacheWidth: cacheWidth,
+      cacheHeight: cacheHeight,
       fit: BoxFit.contain,
       loadingBuilder: (context, child, loadingProgress) {
         if (loadingProgress == null) return child;
@@ -1475,10 +1495,9 @@ class _MainScreenState extends State<MainScreen> {
           restoredFavorites.remove(termName);
         }
       }
-      final restoredStudiedTerms = progress.studiedTerms
-          .where(knownTermNames.contains)
-          .toSet()
-        ..addAll(_pendingStudiedTerms);
+      final restoredStudiedTerms =
+          progress.studiedTerms.where(knownTermNames.contains).toSet()
+            ..addAll(_pendingStudiedTerms);
       setState(() {
         favorites
           ..clear()
@@ -2712,91 +2731,105 @@ class _CategoryTermsPageState extends State<CategoryTermsPage> {
 
     return Scaffold(
       appBar: AppBar(title: Text(widget.category)),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 5, 20, 30),
-        children: [
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: categoryData.color.withOpacity(.10),
-              borderRadius: BorderRadius.circular(22),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 55,
-                  height: 55,
-                  decoration: BoxDecoration(
-                    color: categoryData.color.withOpacity(.15),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Icon(
-                    categoryData.icon,
-                    color: categoryData.color,
-                    size: 30,
-                  ),
-                ),
-                const SizedBox(width: 15),
-                Expanded(
-                  child: Text(
-                    categoryData.description,
-                    style: TextStyle(
-                      color: categoryData.color,
-                      fontWeight: FontWeight.w600,
-                      height: 1.4,
+      body: CustomScrollView(
+        slivers: [
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(20, 5, 20, 15),
+            sliver: SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: categoryData.color.withOpacity(.10),
+                      borderRadius: BorderRadius.circular(22),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 55,
+                          height: 55,
+                          decoration: BoxDecoration(
+                            color: categoryData.color.withOpacity(.15),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Icon(
+                            categoryData.icon,
+                            color: categoryData.color,
+                            size: 30,
+                          ),
+                        ),
+                        const SizedBox(width: 15),
+                        Expanded(
+                          child: Text(
+                            categoryData.description,
+                            style: TextStyle(
+                              color: categoryData.color,
+                              fontWeight: FontWeight.w600,
+                              height: 1.4,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 25),
-
-          Text(
-            'Materi ${widget.category}',
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
-          ),
-
-          const SizedBox(height: 5),
-
-          Text(
-            '${categoryTerms.length} istilah tersedia untuk dipelajari.',
-            style: const TextStyle(color: Color(0xFF737A89), fontSize: 13),
-          ),
-
-          const SizedBox(height: 15),
-
-          ...categoryTerms.map(
-            (term) => Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: TermTile(
-                term: term,
-                isFavorite: widget.favorites.contains(term.name),
-                onFavorite: () {
-                  widget.onFavorite(term.name);
-                  setState(() {});
-                },
-                onTap: () async {
-                  widget.onStudied(term.name);
-                  await Navigator.push<void>(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (_) => TermDetailPage(
-                        term: term,
-                        isFavorite: widget.favorites.contains(term.name),
-                        onFavorite: () => widget.onFavorite(term.name),
-                        favorites: widget.favorites,
-                        onFavoriteByName: widget.onFavorite,
-                        onStudied: widget.onStudied,
-                      ),
+                  const SizedBox(height: 25),
+                  Text(
+                    'Materi ${widget.category}',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
                     ),
-                  );
-                  if (mounted) {
-                    setState(() {});
-                  }
-                },
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    '${categoryTerms.length} istilah tersedia untuk dipelajari.',
+                    style: const TextStyle(
+                      color: Color(0xFF737A89),
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
               ),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final term = categoryTerms[index];
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: TermTile(
+                    term: term,
+                    isFavorite: widget.favorites.contains(term.name),
+                    onFavorite: () {
+                      widget.onFavorite(term.name);
+                      setState(() {});
+                    },
+                    onTap: () async {
+                      widget.onStudied(term.name);
+                      await Navigator.push<void>(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (_) => TermDetailPage(
+                            term: term,
+                            isFavorite: widget.favorites.contains(term.name),
+                            onFavorite: () => widget.onFavorite(term.name),
+                            favorites: widget.favorites,
+                            onFavoriteByName: widget.onFavorite,
+                            onStudied: widget.onStudied,
+                          ),
+                        ),
+                      );
+                      if (mounted) {
+                        setState(() {});
+                      }
+                    },
+                  ),
+                );
+              }, childCount: categoryTerms.length),
             ),
           ),
         ],
