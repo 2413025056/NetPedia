@@ -1445,6 +1445,10 @@ class _MainScreenState extends State<MainScreen> {
   int totalQuiz = 0;
   bool _isLoadingProgress = true;
   Object? _progressLoadError;
+  final Set<String> _pendingFavoriteToggles = {};
+  final Set<String> _pendingStudiedTerms = {};
+  int _pendingQuizCount = 0;
+  int _pendingBestQuizScore = 0;
 
   @override
   void initState() {
@@ -1463,17 +1467,35 @@ class _MainScreenState extends State<MainScreen> {
       if (!mounted) return;
 
       final knownTermNames = terms.map((term) => term.name).toSet();
+      final restoredFavorites = progress.favoriteTerms
+          .where(knownTermNames.contains)
+          .toSet();
+      for (final termName in _pendingFavoriteToggles) {
+        if (!restoredFavorites.add(termName)) {
+          restoredFavorites.remove(termName);
+        }
+      }
+      final restoredStudiedTerms = progress.studiedTerms
+          .where(knownTermNames.contains)
+          .toSet()
+        ..addAll(_pendingStudiedTerms);
       setState(() {
         favorites
           ..clear()
-          ..addAll(progress.favoriteTerms.where(knownTermNames.contains));
+          ..addAll(restoredFavorites);
         studiedTerms
           ..clear()
-          ..addAll(progress.studiedTerms.where(knownTermNames.contains));
-        bestQuizScore = progress.bestQuizScore;
-        totalQuiz = progress.totalQuiz;
+          ..addAll(restoredStudiedTerms);
+        bestQuizScore = progress.bestQuizScore > _pendingBestQuizScore
+            ? progress.bestQuizScore
+            : _pendingBestQuizScore;
+        totalQuiz = progress.totalQuiz + _pendingQuizCount;
         _isLoadingProgress = false;
       });
+      if (_hasPendingProgressChanges) {
+        _clearPendingProgressChanges();
+        _persistProgress();
+      }
     } catch (error, stackTrace) {
       debugPrint('Gagal memuat progress lokal: $error\n$stackTrace');
       if (!mounted) return;
@@ -1482,6 +1504,18 @@ class _MainScreenState extends State<MainScreen> {
         _isLoadingProgress = false;
       });
     }
+  }
+
+  bool get _hasPendingProgressChanges =>
+      _pendingFavoriteToggles.isNotEmpty ||
+      _pendingStudiedTerms.isNotEmpty ||
+      _pendingQuizCount > 0;
+
+  void _clearPendingProgressChanges() {
+    _pendingFavoriteToggles.clear();
+    _pendingStudiedTerms.clear();
+    _pendingQuizCount = 0;
+    _pendingBestQuizScore = 0;
   }
 
   void _persistProgress() {
@@ -1515,16 +1549,20 @@ class _MainScreenState extends State<MainScreen> {
       } else {
         favorites.add(termName);
       }
+      if (_isLoadingProgress && !_pendingFavoriteToggles.add(termName)) {
+        _pendingFavoriteToggles.remove(termName);
+      }
     });
-    _persistProgress();
+    if (!_isLoadingProgress) _persistProgress();
   }
 
   void markStudied(String termName) {
     if (!studiedTerms.contains(termName)) {
       setState(() {
         studiedTerms.add(termName);
+        if (_isLoadingProgress) _pendingStudiedTerms.add(termName);
       });
-      _persistProgress();
+      if (!_isLoadingProgress) _persistProgress();
     }
   }
 
@@ -1534,16 +1572,18 @@ class _MainScreenState extends State<MainScreen> {
       if (score > bestQuizScore) {
         bestQuizScore = score;
       }
+      if (_isLoadingProgress) {
+        _pendingQuizCount++;
+        if (score > _pendingBestQuizScore) {
+          _pendingBestQuizScore = score;
+        }
+      }
     });
-    _persistProgress();
+    if (!_isLoadingProgress) _persistProgress();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoadingProgress) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
-
     if (_progressLoadError != null) {
       return Scaffold(
         body: Center(

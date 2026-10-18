@@ -1,7 +1,11 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
+import 'package:shared_preferences_platform_interface/types.dart';
 
 import 'package:flutter_application_1/main.dart';
 import 'package:flutter_application_1/progress_store.dart';
@@ -67,6 +71,40 @@ void main() {
     await tester.tap(find.byType(NavigationDestination).at(1));
     await tester.pumpAndSettle();
     expect(find.text('Router'), findsOneWidget);
+  });
+
+  testWidgets('MainScreen opens while saved progress is still loading', (
+    WidgetTester tester,
+  ) async {
+    final storedFavorite = terms.last.name;
+    final delayedPreferences = _DelayedSharedPreferencesAsync({
+      'netpedia.progress.v1': jsonEncode(
+        LocalProgressData(
+          favoriteTerms: {storedFavorite},
+          studiedTerms: {},
+          bestQuizScore: 0,
+          totalQuiz: 0,
+        ).toJson(),
+      ),
+    });
+    SharedPreferencesAsyncPlatform.instance = delayedPreferences;
+    addTearDown(() => SharedPreferencesAsyncPlatform.instance = null);
+
+    await tester.pumpWidget(const MaterialApp(home: MainScreen()));
+    expect(find.byType(DashboardPage), findsOneWidget);
+
+    await tester.tap(find.text('Cari istilah...'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(Icons.bookmark_border_rounded).first);
+    await tester.pump();
+
+    delayedPreferences.completeLoad();
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(NavigationDestination).at(1));
+    await tester.pumpAndSettle();
+
+    expect(find.text(terms.first.name), findsOneWidget);
+    expect(find.text(storedFavorite), findsOneWidget);
   });
 
   testWidgets('Android back from a secondary tab returns to the dashboard', (
@@ -1149,4 +1187,22 @@ void main() {
       }
     }
   });
+}
+
+base class _DelayedSharedPreferencesAsync extends InMemorySharedPreferencesAsync {
+  _DelayedSharedPreferencesAsync(Map<String, Object> data)
+    : super.withData(data);
+
+  final Completer<void> _loadGate = Completer<void>();
+
+  void completeLoad() => _loadGate.complete();
+
+  @override
+  Future<String?> getString(
+    String key,
+    SharedPreferencesOptions options,
+  ) async {
+    await _loadGate.future;
+    return super.getString(key, options);
+  }
 }
