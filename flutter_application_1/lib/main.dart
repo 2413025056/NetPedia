@@ -1463,12 +1463,14 @@ class _MainScreenState extends State<MainScreen> {
 
   int bestQuizScore = 0;
   int totalQuiz = 0;
+  int? lastQuizScore;
   bool _isLoadingProgress = true;
   Object? _progressLoadError;
   final Set<String> _pendingFavoriteToggles = {};
   final Set<String> _pendingStudiedTerms = {};
   int _pendingQuizCount = 0;
   int _pendingBestQuizScore = 0;
+  int? _pendingLastQuizScore;
 
   @override
   void initState() {
@@ -1509,6 +1511,7 @@ class _MainScreenState extends State<MainScreen> {
             ? progress.bestQuizScore
             : _pendingBestQuizScore;
         totalQuiz = progress.totalQuiz + _pendingQuizCount;
+        lastQuizScore = _pendingLastQuizScore ?? progress.lastQuizScore;
         _isLoadingProgress = false;
       });
       if (_hasPendingProgressChanges) {
@@ -1535,6 +1538,7 @@ class _MainScreenState extends State<MainScreen> {
     _pendingStudiedTerms.clear();
     _pendingQuizCount = 0;
     _pendingBestQuizScore = 0;
+    _pendingLastQuizScore = null;
   }
 
   void _persistProgress() {
@@ -1543,6 +1547,7 @@ class _MainScreenState extends State<MainScreen> {
       studiedTerms: Set<String>.of(studiedTerms),
       bestQuizScore: bestQuizScore,
       totalQuiz: totalQuiz,
+      lastQuizScore: lastQuizScore,
     );
 
     _saveQueue = _saveQueue
@@ -1593,6 +1598,7 @@ class _MainScreenState extends State<MainScreen> {
       }
       if (_isLoadingProgress) {
         _pendingQuizCount++;
+        _pendingLastQuizScore = score;
         if (score > _pendingBestQuizScore) {
           _pendingBestQuizScore = score;
         }
@@ -1682,6 +1688,7 @@ class _MainScreenState extends State<MainScreen> {
         favoriteCount: favorites.length,
         bestQuizScore: bestQuizScore,
         totalQuiz: totalQuiz,
+        lastQuizScore: lastQuizScore,
       ),
     ];
 
@@ -3600,6 +3607,7 @@ class ProgressPage extends StatelessWidget {
   final int favoriteCount;
   final int bestQuizScore;
   final int totalQuiz;
+  final int? lastQuizScore;
 
   const ProgressPage({
     super.key,
@@ -3607,6 +3615,7 @@ class ProgressPage extends StatelessWidget {
     required this.favoriteCount,
     required this.bestQuizScore,
     required this.totalQuiz,
+    this.lastQuizScore,
   });
 
   @override
@@ -3615,7 +3624,7 @@ class ProgressPage extends StatelessWidget {
     final totalTerms = terms.length;
     final progress = totalTerms == 0 ? 0.0 : studiedCount / totalTerms;
     final percentage = (progress * 100).round();
-    final quizScore = totalQuiz == 0 ? '—' : '$bestQuizScore%';
+    final lastScoreLabel = lastQuizScore == null ? '—' : '$lastQuizScore%';
 
     return SafeArea(
       child: ListView(
@@ -3734,9 +3743,9 @@ class ProgressPage extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: _StatCard(
-                  icon: Icons.emoji_events_rounded,
-                  value: quizScore,
-                  label: 'Skor Terbaik',
+                  icon: Icons.history_rounded,
+                  value: lastScoreLabel,
+                  label: 'Skor Terakhir',
                   color: const Color(0xFF0EA5A4),
                 ),
               ),
@@ -3745,10 +3754,66 @@ class ProgressPage extends StatelessWidget {
 
           if (totalQuiz == 0) ...[
             const SizedBox(height: 8),
-            const Text(
-              'Belum ada percobaan kuis.',
-              style: TextStyle(color: Color(0xFF737A89), fontSize: 12),
+            Container(
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: const Color(0xFFEAF0FF),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: const Row(
+                children: [
+                  Icon(Icons.info_outline, color: Color(0xFF3155D9)),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      'Belum ada latihan kuis. Skor akan muncul setelah kuis selesai.',
+                      style: TextStyle(color: Color(0xFF4E5B7A), fontSize: 12),
+                    ),
+                  ),
+                ],
+              ),
             ),
+          ] else ...[
+            const SizedBox(height: 8),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: const Color(0xFFE2E6EF)),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.emoji_events_rounded,
+                    color: Color(0xFF0EA5A4),
+                    size: 20,
+                  ),
+                  const SizedBox(width: 9),
+                  const Expanded(
+                    child: Text(
+                      'Skor terbaik',
+                      style: TextStyle(color: Color(0xFF737A89), fontSize: 12),
+                    ),
+                  ),
+                  Text(
+                    '$bestQuizScore%',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF24304A),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (lastQuizScore == null) ...[
+              const SizedBox(height: 6),
+              const Text(
+                'Skor terakhir belum tersedia pada data latihan sebelumnya.',
+                style: TextStyle(color: Color(0xFF737A89), fontSize: 12),
+              ),
+            ],
           ],
 
           const SizedBox(height: 25),

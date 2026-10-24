@@ -21,6 +21,7 @@ void main() {
       studiedTerms: {'Router'},
       bestQuizScore: 80,
       totalQuiz: 3,
+      lastQuizScore: 65,
     );
 
     await firstStore.save(progress);
@@ -30,6 +31,22 @@ void main() {
     expect(restored.studiedTerms, progress.studiedTerms);
     expect(restored.bestQuizScore, progress.bestQuizScore);
     expect(restored.totalQuiz, progress.totalQuiz);
+    expect(restored.lastQuizScore, progress.lastQuizScore);
+  });
+
+  test('older local progress remains readable without a last quiz score', () {
+    final legacyJson = LocalProgressData(
+      favoriteTerms: {'Router'},
+      studiedTerms: {'Switch'},
+      bestQuizScore: 80,
+      totalQuiz: 3,
+    ).toJson()..remove('lastQuizScore');
+
+    final restored = LocalProgressData.fromJson(legacyJson);
+
+    expect(restored.bestQuizScore, 80);
+    expect(restored.totalQuiz, 3);
+    expect(restored.lastQuizScore, isNull);
   });
 
   testWidgets('MainScreen restores locally saved progress', (
@@ -44,6 +61,7 @@ void main() {
         studiedTerms: {'Router', 'Switch'},
         bestQuizScore: 80,
         totalQuiz: 3,
+        lastQuizScore: 65,
       ),
     );
 
@@ -65,7 +83,10 @@ void main() {
       ),
     );
     expect(find.text('80%'), findsOneWidget);
+    expect(find.text('65%'), findsOneWidget);
     expect(find.text('3'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('Skor terbaik'), 250);
+    expect(find.text('Skor terbaik'), findsOneWidget);
     expect(find.text('1'), findsOneWidget);
 
     await tester.tap(find.byType(NavigationDestination).at(1));
@@ -281,7 +302,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('1'), findsOneWidget);
     await tester.scrollUntilVisible(
-      find.text('100%'),
+      find.text('Skor Terakhir'),
       250,
       scrollable: find
           .descendant(
@@ -290,6 +311,7 @@ void main() {
           )
           .first,
     );
+    expect(find.text('Skor Terakhir'), findsOneWidget);
     expect(find.text('100%'), findsOneWidget);
   });
 
@@ -859,6 +881,7 @@ void main() {
           favoriteCount: 3,
           bestQuizScore: 85,
           totalQuiz: 2,
+          lastQuizScore: 65,
         ),
       ),
     );
@@ -873,11 +896,14 @@ void main() {
     expect(find.text('$percentage%'), findsOneWidget);
     expect(find.text('3'), findsOneWidget);
     expect(find.text('2'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('65%'), 250);
+    expect(find.text('65%'), findsOneWidget);
     await tester.scrollUntilVisible(find.text('85%'), 250);
     expect(find.text('85%'), findsOneWidget);
+    expect(find.text('Skor Terakhir'), findsOneWidget);
+    expect(find.text('Skor terbaik'), findsOneWidget);
     expect(find.text('Belum ada percobaan kuis.'), findsNothing);
 
-    await tester.scrollUntilVisible(find.text('Kategori yang Tersedia'), 250);
     final category = categories.first;
     final studiedInCategory = terms
         .where(
@@ -889,6 +915,10 @@ void main() {
     final totalInCategory = terms
         .where((term) => term.category == category.name)
         .length;
+    await tester.scrollUntilVisible(
+      find.text('$studiedInCategory dari $totalInCategory istilah'),
+      250,
+    );
     expect(
       find.text('$studiedInCategory dari $totalInCategory istilah'),
       findsOneWidget,
@@ -916,7 +946,12 @@ void main() {
     expect(find.text('0%'), findsOneWidget);
     await tester.scrollUntilVisible(find.text('—'), 250);
     expect(find.text('—'), findsOneWidget);
-    expect(find.text('Belum ada percobaan kuis.'), findsOneWidget);
+    expect(
+      find.text(
+        'Belum ada latihan kuis. Skor akan muncul setelah kuis selesai.',
+      ),
+      findsOneWidget,
+    );
   });
 
   testWidgets('retry quiz keeps the result callback connected', (

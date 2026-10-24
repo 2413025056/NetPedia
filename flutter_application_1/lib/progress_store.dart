@@ -7,12 +7,14 @@ class LocalProgressData {
   final Set<String> studiedTerms;
   final int bestQuizScore;
   final int totalQuiz;
+  final int? lastQuizScore;
 
   const LocalProgressData({
     required this.favoriteTerms,
     required this.studiedTerms,
     required this.bestQuizScore,
     required this.totalQuiz,
+    this.lastQuizScore,
   });
 
   factory LocalProgressData.empty() => LocalProgressData(
@@ -20,14 +22,16 @@ class LocalProgressData {
     studiedTerms: {},
     bestQuizScore: 0,
     totalQuiz: 0,
+    lastQuizScore: null,
   );
 
-  Map<String, Object> toJson() => {
+  Map<String, Object?> toJson() => {
     'version': 1,
     'favoriteTerms': favoriteTerms.toList(),
     'studiedTerms': studiedTerms.toList(),
     'bestQuizScore': bestQuizScore,
     'totalQuiz': totalQuiz,
+    'lastQuizScore': lastQuizScore,
   };
 
   factory LocalProgressData.fromJson(Map<String, dynamic> json) {
@@ -43,20 +47,29 @@ class LocalProgressData {
     final studiedTerms = (json['studiedTerms'] as List).cast<String>();
     final bestQuizScore = json['bestQuizScore'] as int;
     final totalQuiz = json['totalQuiz'] as int;
+    final lastQuizScoreValue = json['lastQuizScore'];
 
     if (bestQuizScore < 0 ||
         bestQuizScore > 100 ||
         totalQuiz < 0 ||
+        (lastQuizScoreValue != null &&
+            (lastQuizScoreValue is! int ||
+                lastQuizScoreValue < 0 ||
+                lastQuizScoreValue > 100)) ||
         favoriteTerms.toSet().length != favoriteTerms.length ||
         studiedTerms.toSet().length != studiedTerms.length) {
       throw const FormatException('Nilai progress lokal tidak valid.');
     }
 
+    final int? lastQuizScore = lastQuizScoreValue is int
+        ? lastQuizScoreValue
+        : null;
     return LocalProgressData(
       favoriteTerms: favoriteTerms.toSet(),
       studiedTerms: studiedTerms.toSet(),
       bestQuizScore: bestQuizScore,
       totalQuiz: totalQuiz,
+      lastQuizScore: lastQuizScore,
     );
   }
 }
