@@ -3922,7 +3922,9 @@ class _QuizPageState extends State<QuizPage> {
   int? get selectedAnswer => selectedAnswers[currentQuestion];
 
   void selectAnswer(int index) {
-    if (index < 0 || index >= quizQuestions[currentQuestion].options.length) {
+    if (selectedAnswer != null ||
+        index < 0 ||
+        index >= quizQuestions[currentQuestion].options.length) {
       return;
     }
 
@@ -4060,23 +4062,53 @@ class _QuizPageState extends State<QuizPage> {
 
           ...List.generate(question.options.length, (index) {
             final selected = selectedAnswer == index;
+            final isCorrectAnswer = index == question.correctAnswer;
+            final isWrongSelection =
+                selected && selectedAnswer != question.correctAnswer;
+            final answerLocked = selectedAnswer != null;
+            final optionColor = !answerLocked
+                ? (selected ? const Color(0xFFE7ECFF) : Colors.white)
+                : isCorrectAnswer
+                ? const Color(0xFFE8F5E9)
+                : isWrongSelection
+                ? const Color(0xFFFFEBEE)
+                : Colors.white;
+            final optionBorderColor = !answerLocked
+                ? (selected ? const Color(0xFF3155D9) : const Color(0xFFE0E4EC))
+                : isCorrectAnswer
+                ? const Color(0xFF2E7D32)
+                : isWrongSelection
+                ? const Color(0xFFC62828)
+                : const Color(0xFFE0E4EC);
+            final optionIcon = answerLocked && isCorrectAnswer
+                ? Icons.check_circle
+                : isWrongSelection
+                ? Icons.cancel
+                : selected
+                ? Icons.check_circle
+                : null;
+            final optionIconColor = answerLocked && isCorrectAnswer
+                ? const Color(0xFF2E7D32)
+                : isWrongSelection
+                ? const Color(0xFFC62828)
+                : const Color(0xFF3155D9);
 
             return Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: InkWell(
-                onTap: () => selectAnswer(index),
+                onTap: answerLocked ? null : () => selectAnswer(index),
                 borderRadius: BorderRadius.circular(17),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 180),
                   padding: const EdgeInsets.all(17),
                   decoration: BoxDecoration(
-                    color: selected ? const Color(0xFFE7ECFF) : Colors.white,
+                    color: optionColor,
                     borderRadius: BorderRadius.circular(17),
                     border: Border.all(
-                      color: selected
-                          ? const Color(0xFF3155D9)
-                          : const Color(0xFFE0E4EC),
-                      width: selected ? 2 : 1,
+                      color: optionBorderColor,
+                      width: selected || (answerLocked && isCorrectAnswer)
+                          ? 2
+                          : 1,
                     ),
                   ),
                   child: Row(
@@ -4088,7 +4120,9 @@ class _QuizPageState extends State<QuizPage> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: selected
-                              ? const Color(0xFF3155D9)
+                              ? (isWrongSelection
+                                    ? const Color(0xFFC62828)
+                                    : const Color(0xFF3155D9))
                               : const Color(0xFFF0F2F6),
                         ),
                         child: Text(
@@ -4096,6 +4130,8 @@ class _QuizPageState extends State<QuizPage> {
                           style: TextStyle(
                             color: selected
                                 ? Colors.white
+                                : answerLocked && isCorrectAnswer
+                                ? const Color(0xFF2E7D32)
                                 : const Color(0xFF626A79),
                             fontWeight: FontWeight.w800,
                           ),
@@ -4109,20 +4145,76 @@ class _QuizPageState extends State<QuizPage> {
                             fontWeight: selected
                                 ? FontWeight.w800
                                 : FontWeight.w500,
+                            color: answerLocked && isCorrectAnswer
+                                ? const Color(0xFF2E7D32)
+                                : isWrongSelection
+                                ? const Color(0xFFC62828)
+                                : null,
                           ),
                         ),
                       ),
-                      if (selected)
-                        const Icon(
-                          Icons.check_circle,
-                          color: Color(0xFF3155D9),
-                        ),
+                      if (optionIcon != null)
+                        Icon(optionIcon, color: optionIconColor),
                     ],
                   ),
                 ),
               ),
             );
           }),
+
+          if (selectedAnswer != null) ...[
+            const SizedBox(height: 8),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: selectedAnswer == question.correctAnswer
+                    ? const Color(0xFFE8F5E9)
+                    : const Color(0xFFFFF3E0),
+                borderRadius: BorderRadius.circular(17),
+                border: Border.all(
+                  color: selectedAnswer == question.correctAnswer
+                      ? const Color(0xFFA5D6A7)
+                      : const Color(0xFFFFCC80),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        selectedAnswer == question.correctAnswer
+                            ? Icons.check_circle
+                            : Icons.info_outline,
+                        color: selectedAnswer == question.correctAnswer
+                            ? const Color(0xFF2E7D32)
+                            : const Color(0xFFE65100),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        selectedAnswer == question.correctAnswer
+                            ? 'Jawaban kamu benar!'
+                            : 'Jawaban kamu belum tepat.',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          color: selectedAnswer == question.correctAnswer
+                              ? const Color(0xFF2E7D32)
+                              : const Color(0xFFE65100),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Jawaban benar: ${question.options[question.correctAnswer]}',
+                    style: const TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(question.explanation),
+                ],
+              ),
+            ),
+          ],
 
           const SizedBox(height: 15),
 

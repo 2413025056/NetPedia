@@ -244,6 +244,12 @@ void main() {
     );
     await tester.tap(find.text('Mulai kuis'));
     await tester.pumpAndSettle();
+    final quizScrollable = find
+        .descendant(
+          of: find.byType(QuizPage),
+          matching: find.byType(Scrollable),
+        )
+        .first;
 
     for (var index = 0; index < quizQuestions.length; index++) {
       final question = quizQuestions[index];
@@ -256,6 +262,8 @@ void main() {
       final action = index == quizQuestions.length - 1
           ? 'SELESAI'
           : 'SOAL BERIKUTNYA';
+      await tester.drag(quizScrollable, const Offset(0, -300));
+      await tester.pumpAndSettle();
       await tester.ensureVisible(find.text(action));
       await tester.tap(find.text(action));
       await tester.pumpAndSettle();
@@ -1107,6 +1115,16 @@ void main() {
     await tester.ensureVisible(find.text(firstQuestion.options[firstChoice]));
     await tester.tap(find.text(firstQuestion.options[firstChoice]));
     await tester.pump();
+    final correctFirstChoice =
+        firstQuestion.options[firstQuestion.correctAnswer];
+    await tester.ensureVisible(find.text(correctFirstChoice));
+    await tester.tap(find.text(correctFirstChoice));
+    await tester.pump();
+    expect(find.text('Jawaban kamu belum tepat.'), findsOneWidget);
+    expect(find.text('Jawaban benar: $correctFirstChoice'), findsOneWidget);
+    expect(find.text(firstQuestion.explanation), findsOneWidget);
+    expect(find.byIcon(Icons.cancel), findsOneWidget);
+
     await tester.scrollUntilVisible(find.text('SOAL BERIKUTNYA'), 250);
     await tester.tap(find.text('SOAL BERIKUTNYA'));
     await tester.pumpAndSettle();
@@ -1146,11 +1164,10 @@ void main() {
       final actionText = questionIndex == quizQuestions.length - 1
           ? 'SELESAI'
           : 'SOAL BERIKUTNYA';
+      await tester.drag(find.byType(ListView), const Offset(0, -300));
+      await tester.pumpAndSettle();
       await tester.ensureVisible(find.text(actionText));
       await tester.tap(find.text(actionText));
-      if (questionIndex == quizQuestions.length - 1) {
-        await tester.tap(find.text(actionText));
-      }
       await tester.pumpAndSettle();
     }
 
